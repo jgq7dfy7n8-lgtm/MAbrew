@@ -11,40 +11,42 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:#060608; --surface:#0d0d10; --surface2:#13131a;
-  --border:#1e1e28; --border2:#2a2a38;
-  --gold:#d4a853; --gold-dim:rgba(212,168,83,0.1); --gold-border:rgba(212,168,83,0.25);
-  --text:#f0f0ee; --text2:#a0a09c; --muted:#55555a;
-  --green:#39d98a; --green-dim:rgba(57,217,138,0.1);
-  --red:#ff5c5c; --red-dim:rgba(255,92,92,0.1);
-  --blue:#5b9cf6;
+  --bg:#05050a; --surface:#0c0c14; --surface2:#111120;
+  --border:#1a1a2e; --border2:#252540;
+  --gold:#e6b84a; --gold2:#ffd166; --gold-dim:rgba(230,184,74,0.1); --gold-border:rgba(230,184,74,0.28);
+  --text:#f2f2f0; --text2:#9898a0; --muted:#505060;
+  --green:#2ecc8a; --green-dim:rgba(46,204,138,0.1); --green-border:rgba(46,204,138,0.25);
+  --red:#ff4d6d; --red-dim:rgba(255,77,109,0.1); --red-border:rgba(255,77,109,0.25);
+  --blue:#4f8ef7; --blue-dim:rgba(79,142,247,0.1);
+  --purple:#9b72f0; --purple-dim:rgba(155,114,240,0.1);
+  --orange:#ff8c42; --orange-dim:rgba(255,140,66,0.1);
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;min-height:-webkit-fill-available;overflow-x:hidden}
 
 /* TICKER */
-.ticker-bar{background:var(–surface);border-bottom:1px solid var(–border);padding:7px 0;overflow:hidden;position:relative}
+.ticker-bar{background:linear-gradient(to right,#0c0c18,#0d0d1a);border-bottom:1px solid var(–border);padding:8px 0;overflow:hidden;position:relative}
 .ticker-bar::before,.ticker-bar::after{content:’’;position:absolute;top:0;bottom:0;width:48px;z-index:2}
 .ticker-bar::before{left:0;background:linear-gradient(to right,var(–surface),transparent)}
 .ticker-bar::after{right:0;background:linear-gradient(to left,var(–surface),transparent)}
 .ticker-track{display:flex;animation:ticker 32s linear infinite;width:max-content}
 @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.ti{display:flex;align-items:center;gap:7px;padding:0 20px;border-right:1px solid var(–border);white-space:nowrap}
-.ti-sym{font-family:‘DM Mono’,monospace;font-size:9px;letter-spacing:.14em;color:var(–muted)}
-.ti-price{font-family:‘DM Mono’,monospace;font-size:10px;color:var(–text)}
-.ti-chg{font-family:‘DM Mono’,monospace;font-size:10px}
+.ti{display:flex;align-items:center;gap:8px;padding:0 22px;border-right:1px solid var(–border2);white-space:nowrap}
+.ti-sym{font-family:‘DM Mono’,monospace;font-size:9px;letter-spacing:.16em;color:var(–muted);font-weight:500}
+.ti-price{font-family:‘DM Mono’,monospace;font-size:11px;color:var(–text);font-weight:500}
+.ti-chg{font-family:‘DM Mono’,monospace;font-size:10px;font-weight:600}
 .ti-chg.up{color:var(–green)}.ti-chg.down{color:var(–red)}
 
 /* HEADER */
 .header{padding:28px 20px 0;position:relative;overflow:hidden}
-.hbg{position:absolute;inset:0;background:radial-gradient(ellipse at 75% 0%,rgba(212,168,83,.07) 0%,transparent 60%);pointer-events:none}
-.hrule{height:1px;background:linear-gradient(to right,var(–gold),transparent);margin-bottom:14px}
+.hbg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 80% -10%,rgba(230,184,74,.13) 0%,transparent 55%),radial-gradient(ellipse at 10% 80%,rgba(79,142,247,.07) 0%,transparent 50%)}
+.hrule{height:2px;background:linear-gradient(to right,var(–gold),var(–gold2) 30%,transparent);margin-bottom:14px;border-radius:1px}
 .hmeta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .hdate{font-family:‘DM Mono’,monospace;font-size:9px;letter-spacing:.2em;color:var(–gold);text-transform:uppercase}
 .hbtn{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(–gold);border:1px solid var(–gold-border);padding:5px 12px;border-radius:2px;cursor:pointer;background:transparent}
 .hbtn:active{opacity:.6}
-.mast{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(68px,19vw,104px);line-height:.83;letter-spacing:.04em;color:var(–text)}
-.mast-o{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(68px,19vw,104px);line-height:.83;letter-spacing:.04em;color:transparent;-webkit-text-stroke:1.5px var(–gold);margin-bottom:14px}
+.mast{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(72px,20vw,110px);line-height:.83;letter-spacing:.04em;color:var(–text)}
+.mast-o{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(72px,20vw,110px);line-height:.83;letter-spacing:.04em;color:transparent;-webkit-text-stroke:1.5px var(–gold);margin-bottom:16px}
 .hfoot{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid var(–border);margin-top:6px}
 .htag{font-family:‘DM Mono’,monospace;font-size:9px;color:var(–muted);letter-spacing:.12em;text-transform:uppercase}
 .live{display:flex;align-items:center;gap:6px;font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.12em;color:var(–green);text-transform:uppercase}
@@ -55,70 +57,110 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;
 .tabs-wrapper{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;position:sticky;top:0;z-index:100;background:var(–bg);border-bottom:1px solid var(–border)}
 .tabs-wrapper::-webkit-scrollbar{display:none}
 .tabs{display:flex;white-space:nowrap;padding:0 20px}
-.tab{font-family:‘DM Mono’,monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:14px 16px;color:var(–muted);cursor:pointer;user-select:none;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .2s}
-.tab.active{color:var(–gold);border-bottom-color:var(–gold)}
+.tab{font-family:‘DM Mono’,monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:14px 16px;color:var(–muted);cursor:pointer;user-select:none;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s}
+.tab.active{color:var(–gold2);border-bottom-color:var(–gold);text-shadow:0 0 14px rgba(255,209,102,.35)}
 .tab:active{opacity:.6}
 
 /* CONTENT */
-.content{padding:20px 20px 100px}
+.content{padding:22px 20px 120px}
 .panel{display:none}
 .panel.active{display:block;animation:fin .25s ease}
 @keyframes fin{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 
 /* SECTION HEADER */
-.sec-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.sec-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(–border)}
 .sec-t{display:flex;align-items:baseline;gap:10px}
-.sec-title{font-family:‘Bebas Neue’,sans-serif;font-size:34px;letter-spacing:.05em;color:var(–text);line-height:1}
+.sec-title{font-family:‘Bebas Neue’,sans-serif;font-size:36px;letter-spacing:.05em;color:var(–text);line-height:1}
 .sec-line{width:28px;height:2px;background:var(–gold);border-radius:1px;margin-bottom:3px}
 .refresh-btn{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(–gold);background:var(–gold-dim);border:1px solid var(–gold-border);padding:6px 12px;border-radius:2px;cursor:pointer}
 .refresh-btn:active{opacity:.6}
 
 /* TEAM CARD */
-.team-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
-.team-card{background:var(–surface);border:1px solid var(–border);border-radius:8px;padding:14px;position:relative;overflow:hidden}
-.team-card::before{content:’’;position:absolute;top:0;left:0;right:0;height:2px}
-.team-card.rangers::before{background:linear-gradient(to right,#0038a8,#cf2027)}
-.team-card.knicks::before{background:linear-gradient(to right,#006bb6,#f58426)}
-.team-card.yankees::before{background:linear-gradient(to right,#003087,#e4002c)}
-.team-card.giants::before{background:linear-gradient(to right,#0b2265,#a71930)}
-.team-name{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(–muted);margin-bottom:6px}
+.team-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.team-card{background:var(–surface);border:1px solid var(–border);border-radius:14px;padding:16px;position:relative;overflow:hidden}
+.team-card::before{content:’’;position:absolute;top:0;left:0;right:0;height:3px;z-index:1}
+.team-card::after{content:’’;position:absolute;bottom:-30px;right:-30px;width:100px;height:100px;border-radius:50%;opacity:.06;pointer-events:none}
+.team-card.rangers::before{background:linear-gradient(to right,#1a4fc4,#e8202a)}
+.team-card.rangers::after{background:#1a4fc4}
+.team-card.knicks::before{background:linear-gradient(to right,#0a72c7,#f58426)}
+.team-card.knicks::after{background:#f58426}
+.team-card.yankees::before{background:linear-gradient(to right,#1a3d9e,#e4002c)}
+.team-card.yankees::after{background:#1a3d9e}
+.team-card.giants::before{background:linear-gradient(to right,#1a2e8c,#c42030)}
+.team-card.giants::after{background:#c42030}
+.team-logo{font-size:28px;margin-bottom:8px;line-height:1}
+.team-name{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(–muted);margin-bottom:8px}
 .team-result{font-family:‘Bebas Neue’,sans-serif;font-size:22px;letter-spacing:.04em;line-height:1;margin-bottom:4px}
 .team-result.win{color:var(–green)}.team-result.loss{color:var(–red)}.team-result.na{color:var(–muted)}
 .team-record{font-family:‘DM Mono’,monospace;font-size:9px;color:var(–text2);margin-bottom:4px}
 .team-note{font-size:10px;color:var(–muted);line-height:1.4;font-weight:300}
 
 /* BULLET BRIEF */
-.bullet-block{background:var(–surface);border:1px solid var(–border);border-radius:8px;padding:18px 20px;margin-bottom:12px;position:relative;overflow:hidden}
+.bullet-block{background:var(–surface);border:1px solid var(–border);border-left:3px solid var(–gold);border-radius:12px;padding:18px 20px;margin-bottom:12px;position:relative;overflow:hidden}
 .bullet-block::before{content:’’;position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,var(–gold),transparent)}
+.bullet-block.blue{border-left-color:var(–blue)}
+.bullet-block.blue::before{background:linear-gradient(to right,var(–blue),transparent)}
+.bullet-block.green{border-left-color:var(–green)}
+.bullet-block.green::before{background:linear-gradient(to right,var(–green),transparent)}
+.bullet-block.red{border-left-color:var(–red)}
+.bullet-block.red::before{background:linear-gradient(to right,var(–red),transparent)}
+.bullet-block.purple{border-left-color:var(–purple)}
+.bullet-block.purple::before{background:linear-gradient(to right,var(–purple),transparent)}
 .bl-label{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.2em;color:var(–gold);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.ai-badge{background:var(–gold-dim);border:1px solid var(–gold-border);border-radius:3px;padding:2px 7px;font-size:7px;letter-spacing:.1em}
-.bullets{list-style:none;display:flex;flex-direction:column;gap:10px}
-.bullet{display:flex;gap:10px;font-size:13px;line-height:1.65;color:var(–text2);font-weight:300}
-.bullet::before{content:’—’;color:var(–gold);font-family:‘DM Mono’,monospace;font-size:11px;flex-shrink:0;margin-top:2px}
+.bullet-block.blue .bl-label{color:var(–blue)}
+.bullet-block.green .bl-label{color:var(–green)}
+.bullet-block.red .bl-label{color:var(–red)}
+.bullet-block.purple .bl-label{color:var(–purple)}
+.ai-badge{background:var(–gold-dim);border:1px solid var(–gold-border);border-radius:3px;padding:2px 7px;font-size:7px;letter-spacing:.1em;color:var(–gold)}
+.bullet-block.blue .ai-badge{background:var(–blue-dim);border-color:rgba(79,142,247,.3);color:var(–blue)}
+.bullet-block.green .ai-badge{background:var(–green-dim);border-color:var(–green-border);color:var(–green)}
+.bullet-block.red .ai-badge{background:var(–red-dim);border-color:var(–red-border);color:var(–red)}
+.bullet-block.purple .ai-badge{background:var(–purple-dim);border-color:rgba(155,114,240,.3);color:var(–purple)}
+.bullets{list-style:none;display:flex;flex-direction:column;gap:11px}
+.bullet{display:flex;gap:10px;font-size:13.5px;line-height:1.72;color:var(–text2);font-weight:300}
+.bullet::before{content:‘▸’;color:var(–gold);font-family:‘DM Mono’,monospace;font-size:10px;flex-shrink:0;margin-top:3px}
+.bullet-block.blue .bullet::before{color:var(–blue)}
+.bullet-block.green .bullet::before{color:var(–green)}
+.bullet-block.red .bullet::before{color:var(–red)}
+.bullet-block.purple .bullet::before{color:var(–purple)}
 
 /* MARKET CARDS */
-.mkt-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
-.mkt-card{background:var(–surface);border:1px solid var(–border);border-radius:8px;padding:13px;position:relative;overflow:hidden}
-.mkt-card.up{border-top:2px solid var(–green)}.mkt-card.down{border-top:2px solid var(–red)}.mkt-card.neutral{border-top:2px solid var(–border2)}
-.mkt-label{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.16em;color:var(–muted);text-transform:uppercase;margin-bottom:7px}
-.mkt-price{font-family:‘DM Mono’,monospace;font-size:18px;font-weight:500;color:var(–text);line-height:1;margin-bottom:4px}
-.mkt-chg{font-family:‘DM Mono’,monospace;font-size:11px;font-weight:500}
-.mkt-chg.up{color:var(–green)}.mkt-chg.down{color:var(–red)}.mkt-chg.neutral{color:var(–muted)}
-.mkt-glow{position:absolute;bottom:-12px;right:-12px;width:70px;height:70px;border-radius:50%;opacity:.07;pointer-events:none}
-.mkt-card.up .mkt-glow{background:var(–green)}.mkt-card.down .mkt-glow{background:var(–red)}
+.mkt-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.mkt-card{background:var(–surface);border:1px solid var(–border);border-radius:12px;padding:15px;position:relative;overflow:hidden}
+.mkt-card.up{border-top:2px solid var(–green)}
+.mkt-card.down{border-top:2px solid var(–red)}
+.mkt-card.neutral{border-top:2px solid var(–border2)}
+.mkt-label{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.14em;color:var(–muted);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:5px}
+.mkt-arrow{font-size:9px}
+.mkt-arrow.up{color:var(–green)}.mkt-arrow.down{color:var(–red)}
+.mkt-price{font-family:‘DM Mono’,monospace;font-size:20px;font-weight:600;color:var(–text);line-height:1;margin-bottom:8px}
+.mkt-badge{display:inline-block;padding:3px 9px;border-radius:20px;font-family:‘DM Mono’,monospace;font-size:11px;font-weight:600;letter-spacing:.02em}
+.mkt-badge.up{background:var(–green-dim);color:var(–green);border:1px solid var(–green-border)}
+.mkt-badge.down{background:var(–red-dim);color:var(–red);border:1px solid var(–red-border)}
+.mkt-badge.neutral{background:var(–border);color:var(–muted)}
+.mkt-glow{position:absolute;bottom:-15px;right:-15px;width:80px;height:80px;border-radius:50%;opacity:.06;pointer-events:none}
+.mkt-card.up .mkt-glow{background:radial-gradient(circle,var(–green),transparent)}
+.mkt-card.down .mkt-glow{background:radial-gradient(circle,var(–red),transparent)}
 
 /* STOCK ROW */
-.stock-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(–surface);border:1px solid var(–border);border-radius:6px;margin-bottom:6px}
-.stock-left{display:flex;align-items:baseline;gap:8px}
-.stock-sym{font-family:‘DM Mono’,monospace;font-size:12px;font-weight:500;color:var(–text)}
-.stock-name{font-family:‘DM Mono’,monospace;font-size:9px;color:var(–muted);letter-spacing:.06em}
-.stock-right{display:flex;align-items:baseline;gap:10px;text-align:right}
-.stock-price{font-family:‘DM Mono’,monospace;font-size:14px;color:var(–text)}
-.stock-chg{font-family:‘DM Mono’,monospace;font-size:11px;font-weight:500}
-.stock-chg.up{color:var(–green)}.stock-chg.down{color:var(–red)}.stock-chg.neutral{color:var(–muted)}
+.stock-row{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;background:var(–surface);border:1px solid var(–border);border-radius:10px;margin-bottom:7px;position:relative;overflow:hidden}
+.stock-row.up{border-left:2px solid var(–green)}
+.stock-row.down{border-left:2px solid var(–red)}
+.stock-left{display:flex;align-items:center;gap:10px}
+.stock-arrow{font-size:12px;flex-shrink:0}
+.stock-arrow.up{color:var(–green)}.stock-arrow.down{color:var(–red)}.stock-arrow.neutral{color:var(–muted)}
+.stock-info{display:flex;flex-direction:column;gap:2px}
+.stock-sym{font-family:‘Inter’,sans-serif;font-size:14px;font-weight:600;color:var(–text)}
+.stock-name{font-family:‘Inter’,sans-serif;font-size:10px;color:var(–muted)}
+.stock-right{display:flex;align-items:center;gap:10px}
+.stock-price{font-family:‘DM Mono’,monospace;font-size:15px;font-weight:500;color:var(–text)}
+.stock-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-family:‘DM Mono’,monospace;font-size:11px;font-weight:600}
+.stock-badge.up{background:var(–green-dim);color:var(–green);border:1px solid var(–green-border)}
+.stock-badge.down{background:var(–red-dim);color:var(–red);border:1px solid var(–red-border)}
+.stock-badge.neutral{background:var(–border);color:var(–muted)}
 
 /* WEATHER */
-.wx-hero{background:linear-gradient(135deg,#0b0f18 0%,#0c1220 100%);border:1px solid var(–border);border-radius:10px;padding:22px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;position:relative;overflow:hidden}
+.wx-hero{background:linear-gradient(135deg,#080d1a 0%,#0b1428 50%,#0d1632 100%);border:1px solid rgba(79,142,247,.2);border-radius:12px;padding:22px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;position:relative;overflow:hidden;box-shadow:0 0 40px rgba(79,142,247,.06)}
 .wx-hero::after{content:’’;position:absolute;top:-50px;right:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(91,156,246,.08) 0%,transparent 70%)}
 .wx-temp{font-family:‘Bebas Neue’,sans-serif;font-size:82px;color:var(–text);line-height:1}
 .wx-deg{font-size:34px;color:var(–text2)}
@@ -137,19 +179,29 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;
 .fc-lo{font-family:‘DM Mono’,monospace;font-size:11px;color:var(–muted)}
 
 /* CRE SECTION */
-.cre-section{background:var(–surface);border:1px solid var(–border);border-radius:8px;margin-bottom:10px;overflow:hidden}
-.cre-header{display:flex;align-items:center;gap:10px;padding:13px 16px;border-bottom:1px solid var(–border)}
-.cre-icon{width:26px;height:26px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
-.cre-icon.deal{background:rgba(212,168,83,.12)}
-.cre-icon.cap{background:rgba(91,156,246,.1)}
-.cre-icon.trend{background:rgba(57,217,138,.1)}
-.cre-icon.reit{background:rgba(212,168,83,.12)}
-.cre-icon.macro{background:rgba(255,92,92,.1)}
-.cre-label{font-family:‘DM Mono’,monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(–gold)}
-.cre-body{padding:14px 16px}
+.cre-section{background:var(–surface);border:1px solid var(–border);border-radius:10px;margin-bottom:10px;overflow:hidden}
+.cre-section.deal-s{border-left:2px solid var(–gold)}
+.cre-section.cap-s{border-left:2px solid var(–blue)}
+.cre-section.trend-s{border-left:2px solid var(–green)}
+.cre-section.reit-s{border-left:2px solid var(–purple)}
+.cre-section.macro-s{border-left:2px solid var(–red)}
+.cre-header{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(–border)}
+.cre-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.cre-icon.deal{background:var(–gold-dim);border:1px solid var(–gold-border)}
+.cre-icon.cap{background:var(–blue-dim);border:1px solid rgba(79,142,247,.25)}
+.cre-icon.trend{background:var(–green-dim);border:1px solid var(–green-border)}
+.cre-icon.reit{background:var(–purple-dim);border:1px solid rgba(155,114,240,.25)}
+.cre-icon.macro{background:var(–red-dim);border:1px solid var(–red-border)}
+.cre-label{font-family:‘DM Mono’,monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase}
+.cre-section.deal-s .cre-label{color:var(–gold)}
+.cre-section.cap-s .cre-label{color:var(–blue)}
+.cre-section.trend-s .cre-label{color:var(–green)}
+.cre-section.reit-s .cre-label{color:var(–purple)}
+.cre-section.macro-s .cre-label{color:var(–red)}
+.cre-body{padding:14px 16px 16px}
 
 /* MISC */
-.subhead{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(–muted);margin:20px 0 10px;display:flex;align-items:center;gap:10px}
+.subhead{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(–text2);margin:22px 0 12px;display:flex;align-items:center;gap:10px}
 .subhead::after{content:’’;flex:1;height:1px;background:var(–border)}
 .rule{border:none;border-top:1px solid var(–border);margin:18px 0}
 
@@ -372,25 +424,32 @@ async function ask(prompt, sys) {
 // ─── HELPERS ─────────────────────────────────────────
 function loadingHTML(msg){return `<div class="loading"><div class="ring"></div><div class="loading-text">${msg}</div></div>`;}
 
-// Parse bullet lines from AI response — expects lines starting with - or • or numbered
-function parseBullets(text) {
-  if (!text) return null;
-  const lines = text.split('\n').map(l=>l.trim()).filter(l=>l.length>0);
-  const bullets = lines
-    .map(l => l.replace(/^[-•*\d]+[.)]\s*/,'').trim())
-    .filter(l => l.length > 10);
-  return bullets;
+// Strip markdown from AI output
+function stripMd(t) {
+  return t.replace(/\*\*(.+?)\*\*/g,'$1').replace(/\*(.+?)\*/g,'$1').replace(/`(.+?)`/g,'$1').replace(/#{1,6}\s/g,'').trim();
 }
 
-function bulletBlock(label, text, err) {
+// Parse bullet lines — handles -, bullet, *, numbered, or plain lines
+function parseBullets(text) {
+  if (!text) return null;
+  const cleaned = stripMd(text);
+  const lines = cleaned.split('\n').map(l=>l.trim()).filter(l=>l.length>0);
+  const bulletLines = lines.filter(l=>/^[-•*]|\d+[.)]\s/.test(l));
+  if (bulletLines.length >= 2) {
+    return bulletLines.map(l=>l.replace(/^[-•*]\s*|\d+[.)]\s*/,'').trim()).filter(l=>l.length>5);
+  }
+  return lines.filter(l=>l.length>5);
+}
+
+function bulletBlock(label, text, err, color='') {
   if (!text) return `<div class="err">${err||'Brief unavailable — check API key or refresh.'}</div>`;
   const bullets = parseBullets(text);
+  const cls = color ? ` ${color}` : '';
   if (!bullets || !bullets.length) {
-    // fallback: show as paragraph
-    return `<div class="bullet-block"><div class="bl-label"><span class="ai-badge">AI</span>${label}</div><div class="bullets"><div class="bullet">${text}</div></div></div>`;
+    return `<div class="bullet-block${cls}"><div class="bl-label"><span class="ai-badge">AI</span>${label}</div><ul class="bullets"><li class="bullet">${stripMd(text)}</li></ul></div>`;
   }
   const items = bullets.map(b=>`<li class="bullet">${b}</li>`).join('');
-  return `<div class="bullet-block"><div class="bl-label"><span class="ai-badge">AI</span>${label}</div><ul class="bullets">${items}</ul></div>`;
+  return `<div class="bullet-block${cls}"><div class="bl-label"><span class="ai-badge">AI</span>${label}</div><ul class="bullets">${items}</ul></div>`;
 }
 
 // ─── TICKER ──────────────────────────────────────────
@@ -498,10 +557,13 @@ async function loadSports(e) {
     {key:'giants',  label:'NY Giants',  cls:'giants',  brief:giantsBrief},
   ];
 
+  const teamLogos = {rangers:'🏒',knicks:'🏀',yankees:'⚾',giants:'🏈'};
   let html='<div class="team-grid">';
   for(const t of teamCards){
-    const bullets=parseBullets(t.brief.text)||['No data available.','Check back later.'];
+    const rawBullets=parseBullets(t.brief.text)||['No data available.','Check back later.'];
+    const bullets=rawBullets.map(b=>stripMd(b));
     html+=`<div class="team-card ${t.cls}">
+      <div class="team-logo">${teamLogos[t.key]||'🏆'}</div>
       <div class="team-name">${t.label}</div>
       <ul class="bullets" style="gap:7px">
         ${bullets.slice(0,2).map(b=>`<li class="bullet" style="font-size:11px">${b}</li>`).join('')}
@@ -510,8 +572,8 @@ async function loadSports(e) {
   }
   html+='</div>';
 
-  html+=bulletBlock("Last Night's Highlights", otherBrief.text, otherBrief.error);
-  html+=bulletBlock('League News', newsBrief.text, newsBrief.error);
+  html+=bulletBlock("Last Night's Highlights", otherBrief.text, otherBrief.error, 'blue');
+  html+=bulletBlock('League News', newsBrief.text, newsBrief.error, 'green');
 
   el.innerHTML=html;
 }
@@ -551,10 +613,12 @@ async function loadMarkets(e) {
   // Macro grid
   let html='<div class="mkt-grid">';
   macroData.forEach(m=>{
-    html+=`<div class="mkt-card ${m.dir||'neutral'}">
-      <div class="mkt-label">${m.label}</div>
+    const dir=m.dir||'neutral';
+    const arrow=dir==='up'?'▲':dir==='down'?'▼':'';
+    html+=`<div class="mkt-card ${dir}">
+      <div class="mkt-label"><span class="mkt-arrow ${dir}">${arrow}</span>${m.label}</div>
       <div class="mkt-price">${m.price}</div>
-      <div class="mkt-chg ${m.dir||'neutral'}">${m.pct}</div>
+      <span class="mkt-badge ${dir}">${m.pct}</span>
       <div class="mkt-glow"></div>
     </div>`;
   });
@@ -563,14 +627,19 @@ async function loadMarkets(e) {
   // Stock rows
   html+=`<div class="subhead">Mag 6</div>`;
   stockData.forEach(s=>{
-    html+=`<div class="stock-row">
+    const dir=s.dir||'neutral';
+    const arrow=dir==='up'?'▲':dir==='down'?'▼':'–';
+    html+=`<div class="stock-row ${dir}">
       <div class="stock-left">
-        <div class="stock-sym">${s.sym}</div>
-        <div class="stock-name">${s.label}</div>
+        <span class="stock-arrow ${dir}">${arrow}</span>
+        <div class="stock-info">
+          <div class="stock-sym">${s.sym}</div>
+          <div class="stock-name">${s.label}</div>
+        </div>
       </div>
       <div class="stock-right">
         <div class="stock-price">${s.price}</div>
-        <div class="stock-chg ${s.dir||'neutral'}">${s.pct}</div>
+        <span class="stock-badge ${dir}">${s.pct}</span>
       </div>
     </div>`;
   });
@@ -590,8 +659,8 @@ async function loadMarkets(e) {
   ]);
 
   html+=`<div class="rule"></div>`;
-  html+=bulletBlock('Macro Brief', macroBrief.text, macroBrief.error);
-  html+=bulletBlock('Equities', stockBrief.text, stockBrief.error);
+  html+=bulletBlock('Macro Brief', macroBrief.text, macroBrief.error, 'blue');
+  html+=bulletBlock('Equities', stockBrief.text, stockBrief.error, 'green');
   html+=bulletBlock('What To Watch Today', watchBrief.text, watchBrief.error);
 
   el.innerHTML=html;
@@ -671,17 +740,18 @@ async function loadRealEstate(e) {
   ]);
 
   const sections=[
-    {icon:'🏢',cls:'deal',  label:'CRE Deal Flow & Distress', brief:dealBrief},
-    {icon:'📊',cls:'cap',   label:'Cap Rates & Financing',    brief:capBrief},
-    {icon:'🏙',cls:'trend', label:'Multifamily & Office',     brief:trendBrief},
-    {icon:'📈',cls:'reit',  label:'REIT Watch',               brief:reitBrief},
-    {icon:'🏦',cls:'macro', label:'Macro: Fed & Rates',       brief:macroBrief},
+    {icon:'🏢',cls:'deal',  scls:'deal-s', label:'CRE Deal Flow & Distress', brief:dealBrief},
+    {icon:'📊',cls:'cap',   scls:'cap-s',  label:'Cap Rates & Financing',    brief:capBrief},
+    {icon:'🏙',cls:'trend', scls:'trend-s',label:'Multifamily & Office',     brief:trendBrief},
+    {icon:'📈',cls:'reit',  scls:'reit-s', label:'REIT Watch',               brief:reitBrief},
+    {icon:'🏦',cls:'macro', scls:'macro-s',label:'Macro: Fed & Rates',       brief:macroBrief},
   ];
 
   let html='';
   for(const s of sections){
-    const bullets=parseBullets(s.brief.text)||['Data unavailable — check API key or refresh.'];
-    html+=`<div class="cre-section">
+    const rawB=parseBullets(s.brief.text)||['Data unavailable — check API key or refresh.'];
+    const bullets=rawB.map(b=>stripMd(b));
+    html+=`<div class="cre-section ${s.scls}">
       <div class="cre-header">
         <div class="cre-icon ${s.cls}">${s.icon}</div>
         <div class="cre-label">${s.label}</div>
@@ -709,7 +779,7 @@ async function loadAINews(e) {
     ask(`Today is ${today}. Give me 3 bullet points on AI policy, regulation, and the broader strategic landscape — government actions, EU AI Act, chip controls, safety developments, or geopolitical AI competition (US vs China).`,
       'AI policy analyst. Return exactly 3 bullet points starting with -. Specific and factual. No markdown headers.')
   ]);
-  el.innerHTML=bulletBlock('Model & Product News',b1.text,b1.error)+bulletBlock('Enterprise & Industry',b2.text,b2.error)+bulletBlock('Policy & Strategy',b3.text,b3.error);
+  el.innerHTML=bulletBlock('Model & Product News',b1.text,b1.error,'purple')+bulletBlock('Enterprise & Industry',b2.text,b2.error,'blue')+bulletBlock('Policy & Strategy',b3.text,b3.error,'green');
 }
 
 // ─── POLITICS ────────────────────────────────────────
@@ -727,7 +797,7 @@ async function loadPolitics(e) {
     ask(`Today is ${today}. Give me 3 bullet points on economic policy developments — fiscal policy, trade, tariffs, sanctions, or Treasury/Fed actions that have political dimensions this week.`,
       'Economic policy analyst. Return exactly 3 bullet points starting with -. Factual. Specific. No markdown headers.')
   ]);
-  el.innerHTML=bulletBlock('Washington',b1.text,b1.error)+bulletBlock('Global Watch',b2.text,b2.error)+bulletBlock('Economic Policy',b3.text,b3.error);
+  el.innerHTML=bulletBlock('Washington',b1.text,b1.error,'red')+bulletBlock('Global Watch',b2.text,b2.error,'blue')+bulletBlock('Economic Policy',b3.text,b3.error);
 }
 
 init();
