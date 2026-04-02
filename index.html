@@ -677,7 +677,7 @@ document.addEventListener('touchmove', () => { touchMoved = true; });
 
 // ─── GEMINI API ──────────────────────────────────────────────────
 async function askGemini(prompt, systemPrompt) {
-  if (!apiKey) return null;
+  if (!apiKey) return { text: null, error: 'No API key saved.' };
   try {
     const fullPrompt = systemPrompt ? `${systemPrompt}\n\n${prompt}` : prompt;
     const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
@@ -691,17 +691,17 @@ async function askGemini(prompt, systemPrompt) {
     const data = await res.json();
     if (data.error) {
       console.error('Gemini API error:', data.error.message);
-      throw new Error(data.error.message);
+      return { text: null, error: data.error.message };
     }
-    return data.candidates?.[0]?.content?.parts?.[0]?.text || null;
+    return { text: data.candidates?.[0]?.content?.parts?.[0]?.text || null, error: null };
   } catch (err) {
     console.error('Gemini error:', err.message);
-    return null;
+    return { text: null, error: err.message };
   }
 }
 
-function briefBlock(label, text) {
-  if (!text) return `<div class="error-block">AI brief unavailable — check your API key or try refreshing.</div>`;
+function briefBlock(label, text, errorMsg) {
+  if (!text) return `<div class="error-block">AI brief unavailable — ${errorMsg || 'check your API key or try refreshing.'}</div>`;
   const paras = text.split(/\n+/).filter(p => p.trim()).map(p => `<p>${p.trim()}</p>`).join('');
   return `<div class="brief-block"><div class="brief-label">${label}</div><div class="brief-text">${paras}</div></div>`;
 }
@@ -781,7 +781,7 @@ async function loadSports(e) {
     'You are a NYC sports reporter writing a crisp morning brief. No markdown. Short paragraphs only.'
   );
 
-  el.innerHTML = scoresHTML + `<hr class="rule">` + briefBlock('AI Sports Brief', brief);
+  el.innerHTML = scoresHTML + `<hr class="rule">` + briefBlock('AI Sports Brief', brief.text, brief.error);
 }
 
 function gameCard(g) {
@@ -855,7 +855,7 @@ async function loadMarkets(e) {
     'You are a sharp financial journalist writing a crisp morning market brief. No markdown. Concise paragraphs.'
   );
 
-  el.innerHTML = gridHTML + briefBlock('AI Market Brief', brief);
+  el.innerHTML = gridHTML + briefBlock('AI Market Brief', brief.text, brief.error);
 }
 
 // ─── WEATHER ─────────────────────────────────────────────────────
@@ -926,7 +926,7 @@ async function loadWeather(e) {
     'You are a sharp NYC weather reporter. Short, practical, editorial tone. No markdown.'
   );
 
-  el.innerHTML = heroHTML + statsHTML + forecastHTML + `<hr class="rule">` + briefBlock('AI Weather Brief', brief);
+  el.innerHTML = heroHTML + statsHTML + forecastHTML + `<hr class="rule">` + briefBlock('AI Weather Brief', brief.text, brief.error);
 }
 
 function weatherIcon(code) {
@@ -963,7 +963,7 @@ async function loadRealEstate(e) {
     'You are a real estate market analyst. No markdown. Concise paragraphs.'
   );
 
-  el.innerHTML = briefBlock('NYC Market Brief', brief) + briefBlock('National Trends', brief2);
+  el.innerHTML = briefBlock('NYC Market Brief', brief.text, brief.error) + briefBlock('National Trends', brief2.text, brief2.error);
 }
 
 // ─── AI NEWS ─────────────────────────────────────────────────────
@@ -985,7 +985,7 @@ async function loadAINews(e) {
     'You are a sharp tech analyst. No markdown. Be concise and direct.'
   );
 
-  el.innerHTML = briefBlock('AI Industry Brief', brief) + briefBlock('The Big Picture', brief2);
+  el.innerHTML = briefBlock('AI Industry Brief', brief.text, brief.error) + briefBlock('The Big Picture', brief2.text, brief2.error);
 }
 
 // ─── POLITICS ────────────────────────────────────────────────────
@@ -1007,7 +1007,7 @@ async function loadPolitics(e) {
     'You are a foreign policy analyst. Factual, concise. No markdown.'
   );
 
-  el.innerHTML = briefBlock('Washington Brief', brief) + briefBlock('Global Watch', brief2);
+  el.innerHTML = briefBlock('Washington Brief', brief.text, brief.error) + briefBlock('Global Watch', brief2.text, brief2.error);
 }
 
 // ─── START ───────────────────────────────────────────────────────
