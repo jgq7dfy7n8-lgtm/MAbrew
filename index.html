@@ -10,25 +10,23 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#05050a; --surface:#0c0c14; --surface2:#111120;
-  --border:#1a1a2e; --border2:#252540;
-  --gold:#e6b84a; --gold2:#ffd166; --gold-dim:rgba(230,184,74,0.1); --gold-border:rgba(230,184,74,0.28);
-  --text:#f2f2f0; --text2:#9898a0; --muted:#505060;
-  --green:#2ecc8a; --green-dim:rgba(46,204,138,0.1); --green-border:rgba(46,204,138,0.25);
-  --red:#ff4d6d; --red-dim:rgba(255,77,109,0.1); --red-border:rgba(255,77,109,0.25);
-  --blue:#4f8ef7; --blue-dim:rgba(79,142,247,0.1);
-  --purple:#9b72f0; --purple-dim:rgba(155,114,240,0.1);
-  --orange:#ff8c42; --orange-dim:rgba(255,140,66,0.1);
+:root{
+  --bg:#05050a;--surface:#0c0c14;--border:#1a1a2e;--border2:#252540;
+  --gold:#e6b84a;--gold2:#ffd166;--gold-dim:rgba(230,184,74,0.1);--gold-border:rgba(230,184,74,0.28);
+  --text:#f2f2f0;--text2:#9090a0;--muted:#505060;
+  --green:#2ecc8a;--green-dim:rgba(46,204,138,0.1);--green-border:rgba(46,204,138,0.25);
+  --red:#ff4d6d;--red-dim:rgba(255,77,109,0.1);--red-border:rgba(255,77,109,0.25);
+  --blue:#4f8ef7;--blue-dim:rgba(79,142,247,0.1);--blue-border:rgba(79,142,247,0.25);
+  --purple:#9b72f0;--purple-dim:rgba(155,114,240,0.1);--purple-border:rgba(155,114,240,0.25);
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;min-height:-webkit-fill-available;overflow-x:hidden}
+html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden}
 
-/* TICKER */
-.ticker-bar{background:linear-gradient(to right,#0c0c18,#0d0d1a);border-bottom:1px solid var(–border);padding:8px 0;overflow:hidden;position:relative}
+/* ── TICKER ── */
+.ticker-bar{background:#080810;border-bottom:1px solid var(–border);padding:8px 0;overflow:hidden;position:relative}
 .ticker-bar::before,.ticker-bar::after{content:’’;position:absolute;top:0;bottom:0;width:48px;z-index:2}
-.ticker-bar::before{left:0;background:linear-gradient(to right,var(–surface),transparent)}
-.ticker-bar::after{right:0;background:linear-gradient(to left,var(–surface),transparent)}
+.ticker-bar::before{left:0;background:linear-gradient(to right,#080810,transparent)}
+.ticker-bar::after{right:0;background:linear-gradient(to left,#080810,transparent)}
 .ticker-track{display:flex;animation:ticker 32s linear infinite;width:max-content}
 @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .ti{display:flex;align-items:center;gap:8px;padding:0 22px;border-right:1px solid var(–border2);white-space:nowrap}
@@ -37,121 +35,110 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;
 .ti-chg{font-family:‘DM Mono’,monospace;font-size:10px;font-weight:600}
 .ti-chg.up{color:var(–green)}.ti-chg.down{color:var(–red)}
 
-/* HEADER */
-.header{padding:28px 20px 0;position:relative;overflow:hidden}
-.hbg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 80% -10%,rgba(230,184,74,.13) 0%,transparent 55%),radial-gradient(ellipse at 10% 80%,rgba(79,142,247,.07) 0%,transparent 50%)}
-.hrule{height:2px;background:linear-gradient(to right,var(–gold),var(–gold2) 30%,transparent);margin-bottom:14px;border-radius:1px}
-.hmeta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.hdate{font-family:‘DM Mono’,monospace;font-size:9px;letter-spacing:.2em;color:var(–gold);text-transform:uppercase}
-.hbtn{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(–gold);border:1px solid var(–gold-border);padding:5px 12px;border-radius:2px;cursor:pointer;background:transparent}
-.hbtn:active{opacity:.6}
-.mast{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(72px,20vw,110px);line-height:.83;letter-spacing:.04em;color:var(–text)}
-.mast-o{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(72px,20vw,110px);line-height:.83;letter-spacing:.04em;color:transparent;-webkit-text-stroke:1.5px var(–gold);margin-bottom:16px}
-.hfoot{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid var(–border);margin-top:6px}
-.htag{font-family:‘DM Mono’,monospace;font-size:9px;color:var(–muted);letter-spacing:.12em;text-transform:uppercase}
-.live{display:flex;align-items:center;gap:6px;font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.12em;color:var(–green);text-transform:uppercase}
-.live::before{content:’’;width:6px;height:6px;border-radius:50%;background:var(–green);box-shadow:0 0 8px var(–green);animation:blink 2s ease-in-out infinite}
+/* ── MASTHEAD ── */
+.masthead{padding:32px 20px 0;position:relative;overflow:hidden}
+.masthead-bg{position:absolute;inset:0;pointer-events:none;
+background:radial-gradient(ellipse at 80% -10%,rgba(230,184,74,.12) 0%,transparent 55%),
+radial-gradient(ellipse at 5% 90%,rgba(79,142,247,.06) 0%,transparent 50%)}
+.mast-rule{height:2px;background:linear-gradient(to right,var(–gold),var(–gold2) 30%,transparent);margin-bottom:14px;border-radius:1px}
+.mast-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.mast-date{font-family:‘DM Mono’,monospace;font-size:9px;letter-spacing:.2em;color:var(–gold);text-transform:uppercase}
+.mast-btn{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(–gold);border:1px solid var(–gold-border);padding:5px 12px;border-radius:2px;cursor:pointer;background:transparent}
+.mast-btn:active{opacity:.6}
+.mast-title{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(72px,20vw,112px);line-height:.83;letter-spacing:.04em;color:var(–text)}
+.mast-title-o{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(72px,20vw,112px);line-height:.83;letter-spacing:.04em;color:transparent;-webkit-text-stroke:1.5px var(–gold);margin-bottom:16px}
+.mast-foot{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid var(–border);margin-top:6px}
+.mast-tag{font-family:‘DM Mono’,monospace;font-size:9px;color:var(–muted);letter-spacing:.12em;text-transform:uppercase}
+.live-dot{display:flex;align-items:center;gap:6px;font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.12em;color:var(–green);text-transform:uppercase}
+.live-dot::before{content:’’;width:6px;height:6px;border-radius:50%;background:var(–green);box-shadow:0 0 8px var(–green);animation:blink 2s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
 
-/* TABS */
-.tabs-wrapper{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;position:sticky;top:0;z-index:100;background:var(–bg);border-bottom:1px solid var(–border)}
-.tabs-wrapper::-webkit-scrollbar{display:none}
-.tabs{display:flex;white-space:nowrap;padding:0 20px}
-.tab{font-family:‘DM Mono’,monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:14px 16px;color:var(–muted);cursor:pointer;user-select:none;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s}
-.tab.active{color:var(–gold2);border-bottom-color:var(–gold);text-shadow:0 0 14px rgba(255,209,102,.35)}
-.tab:active{opacity:.6}
+/* ── NEWSLETTER BODY ── */
+.newsletter{padding:0 20px 100px}
 
-/* CONTENT */
-.content{padding:22px 20px 120px}
-.panel{display:none}
-.panel.active{display:block;animation:fin .25s ease}
-@keyframes fin{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+/* ── SECTION DIVIDER ── */
+.sec-divider{display:flex;align-items:center;gap:12px;padding:28px 0 20px}
+.sec-divider-label{font-family:‘Bebas Neue’,sans-serif;font-size:32px;letter-spacing:.06em;color:var(–text);line-height:1;white-space:nowrap}
+.sec-divider-color{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.sec-divider-line{flex:1;height:1px;background:linear-gradient(to right,var(–border2),transparent)}
+.sec-divider.sports .sec-divider-color{background:var(–blue);box-shadow:0 0 6px var(–blue)}
+.sec-divider.markets .sec-divider-color{background:var(–green);box-shadow:0 0 6px var(–green)}
+.sec-divider.weather .sec-divider-color{background:#60c0f8;box-shadow:0 0 6px #60c0f8}
+.sec-divider.realestate .sec-divider-color{background:var(–gold);box-shadow:0 0 6px var(–gold)}
+.sec-divider.ainews .sec-divider-color{background:var(–purple);box-shadow:0 0 6px var(–purple)}
+.sec-divider.politics .sec-divider-color{background:var(–red);box-shadow:0 0 6px var(–red)}
 
-/* SECTION HEADER */
-.sec-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(–border)}
-.sec-t{display:flex;align-items:baseline;gap:10px}
-.sec-title{font-family:‘Bebas Neue’,sans-serif;font-size:36px;letter-spacing:.05em;color:var(–text);line-height:1}
-.sec-line{width:28px;height:2px;background:var(–gold);border-radius:1px;margin-bottom:3px}
-.refresh-btn{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(–gold);background:var(–gold-dim);border:1px solid var(–gold-border);padding:6px 12px;border-radius:2px;cursor:pointer}
-.refresh-btn:active{opacity:.6}
+/* ── LOADING SKELETON ── */
+.section-loading{background:var(–surface);border:1px solid var(–border);border-radius:12px;padding:32px;display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:12px}
+.ring{width:28px;height:28px;position:relative}
+.ring::before{content:’’;position:absolute;inset:0;border-radius:50%;border:2px solid var(–border)}
+.ring::after{content:’’;position:absolute;inset:0;border-radius:50%;border:2px solid transparent;border-top-color:var(–gold);animation:spin .85s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-family:‘DM Mono’,monospace;font-size:9px;letter-spacing:.18em;color:var(–muted);text-transform:uppercase}
 
-/* TEAM CARD */
-.team-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+/* ── TEAM GRID ── */
+.team-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
 .team-card{background:var(–surface);border:1px solid var(–border);border-radius:14px;padding:16px;position:relative;overflow:hidden}
 .team-card::before{content:’’;position:absolute;top:0;left:0;right:0;height:3px;z-index:1}
 .team-card::after{content:’’;position:absolute;bottom:-30px;right:-30px;width:100px;height:100px;border-radius:50%;opacity:.06;pointer-events:none}
-.team-card.rangers::before{background:linear-gradient(to right,#1a4fc4,#e8202a)}
-.team-card.rangers::after{background:#1a4fc4}
-.team-card.knicks::before{background:linear-gradient(to right,#0a72c7,#f58426)}
-.team-card.knicks::after{background:#f58426}
-.team-card.yankees::before{background:linear-gradient(to right,#1a3d9e,#e4002c)}
-.team-card.yankees::after{background:#1a3d9e}
-.team-card.giants::before{background:linear-gradient(to right,#1a2e8c,#c42030)}
-.team-card.giants::after{background:#c42030}
-.team-logo{font-size:28px;margin-bottom:8px;line-height:1}
+.team-card.rangers::before{background:linear-gradient(to right,#1a4fc4,#e8202a)}.team-card.rangers::after{background:#1a4fc4}
+.team-card.knicks::before{background:linear-gradient(to right,#0a72c7,#f58426)}.team-card.knicks::after{background:#f58426}
+.team-card.yankees::before{background:linear-gradient(to right,#1a3d9e,#e4002c)}.team-card.yankees::after{background:#1a3d9e}
+.team-card.giants::before{background:linear-gradient(to right,#1a2e8c,#c42030)}.team-card.giants::after{background:#c42030}
+.team-logo{font-size:26px;margin-bottom:7px;line-height:1}
 .team-name{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(–muted);margin-bottom:8px}
-.team-result{font-family:‘Bebas Neue’,sans-serif;font-size:22px;letter-spacing:.04em;line-height:1;margin-bottom:4px}
-.team-result.win{color:var(–green)}.team-result.loss{color:var(–red)}.team-result.na{color:var(–muted)}
-.team-record{font-family:‘DM Mono’,monospace;font-size:9px;color:var(–text2);margin-bottom:4px}
-.team-note{font-size:10px;color:var(–muted);line-height:1.4;font-weight:300}
 
-/* BULLET BRIEF */
-.bullet-block{background:var(–surface);border:1px solid var(–border);border-left:3px solid var(–gold);border-radius:12px;padding:18px 20px;margin-bottom:12px;position:relative;overflow:hidden}
-.bullet-block::before{content:’’;position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,var(–gold),transparent)}
-.bullet-block.blue{border-left-color:var(–blue)}
-.bullet-block.blue::before{background:linear-gradient(to right,var(–blue),transparent)}
-.bullet-block.green{border-left-color:var(–green)}
-.bullet-block.green::before{background:linear-gradient(to right,var(–green),transparent)}
-.bullet-block.red{border-left-color:var(–red)}
-.bullet-block.red::before{background:linear-gradient(to right,var(–red),transparent)}
-.bullet-block.purple{border-left-color:var(–purple)}
-.bullet-block.purple::before{background:linear-gradient(to right,var(–purple),transparent)}
-.bl-label{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.2em;color:var(–gold);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.bullet-block.blue .bl-label{color:var(–blue)}
-.bullet-block.green .bl-label{color:var(–green)}
-.bullet-block.red .bl-label{color:var(–red)}
-.bullet-block.purple .bl-label{color:var(–purple)}
-.ai-badge{background:var(–gold-dim);border:1px solid var(–gold-border);border-radius:3px;padding:2px 7px;font-size:7px;letter-spacing:.1em;color:var(–gold)}
-.bullet-block.blue .ai-badge{background:var(–blue-dim);border-color:rgba(79,142,247,.3);color:var(–blue)}
+/* ── BULLET BLOCK ── */
+.bullet-block{background:var(–surface);border:1px solid var(–border);border-radius:12px;padding:18px 20px;margin-bottom:10px;position:relative;overflow:hidden}
+.bullet-block::before{content:’’;position:absolute;top:0;left:0;right:0;height:1px}
+.bullet-block.gold{border-left:3px solid var(–gold)}.bullet-block.gold::before{background:linear-gradient(to right,var(–gold),transparent)}
+.bullet-block.blue{border-left:3px solid var(–blue)}.bullet-block.blue::before{background:linear-gradient(to right,var(–blue),transparent)}
+.bullet-block.green{border-left:3px solid var(–green)}.bullet-block.green::before{background:linear-gradient(to right,var(–green),transparent)}
+.bullet-block.red{border-left:3px solid var(–red)}.bullet-block.red::before{background:linear-gradient(to right,var(–red),transparent)}
+.bullet-block.purple{border-left:3px solid var(–purple)}.bullet-block.purple::before{background:linear-gradient(to right,var(–purple),transparent)}
+.bullet-block.sky{border-left:3px solid #60c0f8}.bullet-block.sky::before{background:linear-gradient(to right,#60c0f8,transparent)}
+.bl-label{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.bullet-block.gold .bl-label{color:var(–gold)}.bullet-block.blue .bl-label{color:var(–blue)}
+.bullet-block.green .bl-label{color:var(–green)}.bullet-block.red .bl-label{color:var(–red)}
+.bullet-block.purple .bl-label{color:var(–purple)}.bullet-block.sky .bl-label{color:#60c0f8}
+.ai-badge{border-radius:3px;padding:2px 7px;font-size:7px;letter-spacing:.1em;border:1px solid}
+.bullet-block.gold .ai-badge{background:var(–gold-dim);border-color:var(–gold-border);color:var(–gold)}
+.bullet-block.blue .ai-badge{background:var(–blue-dim);border-color:var(–blue-border);color:var(–blue)}
 .bullet-block.green .ai-badge{background:var(–green-dim);border-color:var(–green-border);color:var(–green)}
 .bullet-block.red .ai-badge{background:var(–red-dim);border-color:var(–red-border);color:var(–red)}
-.bullet-block.purple .ai-badge{background:var(–purple-dim);border-color:rgba(155,114,240,.3);color:var(–purple)}
+.bullet-block.purple .ai-badge{background:var(–purple-dim);border-color:var(–purple-border);color:var(–purple)}
+.bullet-block.sky .ai-badge{background:rgba(96,192,248,0.1);border-color:rgba(96,192,248,0.3);color:#60c0f8}
 .bullets{list-style:none;display:flex;flex-direction:column;gap:11px}
 .bullet{display:flex;gap:10px;font-size:13.5px;line-height:1.72;color:var(–text2);font-weight:300}
-.bullet::before{content:‘▸’;color:var(–gold);font-family:‘DM Mono’,monospace;font-size:10px;flex-shrink:0;margin-top:3px}
-.bullet-block.blue .bullet::before{color:var(–blue)}
-.bullet-block.green .bullet::before{color:var(–green)}
-.bullet-block.red .bullet::before{color:var(–red)}
-.bullet-block.purple .bullet::before{color:var(–purple)}
+.bullet::before{content:‘▸’;font-size:10px;flex-shrink:0;margin-top:3px}
+.bullet-block.gold .bullet::before{color:var(–gold)}.bullet-block.blue .bullet::before{color:var(–blue)}
+.bullet-block.green .bullet::before{color:var(–green)}.bullet-block.red .bullet::before{color:var(–red)}
+.bullet-block.purple .bullet::before{color:var(–purple)}.bullet-block.sky .bullet::before{color:#60c0f8}
 
-/* MARKET CARDS */
+/* ── MARKET GRID ── */
 .mkt-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
-.mkt-card{background:var(–surface);border:1px solid var(–border);border-radius:12px;padding:15px;position:relative;overflow:hidden}
-.mkt-card.up{border-top:2px solid var(–green)}
-.mkt-card.down{border-top:2px solid var(–red)}
-.mkt-card.neutral{border-top:2px solid var(–border2)}
-.mkt-label{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.14em;color:var(–muted);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:5px}
-.mkt-arrow{font-size:9px}
+.mkt-card{background:var(–surface);border:1px solid var(–border);border-radius:12px;padding:14px;position:relative;overflow:hidden}
+.mkt-card.up{border-top:2px solid var(–green)}.mkt-card.down{border-top:2px solid var(–red)}.mkt-card.neutral{border-top:2px solid var(–border2)}
+.mkt-label{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.14em;color:var(–muted);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:5px}
 .mkt-arrow.up{color:var(–green)}.mkt-arrow.down{color:var(–red)}
-.mkt-price{font-family:‘DM Mono’,monospace;font-size:20px;font-weight:600;color:var(–text);line-height:1;margin-bottom:8px}
-.mkt-badge{display:inline-block;padding:3px 9px;border-radius:20px;font-family:‘DM Mono’,monospace;font-size:11px;font-weight:600;letter-spacing:.02em}
+.mkt-price{font-family:‘DM Mono’,monospace;font-size:20px;font-weight:600;color:var(–text);line-height:1;margin-bottom:7px}
+.mkt-badge{display:inline-block;padding:3px 9px;border-radius:20px;font-family:‘DM Mono’,monospace;font-size:11px;font-weight:600}
 .mkt-badge.up{background:var(–green-dim);color:var(–green);border:1px solid var(–green-border)}
 .mkt-badge.down{background:var(–red-dim);color:var(–red);border:1px solid var(–red-border)}
 .mkt-badge.neutral{background:var(–border);color:var(–muted)}
-.mkt-glow{position:absolute;bottom:-15px;right:-15px;width:80px;height:80px;border-radius:50%;opacity:.06;pointer-events:none}
+.mkt-glow{position:absolute;bottom:-15px;right:-15px;width:80px;height:80px;border-radius:50%;opacity:.07;pointer-events:none}
 .mkt-card.up .mkt-glow{background:radial-gradient(circle,var(–green),transparent)}
 .mkt-card.down .mkt-glow{background:radial-gradient(circle,var(–red),transparent)}
 
-/* STOCK ROW */
-.stock-row{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;background:var(–surface);border:1px solid var(–border);border-radius:10px;margin-bottom:7px;position:relative;overflow:hidden}
-.stock-row.up{border-left:2px solid var(–green)}
-.stock-row.down{border-left:2px solid var(–red)}
+/* ── STOCK ROWS ── */
+.stock-row{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(–surface);border:1px solid var(–border);border-radius:10px;margin-bottom:7px}
+.stock-row.up{border-left:2px solid var(–green)}.stock-row.down{border-left:2px solid var(–red)}
 .stock-left{display:flex;align-items:center;gap:10px}
 .stock-arrow{font-size:12px;flex-shrink:0}
 .stock-arrow.up{color:var(–green)}.stock-arrow.down{color:var(–red)}.stock-arrow.neutral{color:var(–muted)}
 .stock-info{display:flex;flex-direction:column;gap:2px}
-.stock-sym{font-family:‘Inter’,sans-serif;font-size:14px;font-weight:600;color:var(–text)}
-.stock-name{font-family:‘Inter’,sans-serif;font-size:10px;color:var(–muted)}
+.stock-sym{font-size:14px;font-weight:600;color:var(–text)}
+.stock-name{font-size:10px;color:var(–muted)}
 .stock-right{display:flex;align-items:center;gap:10px}
 .stock-price{font-family:‘DM Mono’,monospace;font-size:15px;font-weight:500;color:var(–text)}
 .stock-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-family:‘DM Mono’,monospace;font-size:11px;font-weight:600}
@@ -159,73 +146,61 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;
 .stock-badge.down{background:var(–red-dim);color:var(–red);border:1px solid var(–red-border)}
 .stock-badge.neutral{background:var(–border);color:var(–muted)}
 
-/* WEATHER */
-.wx-hero{background:linear-gradient(135deg,#080d1a 0%,#0b1428 50%,#0d1632 100%);border:1px solid rgba(79,142,247,.2);border-radius:12px;padding:22px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;position:relative;overflow:hidden;box-shadow:0 0 40px rgba(79,142,247,.06)}
-.wx-hero::after{content:’’;position:absolute;top:-50px;right:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(91,156,246,.08) 0%,transparent 70%)}
+/* ── WEATHER ── */
+.wx-hero{background:linear-gradient(135deg,#080d1a 0%,#0b1428 50%,#0d1632 100%);border:1px solid rgba(79,142,247,.2);border-radius:14px;padding:22px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;position:relative;overflow:hidden;box-shadow:0 0 40px rgba(79,142,247,.05)}
+.wx-hero::after{content:’’;position:absolute;top:-50px;right:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(79,142,247,.08) 0%,transparent 70%)}
 .wx-temp{font-family:‘Bebas Neue’,sans-serif;font-size:82px;color:var(–text);line-height:1}
 .wx-deg{font-size:34px;color:var(–text2)}
 .wx-desc{font-size:13px;color:var(–text2);margin-top:3px}
 .wx-feels{font-size:11px;color:var(–muted);margin-top:2px}
-.wx-icon{font-size:66px;line-height:1;filter:drop-shadow(0 0 16px rgba(91,156,246,.2));position:relative;z-index:1}
-.wx-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px}
-.wx-stat{background:var(–surface);border:1px solid var(–border);border-radius:6px;padding:12px;text-align:center}
+.wx-icon{font-size:66px;line-height:1;filter:drop-shadow(0 0 16px rgba(79,142,247,.2));position:relative;z-index:1}
+.wx-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
+.wx-stat{background:var(–surface);border:1px solid var(–border);border-radius:8px;padding:12px;text-align:center}
 .wx-sl{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.14em;color:var(–muted);text-transform:uppercase;margin-bottom:5px}
 .wx-sv{font-family:‘DM Mono’,monospace;font-size:15px;color:var(–text);font-weight:500}
-.fc-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px}
-.fc-card{background:var(–surface);border:1px solid var(–border);border-radius:8px;padding:14px 10px;text-align:center}
-.fc-day{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.14em;color:var(–muted);text-transform:uppercase;margin-bottom:8px}
-.fc-icon{font-size:28px;margin-bottom:6px}
-.fc-hi{font-family:‘DM Mono’,monospace;font-size:16px;color:var(–text);font-weight:500}
+.fc-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.fc-card{background:var(–surface);border:1px solid var(–border);border-radius:10px;padding:12px 8px;text-align:center}
+.fc-day{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.12em;color:var(–muted);text-transform:uppercase;margin-bottom:7px}
+.fc-icon{font-size:26px;margin-bottom:5px}
+.fc-hi{font-family:‘DM Mono’,monospace;font-size:15px;color:var(–text);font-weight:500}
 .fc-lo{font-family:‘DM Mono’,monospace;font-size:11px;color:var(–muted)}
 
-/* CRE SECTION */
+/* ── CRE SECTIONS ── */
 .cre-section{background:var(–surface);border:1px solid var(–border);border-radius:10px;margin-bottom:10px;overflow:hidden}
-.cre-section.deal-s{border-left:2px solid var(–gold)}
-.cre-section.cap-s{border-left:2px solid var(–blue)}
-.cre-section.trend-s{border-left:2px solid var(–green)}
-.cre-section.reit-s{border-left:2px solid var(–purple)}
-.cre-section.macro-s{border-left:2px solid var(–red)}
+.cre-section.deal-s{border-left:2px solid var(–gold)}.cre-section.cap-s{border-left:2px solid var(–blue)}
+.cre-section.trend-s{border-left:2px solid var(–green)}.cre-section.reit-s{border-left:2px solid var(–purple)}.cre-section.macro-s{border-left:2px solid var(–red)}
 .cre-header{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(–border)}
 .cre-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
 .cre-icon.deal{background:var(–gold-dim);border:1px solid var(–gold-border)}
-.cre-icon.cap{background:var(–blue-dim);border:1px solid rgba(79,142,247,.25)}
+.cre-icon.cap{background:var(–blue-dim);border:1px solid var(–blue-border)}
 .cre-icon.trend{background:var(–green-dim);border:1px solid var(–green-border)}
-.cre-icon.reit{background:var(–purple-dim);border:1px solid rgba(155,114,240,.25)}
+.cre-icon.reit{background:var(–purple-dim);border:1px solid var(–purple-border)}
 .cre-icon.macro{background:var(–red-dim);border:1px solid var(–red-border)}
 .cre-label{font-family:‘DM Mono’,monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase}
-.cre-section.deal-s .cre-label{color:var(–gold)}
-.cre-section.cap-s .cre-label{color:var(–blue)}
-.cre-section.trend-s .cre-label{color:var(–green)}
-.cre-section.reit-s .cre-label{color:var(–purple)}
-.cre-section.macro-s .cre-label{color:var(–red)}
-.cre-body{padding:14px 16px 16px}
+.cre-section.deal-s .cre-label{color:var(–gold)}.cre-section.cap-s .cre-label{color:var(–blue)}
+.cre-section.trend-s .cre-label{color:var(–green)}.cre-section.reit-s .cre-label{color:var(–purple)}.cre-section.macro-s .cre-label{color:var(–red)}
+.cre-body{padding:14px 16px}
 
-/* MISC */
-.subhead{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(–text2);margin:22px 0 12px;display:flex;align-items:center;gap:10px}
+/* ── SUBHEAD ── */
+.subhead{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(–text2);margin:18px 0 10px;display:flex;align-items:center;gap:10px}
 .subhead::after{content:’’;flex:1;height:1px;background:var(–border)}
-.rule{border:none;border-top:1px solid var(–border);margin:18px 0}
 
-/* LOADING */
-.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 0;gap:14px}
-.ring{width:30px;height:30px;position:relative}
-.ring::before{content:’’;position:absolute;inset:0;border-radius:50%;border:2px solid var(–border)}
-.ring::after{content:’’;position:absolute;inset:0;border-radius:50%;border:2px solid transparent;border-top-color:var(–gold);animation:spin .85s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loading-text{font-family:‘DM Mono’,monospace;font-size:9px;letter-spacing:.18em;color:var(–muted);text-transform:uppercase}
+/* ── ERROR ── */
+.err{background:var(–red-dim);border:1px solid var(–red-border);border-radius:8px;padding:12px 16px;font-family:‘DM Mono’,monospace;font-size:10px;color:var(–red);line-height:1.7;margin-bottom:10px}
 
-/* ERROR */
-.err{background:var(–red-dim);border:1px solid rgba(255,92,92,.2);border-radius:6px;padding:12px 16px;font-family:‘DM Mono’,monospace;font-size:10px;color:var(–red);line-height:1.7}
-
-/* API SETUP */
-.api-setup{background:var(–surface);border:1px solid var(–border);border-radius:10px;padding:24px;margin-bottom:20px;position:relative;overflow:hidden}
+/* ── API SETUP ── */
+.api-setup{background:var(–surface);border:1px solid var(–border);border-radius:12px;padding:24px;margin-bottom:24px;position:relative;overflow:hidden}
 .api-setup::before{content:’’;position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(–gold),transparent)}
 .api-title{font-family:‘Bebas Neue’,sans-serif;font-size:26px;letter-spacing:.05em;color:var(–text);margin-bottom:6px}
 .api-desc{font-size:12px;color:var(–text2);margin-bottom:18px;line-height:1.65;font-weight:300}
 .api-row{display:flex;gap:8px}
 .api-input{flex:1;background:var(–bg);border:1px solid var(–border2);border-radius:4px;padding:11px 14px;font-family:‘DM Mono’,monospace;font-size:12px;color:var(–text);outline:none;transition:border-color .15s}
 .api-input:focus{border-color:var(–gold)}
-.api-btn{background:var(–gold);color:#060608;border:none;border-radius:4px;padding:11px 20px;font-family:‘DM Mono’,monospace;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;white-space:nowrap}
+.api-btn{background:var(–gold);color:#05050a;border:none;border-radius:4px;padding:11px 20px;font-family:‘DM Mono’,monospace;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;white-space:nowrap}
 .api-btn:active{opacity:.75}
+
+/* ── RULE ── */
+.nl-rule{border:none;border-top:1px solid var(–border);margin:8px 0}
 </style>
 
 </head>
@@ -234,7 +209,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;
 <!-- TICKER -->
 
 <div class="ticker-bar">
-  <div class="ticker-track" id="tickerTrack">
+  <div class="ticker-track">
     <div class="ti"><span class="ti-sym">SPY</span><span class="ti-price" id="t-SPY">—</span><span class="ti-chg" id="tc-SPY"></span></div>
     <div class="ti"><span class="ti-sym">QQQ</span><span class="ti-price" id="t-QQQ">—</span><span class="ti-chg" id="tc-QQQ"></span></div>
     <div class="ti"><span class="ti-sym">BTC</span><span class="ti-price" id="t-BTC">—</span><span class="ti-chg" id="tc-BTC"></span></div>
@@ -242,6 +217,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;
     <div class="ti"><span class="ti-sym">AAPL</span><span class="ti-price" id="t-AAPL">—</span><span class="ti-chg" id="tc-AAPL"></span></div>
     <div class="ti"><span class="ti-sym">10Y</span><span class="ti-price" id="t-TNX">—</span><span class="ti-chg" id="tc-TNX"></span></div>
     <div class="ti"><span class="ti-sym">GOLD</span><span class="ti-price" id="t-GLD">—</span><span class="ti-chg" id="tc-GLD"></span></div>
+    <!-- duplicate for seamless loop -->
     <div class="ti"><span class="ti-sym">SPY</span><span class="ti-price" id="t-SPY2">—</span><span class="ti-chg" id="tc-SPY2"></span></div>
     <div class="ti"><span class="ti-sym">QQQ</span><span class="ti-price" id="t-QQQ2">—</span><span class="ti-chg" id="tc-QQQ2"></span></div>
     <div class="ti"><span class="ti-sym">BTC</span><span class="ti-price" id="t-BTC2">—</span><span class="ti-chg" id="tc-BTC2"></span></div>
@@ -252,236 +228,189 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;
   </div>
 </div>
 
-<!-- HEADER -->
+<!-- MASTHEAD -->
 
-<div class="header">
-  <div class="hbg"></div>
-  <div class="hrule"></div>
-  <div class="hmeta">
-    <div class="hdate" id="dateLine">—</div>
-    <div class="hbtn" ontouchend="resetApiKey(event)" onclick="resetApiKey(event)">⚙ API Key</div>
+<div class="masthead">
+  <div class="masthead-bg"></div>
+  <div class="mast-rule"></div>
+  <div class="mast-meta">
+    <div class="mast-date" id="dateLine">—</div>
+    <div class="mast-btn" ontouchend="resetKey(event)" onclick="resetKey(event)">⚙ API Key</div>
   </div>
-  <div class="mast">Morning</div>
-  <div class="mast-o">Brief</div>
-  <div class="hfoot">
-    <div class="htag">NYC · Markets · Weather · World</div>
-    <div class="live">Live</div>
-  </div>
-</div>
-
-<!-- TABS -->
-
-<div class="tabs-wrapper">
-  <div class="tabs">
-    <div class="tab active" ontouchend="switchTab(event,'sports')" onclick="switchTab(event,'sports')">Sports</div>
-    <div class="tab" ontouchend="switchTab(event,'markets')" onclick="switchTab(event,'markets')">Markets</div>
-    <div class="tab" ontouchend="switchTab(event,'weather')" onclick="switchTab(event,'weather')">Weather</div>
-    <div class="tab" ontouchend="switchTab(event,'realestate')" onclick="switchTab(event,'realestate')">Real Estate</div>
-    <div class="tab" ontouchend="switchTab(event,'ainews')" onclick="switchTab(event,'ainews')">AI News</div>
-    <div class="tab" ontouchend="switchTab(event,'politics')" onclick="switchTab(event,'politics')">Politics</div>
+  <div class="mast-title">Morning</div>
+  <div class="mast-title-o">Brief</div>
+  <div class="mast-foot">
+    <div class="mast-tag">NYC · Markets · Weather · World</div>
+    <div class="live-dot">Live</div>
   </div>
 </div>
 
-<!-- CONTENT -->
+<!-- NEWSLETTER -->
 
-<div class="content">
+<div class="newsletter">
 
-  <div id="apiSetup" class="api-setup" style="display:none;">
+  <!-- API SETUP -->
+
+  <div id="apiSetup" class="api-setup" style="display:none">
     <div class="api-title">Connect API Key</div>
     <div class="api-desc">Enter your Gemini API key to power AI briefs. Free at aistudio.google.com — stored only on this device.</div>
     <div class="api-row">
       <input class="api-input" id="apiKeyInput" type="password" placeholder="AIza..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-      <button class="api-btn" ontouchend="saveApiKey(event)" onclick="saveApiKey(event)">Save</button>
+      <button class="api-btn" ontouchend="saveKey(event)" onclick="saveKey(event)">Save</button>
     </div>
   </div>
 
   <!-- SPORTS -->
 
-  <div class="panel active" id="panel-sports">
-    <div class="sec-hdr">
-      <div class="sec-t"><div class="sec-title">Sports</div><div class="sec-line"></div></div>
-      <button class="refresh-btn" ontouchend="loadSports(event)" onclick="loadSports(event)">↻ Refresh</button>
-    </div>
-    <div id="sports-content"><div class="loading"><div class="ring"></div><div class="loading-text">Loading</div></div></div>
+  <div class="sec-divider sports">
+    <div class="sec-divider-color"></div>
+    <div class="sec-divider-label">Sports</div>
+    <div class="sec-divider-line"></div>
+  </div>
+  <div id="sports-content">
+    <div class="section-loading"><div class="ring"></div><div class="loading-text">Loading scores</div></div>
   </div>
 
   <!-- MARKETS -->
 
-  <div class="panel" id="panel-markets">
-    <div class="sec-hdr">
-      <div class="sec-t"><div class="sec-title">Markets</div><div class="sec-line"></div></div>
-      <button class="refresh-btn" ontouchend="loadMarkets(event)" onclick="loadMarkets(event)">↻ Refresh</button>
-    </div>
-    <div id="markets-content"><div class="loading"><div class="ring"></div><div class="loading-text">Fetching data</div></div></div>
+  <div class="sec-divider markets">
+    <div class="sec-divider-color"></div>
+    <div class="sec-divider-label">Markets</div>
+    <div class="sec-divider-line"></div>
+  </div>
+  <div id="markets-content">
+    <div class="section-loading"><div class="ring"></div><div class="loading-text">Fetching data</div></div>
   </div>
 
   <!-- WEATHER -->
 
-  <div class="panel" id="panel-weather">
-    <div class="sec-hdr">
-      <div class="sec-t"><div class="sec-title">Weather</div><div class="sec-line"></div></div>
-      <button class="refresh-btn" ontouchend="loadWeather(event)" onclick="loadWeather(event)">↻ Refresh</button>
-    </div>
-    <div id="weather-content"><div class="loading"><div class="ring"></div><div class="loading-text">Loading</div></div></div>
+  <div class="sec-divider weather">
+    <div class="sec-divider-color"></div>
+    <div class="sec-divider-label">Weather</div>
+    <div class="sec-divider-line"></div>
+  </div>
+  <div id="weather-content">
+    <div class="section-loading"><div class="ring"></div><div class="loading-text">Getting conditions</div></div>
   </div>
 
   <!-- REAL ESTATE -->
 
-  <div class="panel" id="panel-realestate">
-    <div class="sec-hdr">
-      <div class="sec-t"><div class="sec-title">Real Estate</div><div class="sec-line"></div></div>
-      <button class="refresh-btn" ontouchend="loadRealEstate(event)" onclick="loadRealEstate(event)">↻ Refresh</button>
-    </div>
-    <div id="realestate-content"><div class="loading"><div class="ring"></div><div class="loading-text">Generating brief</div></div></div>
+  <div class="sec-divider realestate">
+    <div class="sec-divider-color"></div>
+    <div class="sec-divider-label">Real Estate</div>
+    <div class="sec-divider-line"></div>
+  </div>
+  <div id="realestate-content">
+    <div class="section-loading"><div class="ring"></div><div class="loading-text">Generating brief</div></div>
   </div>
 
   <!-- AI NEWS -->
 
-  <div class="panel" id="panel-ainews">
-    <div class="sec-hdr">
-      <div class="sec-t"><div class="sec-title">AI News</div><div class="sec-line"></div></div>
-      <button class="refresh-btn" ontouchend="loadAINews(event)" onclick="loadAINews(event)">↻ Refresh</button>
-    </div>
-    <div id="ainews-content"><div class="loading"><div class="ring"></div><div class="loading-text">Generating brief</div></div></div>
+  <div class="sec-divider ainews">
+    <div class="sec-divider-color"></div>
+    <div class="sec-divider-label">AI News</div>
+    <div class="sec-divider-line"></div>
+  </div>
+  <div id="ainews-content">
+    <div class="section-loading"><div class="ring"></div><div class="loading-text">Generating brief</div></div>
   </div>
 
   <!-- POLITICS -->
 
-  <div class="panel" id="panel-politics">
-    <div class="sec-hdr">
-      <div class="sec-t"><div class="sec-title">Politics</div><div class="sec-line"></div></div>
-      <button class="refresh-btn" ontouchend="loadPolitics(event)" onclick="loadPolitics(event)">↻ Refresh</button>
-    </div>
-    <div id="politics-content"><div class="loading"><div class="ring"></div><div class="loading-text">Generating brief</div></div></div>
+  <div class="sec-divider politics">
+    <div class="sec-divider-color"></div>
+    <div class="sec-divider-label">Politics</div>
+    <div class="sec-divider-line"></div>
+  </div>
+  <div id="politics-content">
+    <div class="section-loading"><div class="ring"></div><div class="loading-text">Generating brief</div></div>
   </div>
 
 </div>
 
 <script>
-// ─── STATE ───────────────────────────────────────────
 let apiKey = localStorage.getItem('mb_gemini_key') || '';
-let currentTab = 'sports';
-let loaded = {};
-let touchMoved = false;
+const today = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
 
-// ─── INIT ────────────────────────────────────────────
+// ── INIT ────────────────────────────────────────────────
 function init() {
-  const opts = {weekday:'long',month:'long',day:'numeric',year:'numeric'};
-  document.getElementById('dateLine').textContent = new Date().toLocaleDateString('en-US',opts).toUpperCase();
+  document.getElementById('dateLine').textContent = today.toUpperCase();
   if (!apiKey) document.getElementById('apiSetup').style.display = 'block';
+  // Load all sections in parallel — each makes 1 Gemini call
   loadTickerData();
   loadSports();
+  loadMarkets();
+  loadWeather();
+  loadRealEstate();
+  loadAINews();
+  loadPolitics();
 }
 
-document.addEventListener('touchstart',()=>{touchMoved=false},{passive:true});
-document.addEventListener('touchmove',()=>{touchMoved=true},{passive:true});
-
-// ─── API KEY ─────────────────────────────────────────
-function resetApiKey(e) {
+// ── API KEY ──────────────────────────────────────────────
+function resetKey(e) {
   if(e&&e.type==='touchend') e.preventDefault();
-  apiKey=''; localStorage.removeItem('mb_gemini_key'); loaded={};
+  apiKey=''; localStorage.removeItem('mb_gemini_key');
   document.getElementById('apiKeyInput').value='';
   document.getElementById('apiSetup').style.display='block';
   window.scrollTo(0,0);
 }
-function saveApiKey(e) {
+function saveKey(e) {
   if(e&&e.type==='touchend') e.preventDefault();
   const val=document.getElementById('apiKeyInput').value.trim();
   if(!val||val.length<20){alert("Doesn't look valid. Get a free key at aistudio.google.com.");return;}
   apiKey=val; localStorage.setItem('mb_gemini_key',apiKey);
   document.getElementById('apiSetup').style.display='none';
-  loaded={}; loadTab(currentTab);
+  location.reload();
 }
 
-// ─── TABS ────────────────────────────────────────────
-function switchTab(e,tab) {
-  if(e){if(e.type==='touchend'&&touchMoved)return;e.preventDefault();e.stopPropagation();}
-  currentTab=tab;
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  e.currentTarget.classList.add('active');
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('panel-'+tab).classList.add('active');
-  if(!loaded[tab]) loadTab(tab);
-}
-function loadTab(tab) {
-  ({sports:loadSports,markets:loadMarkets,weather:loadWeather,realestate:loadRealEstate,ainews:loadAINews,politics:loadPolitics})[tab]?.();
-}
-
-// ─── GEMINI ──────────────────────────────────────────
-function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
-
-async function ask(prompt, sys, retries=2) {
-  if(!apiKey) return {text:null,error:'No API key.'};
-  for(let attempt=0; attempt<=retries; attempt++) {
-    try {
-      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,{
-        method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({contents:[{parts:[{text:sys?sys+'\n\n'+prompt:prompt}]}],generationConfig:{maxOutputTokens:800,temperature:0.65}})
-      });
-      const d=await res.json();
-      if(d.error) {
-        if(d.error.message&&d.error.message.includes('quota')&&attempt<retries) {
-          await sleep(5000*(attempt+1)); // wait 5s, then 10s
-          continue;
-        }
-        return {text:null,error:d.error.message};
-      }
-      return {text:d.candidates?.[0]?.content?.parts?.[0]?.text||null,error:null};
-    } catch(err){
-      if(attempt<retries){await sleep(3000);continue;}
-      return {text:null,error:err.message};
-    }
+// ── GEMINI — 1 call per section ──────────────────────────
+async function askMulti(sections) {
+  if(!apiKey) return sections.map(()=>({text:null,error:'No API key.'}));
+  const combined = sections.map((s,i)=>`SECTION_${i+1} [${s.label}]:\n${s.prompt}`).join('\n\n---\n\n');
+  const sys = `You are a sharp morning briefing assistant. Return ONLY a valid JSON array with ${sections.length} objects. Each object must have a "bullets" key containing an array of plain text strings. No markdown, no asterisks, no bold, no headers. Example: [{"bullets":["First point here.","Second point here."]},{"bullets":["Another point."]}]`;
+  try {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({contents:[{parts:[{text:sys+'\n\n'+combined}]}],generationConfig:{maxOutputTokens:2000,temperature:0.6,responseMimeType:'application/json'}})
+    });
+    const d = await res.json();
+    if(d.error) return sections.map(()=>({text:null,error:d.error.message}));
+    const raw = d.candidates?.[0]?.content?.parts?.[0]?.text||'[]';
+    const clean = raw.replace(/```json|```/g,'').trim();
+    const parsed = JSON.parse(clean);
+    return parsed.map(p=>({text:(p.bullets||[]).join('\n'),error:null}));
+  } catch(err) {
+    return sections.map(()=>({text:null,error:err.message}));
   }
-  return {text:null,error:'Max retries exceeded.'};
 }
 
-// Sequential ask with delay between calls to avoid rate limits
-async function askSeq(calls) {
-  const results = [];
-  for(let i=0; i<calls.length; i++) {
-    if(i>0) await sleep(1800); // 1.8s between calls = ~33 RPM max, safe under 20 RPM with buffer
-    results.push(await ask(calls[i].prompt, calls[i].sys));
-  }
-  return results;
-}
+// ── HELPERS ──────────────────────────────────────────────
+function stripMd(t){return(t||'').replace(/\*\*(.+?)\*\*/g,'$1').replace(/\*(.+?)\*/g,'$1').replace(/`(.+?)`/g,'$1').replace(/#{1,6}\s/g,'').trim();}
 
-// ─── HELPERS ─────────────────────────────────────────
-function loadingHTML(msg){return `<div class="loading"><div class="ring"></div><div class="loading-text">${msg}</div></div>`;}
-
-// Strip markdown from AI output
-function stripMd(t) {
-  return t.replace(/\*\*(.+?)\*\*/g,'$1').replace(/\*(.+?)\*/g,'$1').replace(/`(.+?)`/g,'$1').replace(/#{1,6}\s/g,'').trim();
-}
-
-// Parse bullet lines — handles -, bullet, *, numbered, or plain lines
 function parseBullets(text) {
-  if (!text) return null;
-  const cleaned = stripMd(text);
-  const lines = cleaned.split('\n').map(l=>l.trim()).filter(l=>l.length>0);
-  const bulletLines = lines.filter(l=>/^[-•*]|\d+[.)]\s/.test(l));
-  if (bulletLines.length >= 2) {
-    return bulletLines.map(l=>l.replace(/^[-•*]\s*|\d+[.)]\s*/,'').trim()).filter(l=>l.length>5);
-  }
-  return lines.filter(l=>l.length>5);
+  if(!text) return [];
+  const lines = stripMd(text).split('\n').map(l=>l.trim()).filter(l=>l.length>5);
+  const marked = lines.filter(l=>/^[-•*▸]|\d+[.)]\s/.test(l));
+  if(marked.length>=2) return marked.map(l=>l.replace(/^[-•*▸]\s*|\d+[.)]\s*/,'').trim()).filter(l=>l.length>5);
+  return lines;
 }
 
-function bulletBlock(label, text, err, color='') {
-  if (!text) return `<div class="err">${err||'Brief unavailable — check API key or refresh.'}</div>`;
+function bulletBlock(label, text, err, color='gold') {
+  if(!text) return `<div class="err">${err||'Brief unavailable — check API key and try refreshing.'}</div>`;
   const bullets = parseBullets(text);
-  const cls = color ? ` ${color}` : '';
-  if (!bullets || !bullets.length) {
-    return `<div class="bullet-block${cls}"><div class="bl-label"><span class="ai-badge">AI</span>${label}</div><ul class="bullets"><li class="bullet">${stripMd(text)}</li></ul></div>`;
-  }
-  const items = bullets.map(b=>`<li class="bullet">${b}</li>`).join('');
-  return `<div class="bullet-block${cls}"><div class="bl-label"><span class="ai-badge">AI</span>${label}</div><ul class="bullets">${items}</ul></div>`;
+  if(!bullets.length) return `<div class="err">No content returned — try refreshing.</div>`;
+  const items = bullets.map(b=>`<li class="bullet">${stripMd(b)}</li>`).join('');
+  return `<div class="bullet-block ${color}"><div class="bl-label"><span class="ai-badge">AI</span>${label}</div><ul class="bullets">${items}</ul></div>`;
 }
 
-// ─── TICKER ──────────────────────────────────────────
+function skel(msg){return `<div class="section-loading"><div class="ring"></div><div class="loading-text">${msg}</div></div>`;}
+
+// ── TICKER ───────────────────────────────────────────────
 async function loadTickerData() {
-  const tickers = ['SPY','QQQ','BTC-USD','^TNX','GLD','NVDA','AAPL'];
-  const ids =     ['SPY','QQQ','BTC','TNX','GLD','NVDA','AAPL'];
+  const tickers=['SPY','QQQ','BTC-USD','^TNX','GLD','NVDA','AAPL'];
+  const ids=['SPY','QQQ','BTC','TNX','GLD','NVDA','AAPL'];
   for(let i=0;i<tickers.length;i++){
-    try {
+    try{
       const url=`https://query1.finance.yahoo.com/v8/finance/chart/${tickers[i]}?interval=1d&range=2d`;
       const w=await(await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)).json();
       const meta=JSON.parse(w.contents).chart?.result?.[0]?.meta;
@@ -500,9 +429,9 @@ async function loadTickerData() {
   }
 }
 
-// ─── FETCH PRICE ─────────────────────────────────────
+// ── FETCH PRICE ──────────────────────────────────────────
 async function fetchPrice(ticker) {
-  try {
+  try{
     const url=`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=2d`;
     const w=await(await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)).json();
     const meta=JSON.parse(w.contents).chart?.result?.[0]?.meta;
@@ -510,303 +439,182 @@ async function fetchPrice(ticker) {
     const p=meta.regularMarketPrice,prev=meta.previousClose||meta.chartPreviousClose;
     const chg=p-prev,pct=((chg/prev)*100).toFixed(2);
     const fmt=ticker==='BTC-USD'?'$'+p.toLocaleString('en-US',{maximumFractionDigits:0}):ticker==='^TNX'?p.toFixed(2)+'%':p.toFixed(2);
-    return {price:fmt,pct:(chg>=0?'+':'')+pct+'%',dir:chg>=0?'up':'down',raw:p,change:chg};
-  } catch(e){return null;}
+    return{price:fmt,pct:(chg>=0?'+':'')+pct+'%',dir:chg>=0?'up':'down'};
+  }catch(e){return null;}
 }
 
-// ─── SPORTS ──────────────────────────────────────────
-async function loadSports(e) {
-  if(e){if(e.type==='touchend')e.preventDefault();}
-  loaded.sports=true;
+// ── SPORTS ───────────────────────────────────────────────
+async function loadSports() {
   const el=document.getElementById('sports-content');
-  el.innerHTML=loadingHTML('Loading scores');
-
-  const today=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
-
-  // Fetch ESPN scores for all leagues
   const leagues=[{espn:'basketball/nba',label:'NBA'},{espn:'hockey/nhl',label:'NHL'},{espn:'baseball/mlb',label:'MLB'},{espn:'football/nfl',label:'NFL'}];
-  const nyMap={knicks:'Knicks',rangers:'Rangers',yankees:'Yankees',mets:'Mets',giants:'Giants',jets:'Jets',nets:'Nets',islanders:'Islanders'};
-  const myTeams=['knicks','rangers','yankees','giants'];
-
+  const nyKeys={knicks:1,rangers:1,yankees:1,mets:1,giants:1,jets:1,nets:1,islanders:1};
+  const myTeams=['rangers','knicks','yankees','giants'];
   let allGames=[];
   for(const lg of leagues){
     try{
       const d=await(await fetch(`https://site.api.espn.com/apis/site/v2/sports/${lg.espn}/scoreboard`)).json();
-      for(const ev of (d.events||[])){
-        const c=ev.competitions?.[0];if(!c) continue;
+      for(const ev of(d.events||[])){
+        const c=ev.competitions?.[0];if(!c)continue;
         const teams=c.competitors||[];
         const home=teams.find(t=>t.homeAway==='home'),away=teams.find(t=>t.homeAway==='away');
-        if(!home||!away) continue;
-        const matchKey=Object.keys(nyMap).find(k=>
-          (home.team?.displayName||'').toLowerCase().includes(k)||
-          (away.team?.displayName||'').toLowerCase().includes(k)
-        );
-        allGames.push({
-          league:lg.label,home,away,
-          status:c.status?.type?.shortDetail||'',
-          done:c.status?.type?.completed,
-          nyKey:matchKey||null
-        });
+        if(!home||!away)continue;
+        const matchKey=Object.keys(nyKeys).find(k=>(home.team?.displayName||'').toLowerCase().includes(k)||(away.team?.displayName||'').toLowerCase().includes(k));
+        allGames.push({league:lg.label,home,away,status:c.status?.type?.shortDetail||'',done:c.status?.type?.completed,nyKey:matchKey||null});
       }
     }catch(err){}
   }
 
-  // Build AI prompts for each team
-  const teamData = {};
+  const teamData={};
   for(const key of myTeams){
-    const game=allGames.find(g=>g.nyKey===key);
-    teamData[key]=game?`${game.away.team.displayName} ${game.away.score||'—'} @ ${game.home.team.displayName} ${game.home.score||'—'} (${game.done?'Final':game.status}, ${game.league})`:'No game found';
+    const g=allGames.find(g=>g.nyKey===key);
+    teamData[key]=g?`${g.away.team.displayName} ${g.away.score||'—'} @ ${g.home.team.displayName} ${g.home.score||'—'} (${g.done?'Final':g.status}, ${g.league})`:'No game scheduled';
   }
 
-  // Get team briefs + other scores in parallel
-  const sportsCalls = [
-    {prompt:`Today is ${today}. Knicks recent game data: ${teamData.knicks}. Give me 2 tight bullet points: (1) last result/score with brief context, (2) current standing + one injury/roster note worth knowing. Be specific. No fluff.`, sys:'NBA analyst. Return exactly 2 bullet points starting with -. No markdown headers. Be specific with scores, records, player names.'},
-    {prompt:`Today is ${today}. Rangers recent game data: ${teamData.rangers}. Give me 2 tight bullet points: (1) last result/score with brief context, (2) current standing + one injury/roster note worth knowing. Be specific. No fluff.`, sys:'NHL analyst. Return exactly 2 bullet points starting with -. No markdown headers. Be specific with scores, records, player names.'},
-    {prompt:`Today is ${today}. Yankees recent game data: ${teamData.yankees}. Give me 2 tight bullet points: (1) last result/score with brief context, (2) current standing + one injury/roster note worth knowing. Be specific. No fluff.`, sys:'MLB analyst. Return exactly 2 bullet points starting with -. No markdown headers. Be specific with scores, records, player names.'},
-    {prompt:`Today is ${today}. Giants recent game data: ${teamData.giants}. Give me 2 tight bullet points: (1) last result/performance with brief context, (2) current standing/offseason news + one roster note worth knowing. Be specific. No fluff.`, sys:'NFL analyst. Return exactly 2 bullet points starting with -. No markdown headers. Be specific with scores, records, player names.'},
-    {prompt:`Today is ${today}. Give me 4 bullet points covering the most interesting scores/results from last night across NBA, NHL, MLB (not involving the Knicks, Rangers, or Yankees). Be specific — include teams, scores, standout performers.`, sys:'Sports analyst. Return exactly 4 bullet points starting with -. No markdown headers. Specific scores and names.'},
-    {prompt:`Today is ${today}. Give me 3 bullet points on the biggest league news stories right now across NBA, NHL, MLB, NFL — trades, injuries, signings, controversies, anything major worth knowing today.`, sys:'Sports journalist. Return exactly 3 bullet points starting with -. No markdown headers. Be specific and punchy.'}
-  ];
-  const [knicksBrief, rangersBrief, yankeesBrief, giantsBrief, otherBrief, newsBrief] = await askSeq(sportsCalls);
+  const [r1,r2,r3,r4,r5,r6]=await askMulti([
+    {label:'Rangers',    prompt:`Rangers game data: ${teamData.rangers}. 2 bullets: last result with brief context, current record + one key note.`},
+    {label:'Knicks',     prompt:`Knicks game data: ${teamData.knicks}. 2 bullets: last result with brief context, current record + one key note.`},
+    {label:'Yankees',    prompt:`Yankees game data: ${teamData.yankees}. 2 bullets: last result with brief context, current standing + one key note.`},
+    {label:'Giants',     prompt:`Giants: ${teamData.giants}. 2 bullets: recent result/offseason news, current record + one roster note.`},
+    {label:'Highlights', prompt:`4 bullets on last night's most interesting NBA/NHL/MLB results (not Knicks/Rangers/Yankees). Teams, scores, standout performers.`},
+    {label:'LeagueNews', prompt:`3 bullets on biggest league news today across NBA/NHL/MLB/NFL — trades, injuries, signings, anything major. Specific and punchy.`}
+  ]);
 
-  const teamCards = [
-    {key:'rangers', label:'NY Rangers', cls:'rangers', brief:rangersBrief},
-    {key:'knicks',  label:'NY Knicks',  cls:'knicks',  brief:knicksBrief},
-    {key:'yankees', label:'NY Yankees', cls:'yankees', brief:yankeesBrief},
-    {key:'giants',  label:'NY Giants',  cls:'giants',  brief:giantsBrief},
+  const teamLogos={rangers:'🏒',knicks:'🏀',yankees:'⚾',giants:'🏈'};
+  const teamData2=[
+    {key:'rangers',cls:'rangers',label:'NY Rangers',  brief:r1},
+    {key:'knicks', cls:'knicks', label:'NY Knicks',   brief:r2},
+    {key:'yankees',cls:'yankees',label:'NY Yankees',  brief:r3},
+    {key:'giants', cls:'giants', label:'NY Giants',   brief:r4},
   ];
 
-  const teamLogos = {rangers:'🏒',knicks:'🏀',yankees:'⚾',giants:'🏈'};
   let html='<div class="team-grid">';
-  for(const t of teamCards){
-    const rawBullets=parseBullets(t.brief.text)||['No data available.','Check back later.'];
-    const bullets=rawBullets.map(b=>stripMd(b));
+  for(const t of teamData2){
+    const bullets=parseBullets(t.brief.text).map(b=>stripMd(b));
     html+=`<div class="team-card ${t.cls}">
-      <div class="team-logo">${teamLogos[t.key]||'🏆'}</div>
+      <div class="team-logo">${teamLogos[t.key]}</div>
       <div class="team-name">${t.label}</div>
       <ul class="bullets" style="gap:7px">
-        ${bullets.slice(0,2).map(b=>`<li class="bullet" style="font-size:11px">${b}</li>`).join('')}
+        ${bullets.slice(0,2).map(b=>`<li class="bullet" style="font-size:11.5px">${b}</li>`).join('')}
       </ul>
     </div>`;
   }
   html+='</div>';
-
-  html+=bulletBlock("Last Night's Highlights", otherBrief.text, otherBrief.error, 'blue');
-  html+=bulletBlock('League News', newsBrief.text, newsBrief.error, 'green');
-
+  html+=bulletBlock("Last Night's Highlights",r5.text,r5.error,'blue');
+  html+=bulletBlock('League News',r6.text,r6.error,'green');
   el.innerHTML=html;
 }
 
-// ─── MARKETS ─────────────────────────────────────────
-async function loadMarkets(e) {
-  if(e){if(e.type==='touchend')e.preventDefault();}
-  loaded.markets=true;
+// ── MARKETS ──────────────────────────────────────────────
+async function loadMarkets() {
   const el=document.getElementById('markets-content');
-  el.innerHTML=loadingHTML('Fetching data');
-
-  // Macro tickers
-  const macroTickers=[
-    {ticker:'SPY',   label:'S&P 500'},
-    {ticker:'QQQ',   label:'Nasdaq 100'},
-    {ticker:'BTC-USD',label:'Bitcoin'},
-    {ticker:'^TNX',  label:'10Y Yield'},
-    {ticker:'GLD',   label:'Gold'},
-    {ticker:'DXY',   label:'DXY'},
-  ];
-
-  // Stock tickers
-  const stockTickers=[
-    {ticker:'AAPL',  label:'Apple',   sym:'AAPL'},
-    {ticker:'NVDA',  label:'Nvidia',  sym:'NVDA'},
-    {ticker:'MSFT',  label:'Microsoft',sym:'MSFT'},
-    {ticker:'AMZN',  label:'Amazon',  sym:'AMZN'},
-    {ticker:'META',  label:'Meta',    sym:'META'},
-    {ticker:'GOOGL', label:'Google',  sym:'GOOGL'},
-  ];
-
-  const [macroData, stockData] = await Promise.all([
-    Promise.all(macroTickers.map(async t=>({...t,...(await fetchPrice(t.ticker)||{price:'—',pct:'—',dir:'neutral'})}))),
-    Promise.all(stockTickers.map(async t=>({...t,...(await fetchPrice(t.ticker)||{price:'—',pct:'—',dir:'neutral'})})))
+  const macroTickers=[{t:'SPY',l:'S&P 500'},{t:'QQQ',l:'Nasdaq 100'},{t:'BTC-USD',l:'Bitcoin'},{t:'^TNX',l:'10Y Yield'},{t:'GLD',l:'Gold'},{t:'DXY',l:'DXY'}];
+  const stockTickers=[{t:'AAPL',s:'AAPL',l:'Apple'},{t:'NVDA',s:'NVDA',l:'Nvidia'},{t:'MSFT',s:'MSFT',l:'Microsoft'},{t:'AMZN',s:'AMZN',l:'Amazon'},{t:'META',s:'META',l:'Meta'},{t:'GOOGL',s:'GOOGL',l:'Google'}];
+  const [macroData,stockData]=await Promise.all([
+    Promise.all(macroTickers.map(async t=>({...t,...(await fetchPrice(t.t)||{price:'—',pct:'—',dir:'neutral'})}))),
+    Promise.all(stockTickers.map(async t=>({...t,...(await fetchPrice(t.t)||{price:'—',pct:'—',dir:'neutral'})})))
   ]);
+  const macroSummary=macroData.map(m=>`${m.l}: ${m.price} (${m.pct})`).join(', ');
+  const stockSummary=stockData.map(s=>`${s.s}: ${s.price} (${s.pct})`).join(', ');
 
-  // Macro grid
   let html='<div class="mkt-grid">';
   macroData.forEach(m=>{
-    const dir=m.dir||'neutral';
-    const arrow=dir==='up'?'▲':dir==='down'?'▼':'';
-    html+=`<div class="mkt-card ${dir}">
-      <div class="mkt-label"><span class="mkt-arrow ${dir}">${arrow}</span>${m.label}</div>
-      <div class="mkt-price">${m.price}</div>
-      <span class="mkt-badge ${dir}">${m.pct}</span>
-      <div class="mkt-glow"></div>
-    </div>`;
+    const dir=m.dir||'neutral',arrow=dir==='up'?'▲':dir==='down'?'▼':'';
+    html+=`<div class="mkt-card ${dir}"><div class="mkt-label"><span class="mkt-arrow ${dir}">${arrow}</span>${m.l}</div><div class="mkt-price">${m.price}</div><span class="mkt-badge ${dir}">${m.pct}</span><div class="mkt-glow"></div></div>`;
   });
   html+='</div>';
-
-  // Stock rows
   html+=`<div class="subhead">Mag 6</div>`;
   stockData.forEach(s=>{
-    const dir=s.dir||'neutral';
-    const arrow=dir==='up'?'▲':dir==='down'?'▼':'–';
-    html+=`<div class="stock-row ${dir}">
-      <div class="stock-left">
-        <span class="stock-arrow ${dir}">${arrow}</span>
-        <div class="stock-info">
-          <div class="stock-sym">${s.sym}</div>
-          <div class="stock-name">${s.label}</div>
-        </div>
-      </div>
-      <div class="stock-right">
-        <div class="stock-price">${s.price}</div>
-        <span class="stock-badge ${dir}">${s.pct}</span>
-      </div>
-    </div>`;
+    const dir=s.dir||'neutral',arrow=dir==='up'?'▲':dir==='down'?'▼':'–';
+    html+=`<div class="stock-row ${dir}"><div class="stock-left"><span class="stock-arrow ${dir}">${arrow}</span><div class="stock-info"><div class="stock-sym">${s.s}</div><div class="stock-name">${s.l}</div></div></div><div class="stock-right"><div class="stock-price">${s.price}</div><span class="stock-badge ${dir}">${s.pct}</span></div></div>`;
   });
 
-  // AI brief
-  const today=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
-  const macroSummary=macroData.map(m=>`${m.label}: ${m.price} (${m.pct})`).join(', ');
-  const stockSummary=stockData.map(s=>`${s.sym}: ${s.price} (${s.pct})`).join(', ');
+  const [mb,sb,wb]=await askMulti([
+    {label:'Macro',    prompt:`Macro: ${macroSummary}. 3 bullets on what's driving today's moves — Fed, rates, geopolitics, or economic data.`},
+    {label:'Equities', prompt:`Mag 6: ${stockSummary}. 3 bullets on most notable moves — outperformers/underperformers and why. Include earnings or news context.`},
+    {label:'Watch',    prompt:`Markets: ${macroSummary}. 3 bullets on what to watch today — data releases, Fed speakers, earnings reports, geopolitical events.`}
+  ]);
 
-  const mktCalls = [
-    {prompt:`Today is ${today}. Macro data: ${macroSummary}. Give me 3 bullet points on what's driving the macro moves today — be specific about Fed, rates, geopolitics, or economic data. No fluff.`, sys:'Sharp macro strategist. Return exactly 3 bullet points starting with -. Be specific. No markdown headers.'},
-    {prompt:`Today is ${today}. Mag 6 data: ${stockSummary}. Give me 3 bullet points on the most notable stock moves — which are outperforming/underperforming and why. Include earnings, news, or sector context.`, sys:'Equity analyst. Return exactly 3 bullet points starting with -. Be specific with numbers. No markdown headers.'},
-    {prompt:`Today is ${today}. Macro: ${macroSummary}. Give me 3 bullet points on what to watch today — upcoming data releases, Fed speakers, earnings reports, geopolitical events that could move markets.`, sys:'Market strategist. Return exactly 3 bullet points starting with -. Be specific and actionable. No markdown headers.'}
-  ];
-  const [macroBrief, stockBrief, watchBrief] = await askSeq(mktCalls);
-
-  html+=`<div class="rule"></div>`;
-  html+=bulletBlock('Macro Brief', macroBrief.text, macroBrief.error, 'blue');
-  html+=bulletBlock('Equities', stockBrief.text, stockBrief.error, 'green');
-  html+=bulletBlock('What To Watch Today', watchBrief.text, watchBrief.error);
-
+  html+=`<hr class="nl-rule">`;
+  html+=bulletBlock('Macro Brief',mb.text,mb.error,'blue');
+  html+=bulletBlock('Equities',sb.text,sb.error,'green');
+  html+=bulletBlock('What To Watch',wb.text,wb.error,'gold');
   el.innerHTML=html;
 }
 
-// ─── WEATHER ─────────────────────────────────────────
-async function loadWeather(e) {
-  if(e){if(e.type==='touchend')e.preventDefault();}
-  loaded.weather=true;
+// ── WEATHER ──────────────────────────────────────────────
+async function loadWeather() {
   const el=document.getElementById('weather-content');
-  el.innerHTML=loadingHTML('Loading');
   let wd=null;
-  try{wd=await(await fetch(`https://api.open-meteo.com/v1/forecast?latitude=40.7128&longitude=-74.0060&current=temperature_2m,apparent_temperature,weathercode,windspeed_10m,relative_humidity_2m,precipitation&daily=temperature_2m_max,temperature_2m_min,weathercode,precipitation_sum&timezone=America%2FNew_York&temperature_unit=fahrenheit&windspeed_unit=mph&forecast_days=4`)).json();}catch(err){}
-  if(!wd){el.innerHTML=`<div class="err">Weather unavailable. Try refreshing.</div>`;return;}
-
+  try{wd=await(await fetch(`https://api.open-meteo.com/v1/forecast?latitude=40.7128&longitude=-74.0060&current=temperature_2m,apparent_temperature,weathercode,windspeed_10m,relative_humidity_2m,precipitation&daily=temperature_2m_max,temperature_2m_min,weathercode,precipitation_sum&timezone=America%2FNew_York&temperature_unit=fahrenheit&windspeed_unit=mph&forecast_days=4`)).json();}catch(e){}
+  if(!wd){el.innerHTML=`<div class="err">Weather unavailable.</div>`;return;}
   const cur=wd.current,daily=wd.daily;
   const temp=Math.round(cur.temperature_2m),feels=Math.round(cur.apparent_temperature);
   const wind=Math.round(cur.windspeed_10m),hum=cur.relative_humidity_2m;
   const icon=wIcon(cur.weathercode),desc=wDesc(cur.weathercode);
-  const days=['Today','Tomorrow','Day 3'];
-
-  let fc=`<div class="subhead">4-Day Outlook</div><div class="fc-row" style="grid-template-columns:1fr 1fr 1fr 1fr">`;
+  const dnames=['Today','Tomorrow','Day 3'];
+  let fc=`<div class="fc-row">`;
   for(let i=0;i<4&&i<daily.time.length;i++){
-    const dn=i<3?days[i]:new Date(daily.time[i]+'T12:00:00').toLocaleDateString('en-US',{weekday:'short'});
-    fc+=`<div class="fc-card">
-      <div class="fc-day">${dn}</div>
-      <div class="fc-icon">${wIcon(daily.weathercode[i])}</div>
-      <div class="fc-hi">${Math.round(daily.temperature_2m_max[i])}°</div>
-      <div class="fc-lo">${Math.round(daily.temperature_2m_min[i])}°</div>
-    </div>`;
+    const dn=i<3?dnames[i]:new Date(daily.time[i]+'T12:00:00').toLocaleDateString('en-US',{weekday:'short'});
+    fc+=`<div class="fc-card"><div class="fc-day">${dn}</div><div class="fc-icon">${wIcon(daily.weathercode[i])}</div><div class="fc-hi">${Math.round(daily.temperature_2m_max[i])}°</div><div class="fc-lo">${Math.round(daily.temperature_2m_min[i])}°</div></div>`;
   }
   fc+='</div>';
-
-  const today=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
-  const wxBrief=await ask(
-    `Today is ${today}. NYC weather: ${temp}°F, feels ${feels}°F, ${desc}, wind ${wind}mph, humidity ${hum}%. High ${Math.round(daily.temperature_2m_max[0])}°, low ${Math.round(daily.temperature_2m_min[0])}°. Precip chance: ${daily.precipitation_sum?.[0]}" today. Give me 3 bullet points: (1) what to expect today, (2) what to wear/bring, (3) anything notable in the 4-day outlook.`,
-    'NYC weather analyst. Return exactly 3 bullet points starting with -. Practical and specific. No markdown headers.'
-  );
-
-  el.innerHTML=`<div class="wx-hero">
-    <div>
-      <div class="wx-temp">${temp}<span class="wx-deg">°F</span></div>
-      <div class="wx-desc">${desc}</div>
-      <div class="wx-feels">Feels like ${feels}° · New York City</div>
-    </div>
-    <div class="wx-icon">${icon}</div>
-  </div>
-  <div class="wx-stats">
-    <div class="wx-stat"><div class="wx-sl">Wind</div><div class="wx-sv">${wind} mph</div></div>
-    <div class="wx-stat"><div class="wx-sl">Humidity</div><div class="wx-sv">${hum}%</div></div>
-    <div class="wx-stat"><div class="wx-sl">Precip</div><div class="wx-sv">${cur.precipitation}"</div></div>
-  </div>`+fc+`<div class="rule"></div>`+bulletBlock('Weather Brief',wxBrief.text,wxBrief.error);
+  const [wb]=await askMulti([
+    {label:'Weather',prompt:`NYC: ${temp}F feels ${feels}F, ${desc}, wind ${wind}mph, humidity ${hum}%. High ${Math.round(daily.temperature_2m_max[0])}, low ${Math.round(daily.temperature_2m_min[0])}. 3 bullets: (1) what to expect today, (2) what to wear/bring, (3) notable outlook this week.`}
+  ]);
+  el.innerHTML=`<div class="wx-hero"><div><div class="wx-temp">${temp}<span class="wx-deg">°F</span></div><div class="wx-desc">${desc}</div><div class="wx-feels">Feels like ${feels}° · New York City</div></div><div class="wx-icon">${icon}</div></div>
+  <div class="wx-stats"><div class="wx-stat"><div class="wx-sl">Wind</div><div class="wx-sv">${wind} mph</div></div><div class="wx-stat"><div class="wx-sl">Humidity</div><div class="wx-sv">${hum}%</div></div><div class="wx-stat"><div class="wx-sl">Precip</div><div class="wx-sv">${cur.precipitation}"</div></div></div>`
+  +fc+bulletBlock('Weather Brief',wb.text,wb.error,'sky');
 }
-
 function wIcon(c){if(c===0)return'☀️';if([1,2].includes(c))return'🌤';if(c===3)return'☁️';if([45,48].includes(c))return'🌫';if([51,53,55,61,63,65,80,81,82].includes(c))return'🌧';if([71,73,75,77,85,86].includes(c))return'❄️';if([95,96,99].includes(c))return'⛈';return'🌡';}
 function wDesc(c){return({0:'Clear',1:'Mostly Clear',2:'Partly Cloudy',3:'Overcast',45:'Foggy',48:'Foggy',51:'Light Drizzle',53:'Drizzle',55:'Heavy Drizzle',61:'Light Rain',63:'Rain',65:'Heavy Rain',71:'Light Snow',73:'Snow',75:'Heavy Snow',80:'Showers',81:'Showers',82:'Heavy Showers',95:'Thunderstorm',96:'Thunderstorm',99:'Thunderstorm'})[c]||'Variable';}
 
-// ─── REAL ESTATE ─────────────────────────────────────
-async function loadRealEstate(e) {
-  if(e){if(e.type==='touchend')e.preventDefault();}
-  loaded.realestate=true;
+// ── REAL ESTATE ──────────────────────────────────────────
+async function loadRealEstate() {
   const el=document.getElementById('realestate-content');
-  el.innerHTML=loadingHTML('Generating brief');
-  const today=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
-
-  const reCalls = [
-    {prompt:`Today is ${today}. You are briefing a CRE portfolio manager at a real estate investment firm. Give me 3 bullet points on: notable CRE deal flow, distressed assets, notable transactions or defaults this week across office, multifamily, retail, industrial. Be specific with dollar amounts, property types, markets where possible.`, sys:'CRE market analyst. Return exactly 3 bullet points starting with -. Institutional tone. Specific. No markdown headers.'},
-    {prompt:`Today is ${today}. Give me 3 bullet points on: current cap rate environment across major asset classes (office, multifamily, industrial, retail), current SOFR rate and direction, CRE financing conditions and lender appetite. Be specific with numbers.`, sys:'CRE finance analyst. Return exactly 3 bullet points starting with -. Institutional tone. Include actual rate figures. No markdown headers.'},
-    {prompt:`Today is ${today}. Give me 3 bullet points on: (1) NYC office market — vacancy, sublease trends, notable leases, (2) multifamily market conditions — rent trends, supply pipeline, (3) any notable retail or industrial trends. Be specific.`, sys:'CRE market analyst. Return exactly 3 bullet points starting with -. Institutional tone. NYC-focused. No markdown headers.'},
-    {prompt:`Today is ${today}. Give me 3 bullet points on: notable REIT performance this week, any REIT earnings or guidance news, and any sector rotation or institutional flow into/out of real estate. Be specific with REIT names and % moves.`, sys:'REIT analyst. Return exactly 3 bullet points starting with -. Specific with names and numbers. No markdown headers.'},
-    {prompt:`Today is ${today}. Give me 3 bullet points on: (1) latest Fed commentary and what it means for real estate, (2) 10-year treasury direction and CRE spread implications, (3) any macro risks or tailwinds for CRE in the next 30-60 days.`, sys:'Macro/CRE strategist. Return exactly 3 bullet points starting with -. Institutional tone. Specific. No markdown headers.'}
-  ];
-  const [dealBrief,capBrief,trendBrief,reitBrief,macroBrief]=await askSeq(reCalls);
-
+  const [d1,d2,d3,d4,d5]=await askMulti([
+    {label:'Deals',    prompt:`CRE deal flow for a portfolio manager: 3 bullets on notable transactions, distressed assets, defaults this week — office/multifamily/retail/industrial. Specific with dollar amounts and markets.`},
+    {label:'CapRates', prompt:`3 bullets: cap rate environment across office/multifamily/industrial/retail, current SOFR rate and direction, CRE financing conditions and lender appetite. Include actual numbers.`},
+    {label:'Trends',   prompt:`3 bullets: (1) NYC office vacancy/sublease/notable leases, (2) multifamily rent trends/supply pipeline, (3) notable retail or industrial trends. NYC-focused.`},
+    {label:'REITs',    prompt:`3 bullets: notable REIT performance this week, REIT earnings/guidance news, sector rotation or flows into/out of real estate. Specific REIT names and % moves.`},
+    {label:'Macro',    prompt:`3 bullets: (1) Fed commentary and real estate implications, (2) 10Y treasury direction and CRE spread implications, (3) macro risks or tailwinds for CRE next 30-60 days.`}
+  ]);
   const sections=[
-    {icon:'🏢',cls:'deal',  scls:'deal-s', label:'CRE Deal Flow & Distress', brief:dealBrief},
-    {icon:'📊',cls:'cap',   scls:'cap-s',  label:'Cap Rates & Financing',    brief:capBrief},
-    {icon:'🏙',cls:'trend', scls:'trend-s',label:'Multifamily & Office',     brief:trendBrief},
-    {icon:'📈',cls:'reit',  scls:'reit-s', label:'REIT Watch',               brief:reitBrief},
-    {icon:'🏦',cls:'macro', scls:'macro-s',label:'Macro: Fed & Rates',       brief:macroBrief},
+    {icon:'🏢',cls:'deal', scls:'deal-s', label:'CRE Deal Flow & Distress',brief:d1},
+    {icon:'📊',cls:'cap',  scls:'cap-s',  label:'Cap Rates & Financing',   brief:d2},
+    {icon:'🏙',cls:'trend',scls:'trend-s',label:'Multifamily & Office',    brief:d3},
+    {icon:'📈',cls:'reit', scls:'reit-s', label:'REIT Watch',              brief:d4},
+    {icon:'🏦',cls:'macro',scls:'macro-s',label:'Macro: Fed & Rates',      brief:d5},
   ];
-
   let html='';
   for(const s of sections){
-    const rawB=parseBullets(s.brief.text)||['Data unavailable — check API key or refresh.'];
-    const bullets=rawB.map(b=>stripMd(b));
-    html+=`<div class="cre-section ${s.scls}">
-      <div class="cre-header">
-        <div class="cre-icon ${s.cls}">${s.icon}</div>
-        <div class="cre-label">${s.label}</div>
-      </div>
-      <div class="cre-body">
-        <ul class="bullets">${bullets.map(b=>`<li class="bullet">${b}</li>`).join('')}</ul>
-      </div>
-    </div>`;
+    const bullets=parseBullets(s.brief.text).map(b=>stripMd(b));
+    const fallback=['Data unavailable — try refreshing.'];
+    const items=(bullets.length?bullets:fallback).map(b=>`<li class="bullet">${b}</li>`).join('');
+    html+=`<div class="cre-section ${s.scls}"><div class="cre-header"><div class="cre-icon ${s.cls}">${s.icon}</div><div class="cre-label">${s.label}</div></div><div class="cre-body"><ul class="bullets">${items}</ul></div></div>`;
   }
   el.innerHTML=html;
 }
 
-// ─── AI NEWS ─────────────────────────────────────────
-async function loadAINews(e) {
-  if(e){if(e.type==='touchend')e.preventDefault();}
-  loaded.ainews=true;
+// ── AI NEWS ──────────────────────────────────────────────
+async function loadAINews() {
   const el=document.getElementById('ainews-content');
-  el.innerHTML=loadingHTML('Generating brief');
-  const today=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
-  const aiCalls = [
-    {prompt:`Today is ${today}. Give me 4 bullet points on the biggest AI model/product news this week — new releases, announcements, or updates from OpenAI, Anthropic, Google, Meta, Mistral, xAI, or other labs. Be specific with model names, capabilities, and what it means.`, sys:'AI industry journalist. Return exactly 4 bullet points starting with -. Be specific with product names and company names. No markdown headers.'},
-    {prompt:`Today is ${today}. Give me 3 bullet points on AI in enterprise and industry — notable deployments, partnerships, or enterprise AI deals this week. Include company names and sectors.`, sys:'AI industry analyst. Return exactly 3 bullet points starting with -. Specific with names. No markdown headers.'},
-    {prompt:`Today is ${today}. Give me 3 bullet points on AI policy, regulation, and the broader strategic landscape — government actions, EU AI Act, chip controls, safety developments, or geopolitical AI competition (US vs China).`, sys:'AI policy analyst. Return exactly 3 bullet points starting with -. Specific and factual. No markdown headers.'}
-  ];
-  const [b1,b2,b3]=await askSeq(aiCalls);
+  const [b1,b2,b3]=await askMulti([
+    {label:'Models',     prompt:`4 bullets on biggest AI model/product news this week from OpenAI, Anthropic, Google, Meta, Mistral, xAI. Specific model names, capabilities, significance.`},
+    {label:'Enterprise', prompt:`3 bullets on AI in enterprise — notable deployments, partnerships, deals this week. Specific companies and sectors.`},
+    {label:'Policy',     prompt:`3 bullets on AI policy and strategy — government actions, EU AI Act, chip controls, safety, US vs China AI competition. Factual and specific.`}
+  ]);
   el.innerHTML=bulletBlock('Model & Product News',b1.text,b1.error,'purple')+bulletBlock('Enterprise & Industry',b2.text,b2.error,'blue')+bulletBlock('Policy & Strategy',b3.text,b3.error,'green');
 }
 
-// ─── POLITICS ────────────────────────────────────────
-async function loadPolitics(e) {
-  if(e){if(e.type==='touchend')e.preventDefault();}
-  loaded.politics=true;
+// ── POLITICS ─────────────────────────────────────────────
+async function loadPolitics() {
   const el=document.getElementById('politics-content');
-  el.innerHTML=loadingHTML('Generating brief');
-  const today=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
-  const polCalls = [
-    {prompt:`Today is ${today}. Give me 4 bullet points on the most significant domestic political developments — legislation, executive actions, congressional activity, or major political news. Factual and neutral. Be specific with bill names, people, and outcomes.`, sys:'Nonpartisan political journalist. Return exactly 4 bullet points starting with -. Factual, no opinion or bias. No markdown headers.'},
-    {prompt:`Today is ${today}. Give me 3 bullet points on the most important geopolitical stories today — active conflicts, diplomatic developments, elections, or major international policy shifts. Be specific with countries and stakes.`, sys:'Foreign policy analyst. Return exactly 3 bullet points starting with -. Factual and specific. No markdown headers.'},
-    {prompt:`Today is ${today}. Give me 3 bullet points on economic policy developments — fiscal policy, trade, tariffs, sanctions, or Treasury/Fed actions that have political dimensions this week.`, sys:'Economic policy analyst. Return exactly 3 bullet points starting with -. Factual. Specific. No markdown headers.'}
-  ];
-  const [b1,b2,b3]=await askSeq(polCalls);
-  el.innerHTML=bulletBlock('Washington',b1.text,b1.error,'red')+bulletBlock('Global Watch',b2.text,b2.error,'blue')+bulletBlock('Economic Policy',b3.text,b3.error);
+  const [b1,b2,b3]=await askMulti([
+    {label:'Washington',  prompt:`4 bullets on biggest domestic political developments — legislation, executive actions, congressional news. Factual, neutral, specific with names and bills.`},
+    {label:'Global',      prompt:`3 bullets on top geopolitical stories — conflicts, diplomatic developments, elections, policy shifts. Specific countries and stakes.`},
+    {label:'EconPolicy',  prompt:`3 bullets on economic policy — trade, tariffs, sanctions, Treasury/Fed actions with political dimensions this week. Factual.`}
+  ]);
+  el.innerHTML=bulletBlock('Washington',b1.text,b1.error,'red')+bulletBlock('Global Watch',b2.text,b2.error,'blue')+bulletBlock('Economic Policy',b3.text,b3.error,'gold');
 }
 
 init();
