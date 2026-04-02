@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Morning Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --surface2: #181818;
+    --border: #222222;
+    --accent: #c8a96e;
+    --accent2: #e8c97e;
+    --text: #e8e8e0;
+    --muted: #666660;
+    --dim: #333330;
+    --green: #4ade80;
+    --red: #f87171;
+    --blue: #60a5fa;
+  }
+
+- { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+body {
+background: var(–bg);
+color: var(–text);
+font-family: ‘DM Sans’, sans-serif;
+min-height: 100vh;
+min-height: -webkit-fill-available;
+overflow-x: hidden;
+}
+
+/* HEADER */
+.header {
+padding: 52px 24px 0;
+position: relative;
+}
+
+.header-top {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+margin-bottom: 4px;
+}
+
+.date-line {
+font-family: ‘DM Mono’, monospace;
+font-size: 10px;
+letter-spacing: 0.18em;
+color: var(–accent);
+text-transform: uppercase;
+}
+
+.edition-badge {
+font-family: ‘DM Mono’, monospace;
+font-size: 9px;
+letter-spacing: 0.14em;
+color: var(–muted);
+text-transform: uppercase;
+border: 1px solid var(–dim);
+padding: 3px 8px;
+border-radius: 2px;
+}
+
+.masthead {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(36px, 9vw, 56px);
+font-weight: 900;
+line-height: 0.9;
+letter-spacing: -0.02em;
+color: var(–text);
+margin-bottom: 6px;
+}
+
+.masthead span {
+color: var(–accent);
+}
+
+.tagline {
+font-size: 11px;
+color: var(–muted);
+letter-spacing: 0.06em;
+font-weight: 300;
+border-top: 1px solid var(–dim);
+padding-top: 10px;
+margin-top: 10px;
+}
+
+/* TABS */
+.tabs-wrapper {
+overflow-x: auto;
+-webkit-overflow-scrolling: touch;
+scrollbar-width: none;
+padding: 20px 24px 0;
+position: sticky;
+top: 0;
+z-index: 100;
+background: linear-gradient(to bottom, var(–bg) 85%, transparent);
+}
+.tabs-wrapper::-webkit-scrollbar { display: none; }
+
+.tabs {
+display: flex;
+gap: 4px;
+white-space: nowrap;
+padding-bottom: 16px;
+}
+
+.tab {
+font-family: ‘DM Mono’, monospace;
+font-size: 10px;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+padding: 7px 14px;
+border-radius: 2px;
+border: 1px solid var(–dim);
+color: var(–muted);
+background: transparent;
+cursor: pointer;
+transition: all 0.15s ease;
+user-select: none;
+}
+
+.tab.active {
+background: var(–accent);
+color: #0a0a0a;
+border-color: var(–accent);
+font-weight: 500;
+}
+
+.tab:active { opacity: 0.7; }
+
+/* CONTENT */
+.content {
+padding: 8px 24px 100px;
+}
+
+.panel { display: none; }
+.panel.active { display: block; animation: fadeUp 0.3s ease; }
+
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(8px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+/* SECTION HEADER */
+.section-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 16px;
+padding-bottom: 10px;
+border-bottom: 1px solid var(–dim);
+}
+
+.section-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 22px;
+font-weight: 700;
+color: var(–text);
+}
+
+.refresh-btn {
+font-family: ‘DM Mono’, monospace;
+font-size: 9px;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+color: var(–accent);
+background: transparent;
+border: 1px solid var(–dim);
+padding: 5px 10px;
+border-radius: 2px;
+cursor: pointer;
+transition: all 0.15s;
+}
+.refresh-btn:active { opacity: 0.6; }
+
+/* LIVE DATA BLOCKS */
+.live-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 10px;
+margin-bottom: 20px;
+}
+
+.live-card {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 4px;
+padding: 14px;
+}
+
+.live-card-label {
+font-family: ‘DM Mono’, monospace;
+font-size: 9px;
+letter-spacing: 0.14em;
+color: var(–muted);
+text-transform: uppercase;
+margin-bottom: 6px;
+}
+
+.live-card-value {
+font-family: ‘DM Mono’, monospace;
+font-size: 20px;
+font-weight: 500;
+color: var(–text);
+line-height: 1;
+}
+
+.live-card-change {
+font-family: ‘DM Mono’, monospace;
+font-size: 11px;
+margin-top: 4px;
+}
+
+.up { color: var(–green); }
+.down { color: var(–red); }
+.neutral { color: var(–muted); }
+
+/* AI BRIEF BLOCK */
+.brief-block {
+background: var(–surface);
+border: 1px solid var(–border);
+border-left: 3px solid var(–accent);
+border-radius: 4px;
+padding: 18px;
+margin-bottom: 16px;
+}
+
+.brief-label {
+font-family: ‘DM Mono’, monospace;
+font-size: 9px;
+letter-spacing: 0.16em;
+color: var(–accent);
+text-transform: uppercase;
+margin-bottom: 12px;
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.brief-label::after {
+content: ‘’;
+flex: 1;
+height: 1px;
+background: var(–dim);
+}
+
+.brief-text {
+font-size: 14px;
+line-height: 1.75;
+color: var(–text);
+font-weight: 300;
+}
+
+.brief-text p { margin-bottom: 10px; }
+.brief-text p:last-child { margin-bottom: 0; }
+
+/* SCORE CARDS */
+.score-card {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 4px;
+padding: 14px 16px;
+margin-bottom: 10px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.score-teams {
+font-size: 13px;
+font-weight: 500;
+color: var(–text);
+}
+
+.score-meta {
+font-family: ‘DM Mono’, monospace;
+font-size: 10px;
+color: var(–muted);
+margin-top: 3px;
+}
+
+.score-value {
+font-family: ‘DM Mono’, monospace;
+font-size: 18px;
+font-weight: 500;
+color: var(–accent);
+text-align: right;
+}
+
+.score-status {
+font-family: ‘DM Mono’, monospace;
+font-size: 9px;
+color: var(–muted);
+text-align: right;
+margin-top: 3px;
+}
+
+/* WEATHER */
+.weather-hero {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 4px;
+padding: 24px;
+margin-bottom: 16px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.weather-temp {
+font-family: ‘Playfair Display’, serif;
+font-size: 64px;
+font-weight: 900;
+color: var(–text);
+line-height: 1;
+}
+
+.weather-unit {
+font-size: 24px;
+color: var(–muted);
+}
+
+.weather-desc {
+font-size: 14px;
+color: var(–muted);
+margin-top: 4px;
+font-weight: 300;
+}
+
+.weather-icon {
+font-size: 56px;
+line-height: 1;
+}
+
+.weather-grid {
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+gap: 8px;
+margin-bottom: 16px;
+}
+
+.weather-stat {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 4px;
+padding: 12px;
+text-align: center;
+}
+
+.weather-stat-label {
+font-family: ‘DM Mono’, monospace;
+font-size: 8px;
+letter-spacing: 0.12em;
+color: var(–muted);
+text-transform: uppercase;
+margin-bottom: 4px;
+}
+
+.weather-stat-value {
+font-family: ‘DM Mono’, monospace;
+font-size: 15px;
+color: var(–text);
+font-weight: 500;
+}
+
+/* LOADING */
+.loading {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 48px 0;
+gap: 16px;
+}
+
+.loading-spinner {
+width: 28px;
+height: 28px;
+border: 2px solid var(–dim);
+border-top-color: var(–accent);
+border-radius: 50%;
+animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+to { transform: rotate(360deg); }
+}
+
+.loading-text {
+font-family: ‘DM Mono’, monospace;
+font-size: 10px;
+letter-spacing: 0.14em;
+color: var(–muted);
+text-transform: uppercase;
+}
+
+/* ERROR */
+.error-block {
+background: var(–surface);
+border: 1px solid #3a1515;
+border-left: 3px solid var(–red);
+border-radius: 4px;
+padding: 16px;
+font-family: ‘DM Mono’, monospace;
+font-size: 11px;
+color: var(–red);
+line-height: 1.6;
+}
+
+/* API KEY INPUT */
+.api-setup {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 4px;
+padding: 24px;
+margin-bottom: 20px;
+}
+
+.api-setup-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 18px;
+margin-bottom: 8px;
+color: var(–text);
+}
+
+.api-setup-desc {
+font-size: 12px;
+color: var(–muted);
+margin-bottom: 16px;
+line-height: 1.6;
+}
+
+.api-input-row {
+display: flex;
+gap: 8px;
+}
+
+.api-input {
+flex: 1;
+background: var(–bg);
+border: 1px solid var(–dim);
+border-radius: 3px;
+padding: 10px 14px;
+font-family: ‘DM Mono’, monospace;
+font-size: 12px;
+color: var(–text);
+outline: none;
+}
+
+.api-input:focus { border-color: var(–accent); }
+
+.api-save-btn {
+background: var(–accent);
+color: #0a0a0a;
+border: none;
+border-radius: 3px;
+padding: 10px 18px;
+font-family: ‘DM Mono’, monospace;
+font-size: 11px;
+font-weight: 500;
+letter-spacing: 0.08em;
+cursor: pointer;
+white-space: nowrap;
+}
+
+.api-save-btn:active { opacity: 0.7; }
+
+/* DIVIDER */
+.rule {
+border: none;
+border-top: 1px solid var(–dim);
+margin: 20px 0;
+}
+
+/* SUBHEADING */
+.subhead {
+font-family: ‘DM Mono’, monospace;
+font-size: 9px;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: var(–muted);
+margin-bottom: 12px;
+margin-top: 20px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="date-line" id="dateLine">—</div>
+    <div class="edition-badge">Morning Edition</div>
+  </div>
+  <div class="masthead">Morning<br><span>Brief</span></div>
+  <div class="tagline">Your daily intelligence — markets · sports · weather · world</div>
+</div>
+
+<div class="tabs-wrapper">
+  <div class="tabs" id="tabs">
+    <div class="tab active" ontouchend="switchTab(event,'sports')" onclick="switchTab(event,'sports')">Sports</div>
+    <div class="tab" ontouchend="switchTab(event,'markets')" onclick="switchTab(event,'markets')">Markets</div>
+    <div class="tab" ontouchend="switchTab(event,'weather')" onclick="switchTab(event,'weather')">Weather</div>
+    <div class="tab" ontouchend="switchTab(event,'realestate')" onclick="switchTab(event,'realestate')">Real Estate</div>
+    <div class="tab" ontouchend="switchTab(event,'ainews')" onclick="switchTab(event,'ainews')">AI News</div>
+    <div class="tab" ontouchend="switchTab(event,'politics')" onclick="switchTab(event,'politics')">Politics</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- API KEY SETUP (shown if no key) -->
+
+  <div id="apiSetup" class="api-setup" style="display:none;">
+    <div class="api-setup-title">Enter your Gemini API Key</div>
+    <div class="api-setup-desc">Required for AI-generated briefs. Free at aistudio.google.com — no credit card needed. Your key is stored locally on this device only.</div>
+    <div class="api-input-row">
+      <input class="api-input" id="apiKeyInput" type="password" placeholder="AIza..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      <button class="api-save-btn" ontouchend="saveApiKey(event)" onclick="saveApiKey(event)">Save</button>
+    </div>
+  </div>
+
+  <!-- SPORTS -->
+
+  <div class="panel active" id="panel-sports">
+    <div class="section-header">
+      <div class="section-title">Sports</div>
+      <button class="refresh-btn" ontouchend="loadSports(event)" onclick="loadSports(event)">↻ Refresh</button>
+    </div>
+    <div id="sports-content"><div class="loading"><div class="loading-spinner"></div><div class="loading-text">Loading scores...</div></div></div>
+  </div>
+
+  <!-- MARKETS -->
+
+  <div class="panel" id="panel-markets">
+    <div class="section-header">
+      <div class="section-title">Markets</div>
+      <button class="refresh-btn" ontouchend="loadMarkets(event)" onclick="loadMarkets(event)">↻ Refresh</button>
+    </div>
+    <div id="markets-content"><div class="loading"><div class="loading-spinner"></div><div class="loading-text">Fetching data...</div></div></div>
+  </div>
+
+  <!-- WEATHER -->
+
+  <div class="panel" id="panel-weather">
+    <div class="section-header">
+      <div class="section-title">Weather</div>
+      <button class="refresh-btn" ontouchend="loadWeather(event)" onclick="loadWeather(event)">↻ Refresh</button>
+    </div>
+    <div id="weather-content"><div class="loading"><div class="loading-spinner"></div><div class="loading-text">Getting conditions...</div></div></div>
+  </div>
+
+  <!-- REAL ESTATE -->
+
+  <div class="panel" id="panel-realestate">
+    <div class="section-header">
+      <div class="section-title">Real Estate</div>
+      <button class="refresh-btn" ontouchend="loadRealEstate(event)" onclick="loadRealEstate(event)">↻ Refresh</button>
+    </div>
+    <div id="realestate-content"><div class="loading"><div class="loading-spinner"></div><div class="loading-text">Generating brief...</div></div></div>
+  </div>
+
+  <!-- AI NEWS -->
+
+  <div class="panel" id="panel-ainews">
+    <div class="section-header">
+      <div class="section-title">AI News</div>
+      <button class="refresh-btn" ontouchend="loadAINews(event)" onclick="loadAINews(event)">↻ Refresh</button>
+    </div>
+    <div id="ainews-content"><div class="loading"><div class="loading-spinner"></div><div class="loading-text">Generating brief...</div></div></div>
+  </div>
+
+  <!-- POLITICS -->
+
+  <div class="panel" id="panel-politics">
+    <div class="section-header">
+      <div class="section-title">Politics</div>
+      <button class="refresh-btn" ontouchend="loadPolitics(event)" onclick="loadPolitics(event)">↻ Refresh</button>
+    </div>
+    <div id="politics-content"><div class="loading"><div class="loading-spinner"></div><div class="loading-text">Generating brief...</div></div></div>
+  </div>
+
+</div>
+
+<script>
+// ─── STATE ───────────────────────────────────────────────────────
+let apiKey = localStorage.getItem('mb_gemini_key') || '';
+let currentTab = 'sports';
+let loaded = {};
+let touchMoved = false;
+
+// ─── INIT ────────────────────────────────────────────────────────
+function init() {
+  // Date
+  const now = new Date();
+  const opts = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
+  document.getElementById('dateLine').textContent = now.toLocaleDateString('en-US', opts).toUpperCase();
+
+  // API key check
+  if (!apiKey) {
+    document.getElementById('apiSetup').style.display = 'block';
+  }
+
+  loadSports();
+}
+
+// ─── API KEY ─────────────────────────────────────────────────────
+function saveApiKey(e) {
+  if (e && e.type === 'touchend') { e.preventDefault(); }
+  const val = document.getElementById('apiKeyInput').value.trim();
+  if (!val || val.length < 20) {
+    alert('That doesn\'t look like a valid Gemini API key. Get one free at aistudio.google.com.');
+    return;
+  }
+  apiKey = val;
+  localStorage.setItem('mb_gemini_key', apiKey);
+  document.getElementById('apiSetup').style.display = 'none';
+  loaded = {};
+  loadTab(currentTab);
+}
+
+// ─── TAB SWITCHING ───────────────────────────────────────────────
+function switchTab(e, tab) {
+  if (e) {
+    if (e.type === 'touchend' && touchMoved) return;
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  currentTab = tab;
+
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  e.currentTarget.classList.add('active');
+
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.add('active');
+
+  if (!loaded[tab]) loadTab(tab);
+}
+
+function loadTab(tab) {
+  const fns = {
+    sports: loadSports,
+    markets: loadMarkets,
+    weather: loadWeather,
+    realestate: loadRealEstate,
+    ainews: loadAINews,
+    politics: loadPolitics
+  };
+  if (fns[tab]) fns[tab]();
+}
+
+// ─── TOUCH SCROLL DETECTION ──────────────────────────────────────
+document.addEventListener('touchstart', () => { touchMoved = false; });
+document.addEventListener('touchmove', () => { touchMoved = true; });
+
+// ─── GEMINI API ──────────────────────────────────────────────────
+async function askGemini(prompt, systemPrompt) {
+  if (!apiKey) return null;
+  try {
+    const fullPrompt = systemPrompt ? `${systemPrompt}\n\n${prompt}` : prompt;
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: fullPrompt }] }],
+        generationConfig: { maxOutputTokens: 600, temperature: 0.7 }
+      })
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    return data.candidates?.[0]?.content?.parts?.[0]?.text || null;
+  } catch (err) {
+    console.error('Gemini error:', err);
+    return null;
+  }
+}
+
+function briefBlock(label, text) {
+  if (!text) return `<div class="error-block">AI brief unavailable — check your API key or try refreshing.</div>`;
+  const paras = text.split(/\n+/).filter(p => p.trim()).map(p => `<p>${p.trim()}</p>`).join('');
+  return `<div class="brief-block"><div class="brief-label">${label}</div><div class="brief-text">${paras}</div></div>`;
+}
+
+function loadingHTML(msg) {
+  return `<div class="loading"><div class="loading-spinner"></div><div class="loading-text">${msg}</div></div>`;
+}
+
+// ─── SPORTS ──────────────────────────────────────────────────────
+async function loadSports(e) {
+  if (e) { if (e.type === 'touchend') e.preventDefault(); }
+  loaded.sports = true;
+  const el = document.getElementById('sports-content');
+  el.innerHTML = loadingHTML('Loading scores...');
+
+  // Fetch ESPN scores for NY teams
+  let scoresHTML = '';
+  const today = new Date().toISOString().split('T')[0].replace(/-/g, '');
+
+  const leagues = [
+    { name: 'NBA', espn: 'basketball/nba', label: 'NBA' },
+    { name: 'NHL', espn: 'hockey/nhl', label: 'NHL' },
+    { name: 'MLB', espn: 'baseball/mlb', label: 'MLB' },
+    { name: 'NFL', espn: 'football/nfl', label: 'NFL' }
+  ];
+
+  const nyTeams = ['knicks','rangers','yankees','mets','giants','jets','nets','islanders'];
+
+  let allGames = [];
+
+  for (const league of leagues) {
+    try {
+      const r = await fetch(`https://site.api.espn.com/apis/site/v2/sports/${league.espn}/scoreboard`);
+      const d = await r.json();
+      const events = d.events || [];
+      for (const ev of events) {
+        const comps = ev.competitions?.[0];
+        if (!comps) continue;
+        const teams = comps.competitors || [];
+        const isNY = teams.some(t => nyTeams.some(ny => t.team?.displayName?.toLowerCase().includes(ny) || t.team?.abbreviation?.toLowerCase().includes(ny)));
+        const home = teams.find(t => t.homeAway === 'home');
+        const away = teams.find(t => t.homeAway === 'away');
+        if (!home || !away) continue;
+        const status = comps.status?.type?.shortDetail || '';
+        const completed = comps.status?.type?.completed;
+        allGames.push({ league: league.label, home, away, status, completed, isNY });
+      }
+    } catch(err) {}
+  }
+
+  // Prioritize NY games
+  const nyGames = allGames.filter(g => g.isNY);
+  const otherGames = allGames.filter(g => !g.isNY).slice(0, 3);
+  const displayGames = [...nyGames, ...otherGames].slice(0, 8);
+
+  if (displayGames.length > 0) {
+    if (nyGames.length > 0) {
+      scoresHTML += `<div class="subhead">New York Teams</div>`;
+      for (const g of nyGames) {
+        scoresHTML += gameCard(g);
+      }
+    }
+    if (otherGames.length > 0) {
+      scoresHTML += `<div class="subhead">Around the League</div>`;
+      for (const g of otherGames) {
+        scoresHTML += gameCard(g);
+      }
+    }
+  } else {
+    scoresHTML = `<div class="brief-block"><div class="brief-text"><p>No games found for today. Check back later or tap Refresh.</p></div></div>`;
+  }
+
+  // AI brief
+  const today2 = new Date().toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+  const brief = await askGemini(
+    `Today is ${today2}. Write a concise NYC sports morning briefing (3-4 sentences). Cover what's happening today and recently for the Knicks, Rangers, Yankees, and Giants. Be specific about standings, recent results, or upcoming games if you know them. Keep it sharp and editorial.`,
+    'You are a NYC sports reporter writing a crisp morning brief. No markdown. Short paragraphs only.'
+  );
+
+  el.innerHTML = scoresHTML + `<hr class="rule">` + briefBlock('AI Sports Brief', brief);
+}
+
+function gameCard(g) {
+  const homeScore = g.home.score || '—';
+  const awayScore = g.away.score || '—';
+  const homeWin = g.completed && parseInt(homeScore) > parseInt(awayScore);
+  const awayWin = g.completed && parseInt(awayScore) > parseInt(homeScore);
+  return `
+    <div class="score-card">
+      <div>
+        <div class="score-teams">${g.away.team.displayName} <span style="color:var(--muted)">@</span> ${g.home.team.displayName}</div>
+        <div class="score-meta">${g.league} · ${g.status}</div>
+      </div>
+      <div>
+        <div class="score-value">${awayScore}–${homeScore}</div>
+        <div class="score-status">${g.completed ? 'Final' : g.status}</div>
+      </div>
+    </div>`;
+}
+
+// ─── MARKETS ─────────────────────────────────────────────────────
+async function loadMarkets(e) {
+  if (e) { if (e.type === 'touchend') e.preventDefault(); }
+  loaded.markets = true;
+  const el = document.getElementById('markets-content');
+  el.innerHTML = loadingHTML('Fetching market data...');
+
+  // Use Yahoo Finance via allorigins proxy
+  const tickers = ['SPY','QQQ','BTC-USD','^TNX','GLD','DXY'];
+  const labels =  ['S&P 500','Nasdaq 100','Bitcoin','10Y Yield','Gold','DXY'];
+  let marketData = [];
+
+  for (let i = 0; i < tickers.length; i++) {
+    try {
+      const url = `https://query1.finance.yahoo.com/v8/finance/chart/${tickers[i]}?interval=1d&range=2d`;
+      const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
+      const r = await fetch(proxy);
+      const wrapper = await r.json();
+      const d = JSON.parse(wrapper.contents);
+      const meta = d.chart?.result?.[0]?.meta;
+      if (meta) {
+        const price = meta.regularMarketPrice;
+        const prev = meta.previousClose || meta.chartPreviousClose;
+        const change = price - prev;
+        const pct = ((change / prev) * 100).toFixed(2);
+        const fmt = tickers[i] === 'BTC-USD' ? price.toLocaleString('en-US', {maximumFractionDigits:0}) :
+                    tickers[i] === '^TNX' ? price.toFixed(2) + '%' :
+                    price.toFixed(2);
+        marketData.push({ label: labels[i], price: fmt, change: change >= 0 ? '+' + change.toFixed(2) : change.toFixed(2), pct: (change >= 0 ? '+' : '') + pct + '%', dir: change >= 0 ? 'up' : 'down' });
+      }
+    } catch(err) {
+      marketData.push({ label: labels[i], price: '—', change: '—', pct: '—', dir: 'neutral' });
+    }
+  }
+
+  let gridHTML = '<div class="live-grid">';
+  for (const m of marketData) {
+    gridHTML += `
+      <div class="live-card">
+        <div class="live-card-label">${m.label}</div>
+        <div class="live-card-value">${m.price}</div>
+        <div class="live-card-change ${m.dir}">${m.pct} ${m.change !== '—' ? '(' + m.change + ')' : ''}</div>
+      </div>`;
+  }
+  gridHTML += '</div>';
+
+  const today = new Date().toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+  const marketSummary = marketData.map(m => `${m.label}: ${m.price} (${m.pct})`).join(', ');
+  const brief = await askGemini(
+    `Today is ${today}. Current market data: ${marketSummary}. Write a sharp 3-4 sentence morning market brief. Comment on the moves, what's driving them, and what to watch today. Include any relevant macro context (Fed, earnings, geopolitics).`,
+    'You are a sharp financial journalist writing a crisp morning market brief. No markdown. Concise paragraphs.'
+  );
+
+  el.innerHTML = gridHTML + briefBlock('AI Market Brief', brief);
+}
+
+// ─── WEATHER ─────────────────────────────────────────────────────
+async function loadWeather(e) {
+  if (e) { if (e.type === 'touchend') e.preventDefault(); }
+  loaded.weather = true;
+  const el = document.getElementById('weather-content');
+  el.innerHTML = loadingHTML('Getting conditions...');
+
+  // NYC coordinates
+  const lat = 40.7128, lon = -74.0060;
+  let weatherData = null;
+
+  try {
+    const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,weathercode,windspeed_10m,relative_humidity_2m,precipitation&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,weathercode&timezone=America%2FNew_York&temperature_unit=fahrenheit&windspeed_unit=mph&forecast_days=3`);
+    weatherData = await r.json();
+  } catch(err) {}
+
+  if (!weatherData) {
+    el.innerHTML = `<div class="error-block">Could not load weather data. Please try refreshing.</div>`;
+    return;
+  }
+
+  const cur = weatherData.current;
+  const daily = weatherData.daily;
+  const wcode = cur.weathercode;
+  const icon = weatherIcon(wcode);
+  const desc = weatherDesc(wcode);
+  const temp = Math.round(cur.temperature_2m);
+  const feels = Math.round(cur.apparent_temperature);
+  const wind = Math.round(cur.windspeed_10m);
+  const humidity = cur.relative_humidity_2m;
+
+  const heroHTML = `
+    <div class="weather-hero">
+      <div>
+        <div class="weather-temp">${temp}<span class="weather-unit">°F</span></div>
+        <div class="weather-desc">${desc} · Feels ${feels}°</div>
+      </div>
+      <div class="weather-icon">${icon}</div>
+    </div>`;
+
+  const statsHTML = `
+    <div class="weather-grid">
+      <div class="weather-stat"><div class="weather-stat-label">Wind</div><div class="weather-stat-value">${wind} mph</div></div>
+      <div class="weather-stat"><div class="weather-stat-label">Humidity</div><div class="weather-stat-value">${humidity}%</div></div>
+      <div class="weather-stat"><div class="weather-stat-label">Precip</div><div class="weather-stat-value">${cur.precipitation}"</div></div>
+    </div>`;
+
+  // 3-day forecast
+  let forecastHTML = '<div class="subhead">3-Day Forecast</div><div class="live-grid">';
+  const days = ['Today', 'Tomorrow'];
+  for (let i = 0; i < 3 && i < daily.time.length; i++) {
+    const d = new Date(daily.time[i] + 'T12:00:00');
+    const dayName = i < 2 ? days[i] : d.toLocaleDateString('en-US', { weekday: 'short' });
+    forecastHTML += `
+      <div class="live-card" style="text-align:center;">
+        <div class="live-card-label">${dayName}</div>
+        <div style="font-size:28px;margin:4px 0;">${weatherIcon(daily.weathercode[i])}</div>
+        <div class="live-card-value" style="font-size:14px;">${Math.round(daily.temperature_2m_max[i])}° / ${Math.round(daily.temperature_2m_min[i])}°</div>
+      </div>`;
+  }
+  forecastHTML += '</div>';
+
+  const today = new Date().toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+  const brief = await askGemini(
+    `Today is ${today}. NYC weather: ${temp}°F, feels like ${feels}°F, ${desc}, wind ${wind}mph, humidity ${humidity}%. Forecast: high ${Math.round(daily.temperature_2m_max[0])}°, low ${Math.round(daily.temperature_2m_min[0])}°. Tomorrow: high ${Math.round(daily.temperature_2m_max[1])}°. Write 2-3 sentences about what to expect today — include practical advice about what to wear or bring.`,
+    'You are a sharp NYC weather reporter. Short, practical, editorial tone. No markdown.'
+  );
+
+  el.innerHTML = heroHTML + statsHTML + forecastHTML + `<hr class="rule">` + briefBlock('AI Weather Brief', brief);
+}
+
+function weatherIcon(code) {
+  if (code === 0) return '☀️';
+  if ([1,2].includes(code)) return '🌤';
+  if (code === 3) return '☁️';
+  if ([45,48].includes(code)) return '🌫';
+  if ([51,53,55,61,63,65,80,81,82].includes(code)) return '🌧';
+  if ([71,73,75,77,85,86].includes(code)) return '🌨';
+  if ([95,96,99].includes(code)) return '⛈';
+  return '🌡';
+}
+
+function weatherDesc(code) {
+  const descs = {0:'Clear sky',1:'Mostly clear',2:'Partly cloudy',3:'Overcast',45:'Foggy',48:'Foggy',51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',61:'Light rain',63:'Rain',65:'Heavy rain',71:'Light snow',73:'Snow',75:'Heavy snow',77:'Snow grains',80:'Light showers',81:'Showers',82:'Heavy showers',85:'Snow showers',86:'Heavy snow showers',95:'Thunderstorm',96:'Thunderstorm w/ hail',99:'Heavy thunderstorm'};
+  return descs[code] || 'Variable conditions';
+}
+
+// ─── REAL ESTATE ─────────────────────────────────────────────────
+async function loadRealEstate(e) {
+  if (e) { if (e.type === 'touchend') e.preventDefault(); }
+  loaded.realestate = true;
+  const el = document.getElementById('realestate-content');
+  el.innerHTML = loadingHTML('Generating brief...');
+
+  const today = new Date().toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+  const brief = await askGemini(
+    `Today is ${today}. Write a crisp morning real estate briefing covering: (1) NYC commercial and residential market conditions, (2) interest rate environment and its impact on CRE, (3) any notable deals, distress, or trends in multifamily, office, or retail, (4) one key metric or data point worth watching. 4-5 sentences total. Professional, institutional tone.`,
+    'You are a real estate market analyst writing a sharp morning brief for a professional investor. No markdown. Concise paragraphs. Institutional tone.'
+  );
+
+  const brief2 = await askGemini(
+    `Today is ${today}. Write a brief on national real estate trends: (1) mortgage rates and housing affordability, (2) any Fed commentary relevant to real estate, (3) notable REIT news or CRE trends. 3-4 sentences.`,
+    'You are a real estate market analyst. No markdown. Concise paragraphs.'
+  );
+
+  el.innerHTML = briefBlock('NYC Market Brief', brief) + briefBlock('National Trends', brief2);
+}
+
+// ─── AI NEWS ─────────────────────────────────────────────────────
+async function loadAINews(e) {
+  if (e) { if (e.type === 'touchend') e.preventDefault(); }
+  loaded.ainews = true;
+  const el = document.getElementById('ainews-content');
+  el.innerHTML = loadingHTML('Generating brief...');
+
+  const today = new Date().toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+
+  const brief = await askGemini(
+    `Today is ${today}. Write a morning AI industry briefing. Cover: (1) latest model releases or announcements from OpenAI, Anthropic, Google, Meta, or other major labs, (2) notable AI applications or deployments in industry, (3) regulatory or policy developments, (4) one trend or research development worth watching. 4-5 sentences. Sharp, informed editorial tone.`,
+    'You are an AI industry analyst writing a crisp morning brief. No markdown. Short punchy paragraphs. Be specific with company names and products where possible.'
+  );
+
+  const brief2 = await askGemini(
+    `Today is ${today}. Write 3 sentences on: which AI companies had notable news this week and why it matters for the broader AI race. Be opinionated and sharp.`,
+    'You are a sharp tech analyst. No markdown. Be concise and direct.'
+  );
+
+  el.innerHTML = briefBlock('AI Industry Brief', brief) + briefBlock('The Big Picture', brief2);
+}
+
+// ─── POLITICS ────────────────────────────────────────────────────
+async function loadPolitics(e) {
+  if (e) { if (e.type === 'touchend') e.preventDefault(); }
+  loaded.politics = true;
+  const el = document.getElementById('politics-content');
+  el.innerHTML = loadingHTML('Generating brief...');
+
+  const today = new Date().toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+
+  const brief = await askGemini(
+    `Today is ${today}. Write a balanced, factual morning political briefing. Cover: (1) major domestic political developments in Washington, (2) key legislation or executive actions in play, (3) any international geopolitical developments worth watching. 4-5 sentences. Balanced, neutral tone — just the facts.`,
+    'You are a nonpartisan political journalist writing a morning briefing. No opinion, no bias. Just clear factual reporting in short paragraphs. No markdown.'
+  );
+
+  const brief2 = await askGemini(
+    `Today is ${today}. In 2-3 sentences, what are the top 2 international stories or geopolitical flashpoints worth watching today? Be specific about countries and issues involved.`,
+    'You are a foreign policy analyst. Factual, concise. No markdown.'
+  );
+
+  el.innerHTML = briefBlock('Washington Brief', brief) + briefBlock('Global Watch', brief2);
+}
+
+// ─── START ───────────────────────────────────────────────────────
+init();
+</script>
+
+</body>
+</html>
