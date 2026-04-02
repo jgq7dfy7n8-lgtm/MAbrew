@@ -408,17 +408,41 @@ function loadTab(tab) {
 }
 
 // ─── GEMINI ──────────────────────────────────────────
-async function ask(prompt, sys) {
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+
+async function ask(prompt, sys, retries=2) {
   if(!apiKey) return {text:null,error:'No API key.'};
-  try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({contents:[{parts:[{text:sys?sys+'\n\n'+prompt:prompt}]}],generationConfig:{maxOutputTokens:800,temperature:0.65}})
-    });
-    const d=await res.json();
-    if(d.error) return {text:null,error:d.error.message};
-    return {text:d.candidates?.[0]?.content?.parts?.[0]?.text||null,error:null};
-  } catch(err){return {text:null,error:err.message};}
+  for(let attempt=0; attempt<=retries; attempt++) {
+    try {
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({contents:[{parts:[{text:sys?sys+'\n\n'+prompt:prompt}]}],generationConfig:{maxOutputTokens:800,temperature:0.65}})
+      });
+      const d=await res.json();
+      if(d.error) {
+        if(d.error.message&&d.error.message.includes('quota')&&attempt<retries) {
+          await sleep(5000*(attempt+1)); // wait 5s, then 10s
+          continue;
+        }
+        return {text:null,error:d.error.message};
+      }
+      return {text:d.candidates?.[0]?.content?.parts?.[0]?.text||null,error:null};
+    } catch(err){
+      if(attempt<retries){await sleep(3000);continue;}
+      return {text:null,error:err.message};
+    }
+  }
+  return {text:null,error:'Max retries exceeded.'};
+}
+
+// Sequential ask with delay between calls to avoid rate limits
+async function askSeq(calls) {
+  const results = [];
+  for(let i=0; i<calls.length; i++) {
+    if(i>0) await sleep(1800); // 1.8s between calls = ~33 RPM max, safe under 20 RPM with buffer
+    results.push(await ask(calls[i].prompt, calls[i].sys));
+  }
+  return results;
 }
 
 // ─── HELPERS ─────────────────────────────────────────
@@ -535,20 +559,15 @@ async function loadSports(e) {
   }
 
   // Get team briefs + other scores in parallel
-  const [knicksBrief, rangersBrief, yankeesBrief, giantsBrief, otherBrief, newsBrief] = await Promise.all([
-    ask(`Today is ${today}. Knicks recent game data: ${teamData.knicks}. Give me 2 tight bullet points: (1) last result/score with brief context, (2) current standing + one injury/roster note worth knowing. Be specific. No fluff.`,
-      'NBA analyst. Return exactly 2 bullet points starting with -. No markdown headers. Be specific with scores, records, player names.'),
-    ask(`Today is ${today}. Rangers recent game data: ${teamData.rangers}. Give me 2 tight bullet points: (1) last result/score with brief context, (2) current standing + one injury/roster note worth knowing. Be specific. No fluff.`,
-      'NHL analyst. Return exactly 2 bullet points starting with -. No markdown headers. Be specific with scores, records, player names.'),
-    ask(`Today is ${today}. Yankees recent game data: ${teamData.yankees}. Give me 2 tight bullet points: (1) last result/score with brief context, (2) current standing + one injury/roster note worth knowing. Be specific. No fluff.`,
-      'MLB analyst. Return exactly 2 bullet points starting with -. No markdown headers. Be specific with scores, records, player names.'),
-    ask(`Today is ${today}. Giants recent game data: ${teamData.giants}. Give me 2 tight bullet points: (1) last result/performance with brief context, (2) current standing/offseason news + one roster note worth knowing. Be specific. No fluff.`,
-      'NFL analyst. Return exactly 2 bullet points starting with -. No markdown headers. Be specific with scores, records, player names.'),
-    ask(`Today is ${today}. Give me 4 bullet points covering the most interesting scores/results from last night across NBA, NHL, MLB (not involving the Knicks, Rangers, or Yankees). Be specific — include teams, scores, standout performers.`,
-      'Sports analyst. Return exactly 4 bullet points starting with -. No markdown headers. Specific scores and names.'),
-    ask(`Today is ${today}. Give me 3 bullet points on the biggest league news stories right now across NBA, NHL, MLB, NFL — trades, injuries, signings, controversies, anything major worth knowing today.`,
-      'Sports journalist. Return exactly 3 bullet points starting with -. No markdown headers. Be specific and punchy.')
-  ]);
+  const sportsCalls = [
+    {prompt:`Today is ${today}. Knicks recent game data: ${teamData.knicks}. Give me 2 tight bullet points: (1) last result/score with brief context, (2) current standing + one injury/roster note worth knowing. Be specific. No fluff.`, sys:'NBA analyst. Return exactly 2 bullet points starting with -. No markdown headers. Be specific with scores, records, player names.'},
+    {prompt:`Today is ${today}. Rangers recent game data: ${teamData.rangers}. Give me 2 tight bullet points: (1) last result/score with brief context, (2) current standing + one injury/roster note worth knowing. Be specific. No fluff.`, sys:'NHL analyst. Return exactly 2 bullet points starting with -. No markdown headers. Be specific with scores, records, player names.'},
+    {prompt:`Today is ${today}. Yankees recent game data: ${teamData.yankees}. Give me 2 tight bullet points: (1) last result/score with brief context, (2) current standing + one injury/roster note worth knowing. Be specific. No fluff.`, sys:'MLB analyst. Return exactly 2 bullet points starting with -. No markdown headers. Be specific with scores, records, player names.'},
+    {prompt:`Today is ${today}. Giants recent game data: ${teamData.giants}. Give me 2 tight bullet points: (1) last result/performance with brief context, (2) current standing/offseason news + one roster note worth knowing. Be specific. No fluff.`, sys:'NFL analyst. Return exactly 2 bullet points starting with -. No markdown headers. Be specific with scores, records, player names.'},
+    {prompt:`Today is ${today}. Give me 4 bullet points covering the most interesting scores/results from last night across NBA, NHL, MLB (not involving the Knicks, Rangers, or Yankees). Be specific — include teams, scores, standout performers.`, sys:'Sports analyst. Return exactly 4 bullet points starting with -. No markdown headers. Specific scores and names.'},
+    {prompt:`Today is ${today}. Give me 3 bullet points on the biggest league news stories right now across NBA, NHL, MLB, NFL — trades, injuries, signings, controversies, anything major worth knowing today.`, sys:'Sports journalist. Return exactly 3 bullet points starting with -. No markdown headers. Be specific and punchy.'}
+  ];
+  const [knicksBrief, rangersBrief, yankeesBrief, giantsBrief, otherBrief, newsBrief] = await askSeq(sportsCalls);
 
   const teamCards = [
     {key:'rangers', label:'NY Rangers', cls:'rangers', brief:rangersBrief},
@@ -649,14 +668,12 @@ async function loadMarkets(e) {
   const macroSummary=macroData.map(m=>`${m.label}: ${m.price} (${m.pct})`).join(', ');
   const stockSummary=stockData.map(s=>`${s.sym}: ${s.price} (${s.pct})`).join(', ');
 
-  const [macroBrief, stockBrief, watchBrief] = await Promise.all([
-    ask(`Today is ${today}. Macro data: ${macroSummary}. Give me 3 bullet points on what's driving the macro moves today — be specific about Fed, rates, geopolitics, or economic data. No fluff.`,
-      'Sharp macro strategist. Return exactly 3 bullet points starting with -. Be specific. No markdown headers.'),
-    ask(`Today is ${today}. Mag 6 data: ${stockSummary}. Give me 3 bullet points on the most notable stock moves — which are outperforming/underperforming and why. Include earnings, news, or sector context.`,
-      'Equity analyst. Return exactly 3 bullet points starting with -. Be specific with numbers. No markdown headers.'),
-    ask(`Today is ${today}. Macro: ${macroSummary}. Give me 3 bullet points on what to watch today — upcoming data releases, Fed speakers, earnings reports, geopolitical events that could move markets.`,
-      'Market strategist. Return exactly 3 bullet points starting with -. Be specific and actionable. No markdown headers.')
-  ]);
+  const mktCalls = [
+    {prompt:`Today is ${today}. Macro data: ${macroSummary}. Give me 3 bullet points on what's driving the macro moves today — be specific about Fed, rates, geopolitics, or economic data. No fluff.`, sys:'Sharp macro strategist. Return exactly 3 bullet points starting with -. Be specific. No markdown headers.'},
+    {prompt:`Today is ${today}. Mag 6 data: ${stockSummary}. Give me 3 bullet points on the most notable stock moves — which are outperforming/underperforming and why. Include earnings, news, or sector context.`, sys:'Equity analyst. Return exactly 3 bullet points starting with -. Be specific with numbers. No markdown headers.'},
+    {prompt:`Today is ${today}. Macro: ${macroSummary}. Give me 3 bullet points on what to watch today — upcoming data releases, Fed speakers, earnings reports, geopolitical events that could move markets.`, sys:'Market strategist. Return exactly 3 bullet points starting with -. Be specific and actionable. No markdown headers.'}
+  ];
+  const [macroBrief, stockBrief, watchBrief] = await askSeq(mktCalls);
 
   html+=`<div class="rule"></div>`;
   html+=bulletBlock('Macro Brief', macroBrief.text, macroBrief.error, 'blue');
@@ -726,18 +743,14 @@ async function loadRealEstate(e) {
   el.innerHTML=loadingHTML('Generating brief');
   const today=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
 
-  const [dealBrief,capBrief,trendBrief,reitBrief,macroBrief]=await Promise.all([
-    ask(`Today is ${today}. You are briefing a CRE portfolio manager at a real estate investment firm. Give me 3 bullet points on: notable CRE deal flow, distressed assets, notable transactions or defaults this week across office, multifamily, retail, industrial. Be specific with dollar amounts, property types, markets where possible.`,
-      'CRE market analyst. Return exactly 3 bullet points starting with -. Institutional tone. Specific. No markdown headers.'),
-    ask(`Today is ${today}. Give me 3 bullet points on: current cap rate environment across major asset classes (office, multifamily, industrial, retail), current SOFR rate and direction, CRE financing conditions and lender appetite. Be specific with numbers.`,
-      'CRE finance analyst. Return exactly 3 bullet points starting with -. Institutional tone. Include actual rate figures. No markdown headers.'),
-    ask(`Today is ${today}. Give me 3 bullet points on: (1) NYC office market — vacancy, sublease trends, notable leases, (2) multifamily market conditions — rent trends, supply pipeline, (3) any notable retail or industrial trends. Be specific.`,
-      'CRE market analyst. Return exactly 3 bullet points starting with -. Institutional tone. NYC-focused. No markdown headers.'),
-    ask(`Today is ${today}. Give me 3 bullet points on: notable REIT performance this week, any REIT earnings or guidance news, and any sector rotation or institutional flow into/out of real estate. Be specific with REIT names and % moves.`,
-      'REIT analyst. Return exactly 3 bullet points starting with -. Specific with names and numbers. No markdown headers.'),
-    ask(`Today is ${today}. Give me 3 bullet points on: (1) latest Fed commentary and what it means for real estate, (2) 10-year treasury direction and CRE spread implications, (3) any macro risks or tailwinds for CRE in the next 30-60 days.`,
-      'Macro/CRE strategist. Return exactly 3 bullet points starting with -. Institutional tone. Specific. No markdown headers.')
-  ]);
+  const reCalls = [
+    {prompt:`Today is ${today}. You are briefing a CRE portfolio manager at a real estate investment firm. Give me 3 bullet points on: notable CRE deal flow, distressed assets, notable transactions or defaults this week across office, multifamily, retail, industrial. Be specific with dollar amounts, property types, markets where possible.`, sys:'CRE market analyst. Return exactly 3 bullet points starting with -. Institutional tone. Specific. No markdown headers.'},
+    {prompt:`Today is ${today}. Give me 3 bullet points on: current cap rate environment across major asset classes (office, multifamily, industrial, retail), current SOFR rate and direction, CRE financing conditions and lender appetite. Be specific with numbers.`, sys:'CRE finance analyst. Return exactly 3 bullet points starting with -. Institutional tone. Include actual rate figures. No markdown headers.'},
+    {prompt:`Today is ${today}. Give me 3 bullet points on: (1) NYC office market — vacancy, sublease trends, notable leases, (2) multifamily market conditions — rent trends, supply pipeline, (3) any notable retail or industrial trends. Be specific.`, sys:'CRE market analyst. Return exactly 3 bullet points starting with -. Institutional tone. NYC-focused. No markdown headers.'},
+    {prompt:`Today is ${today}. Give me 3 bullet points on: notable REIT performance this week, any REIT earnings or guidance news, and any sector rotation or institutional flow into/out of real estate. Be specific with REIT names and % moves.`, sys:'REIT analyst. Return exactly 3 bullet points starting with -. Specific with names and numbers. No markdown headers.'},
+    {prompt:`Today is ${today}. Give me 3 bullet points on: (1) latest Fed commentary and what it means for real estate, (2) 10-year treasury direction and CRE spread implications, (3) any macro risks or tailwinds for CRE in the next 30-60 days.`, sys:'Macro/CRE strategist. Return exactly 3 bullet points starting with -. Institutional tone. Specific. No markdown headers.'}
+  ];
+  const [dealBrief,capBrief,trendBrief,reitBrief,macroBrief]=await askSeq(reCalls);
 
   const sections=[
     {icon:'🏢',cls:'deal',  scls:'deal-s', label:'CRE Deal Flow & Distress', brief:dealBrief},
@@ -771,14 +784,12 @@ async function loadAINews(e) {
   const el=document.getElementById('ainews-content');
   el.innerHTML=loadingHTML('Generating brief');
   const today=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
-  const [b1,b2,b3]=await Promise.all([
-    ask(`Today is ${today}. Give me 4 bullet points on the biggest AI model/product news this week — new releases, announcements, or updates from OpenAI, Anthropic, Google, Meta, Mistral, xAI, or other labs. Be specific with model names, capabilities, and what it means.`,
-      'AI industry journalist. Return exactly 4 bullet points starting with -. Be specific with product names and company names. No markdown headers.'),
-    ask(`Today is ${today}. Give me 3 bullet points on AI in enterprise and industry — notable deployments, partnerships, or enterprise AI deals this week. Include company names and sectors.`,
-      'AI industry analyst. Return exactly 3 bullet points starting with -. Specific with names. No markdown headers.'),
-    ask(`Today is ${today}. Give me 3 bullet points on AI policy, regulation, and the broader strategic landscape — government actions, EU AI Act, chip controls, safety developments, or geopolitical AI competition (US vs China).`,
-      'AI policy analyst. Return exactly 3 bullet points starting with -. Specific and factual. No markdown headers.')
-  ]);
+  const aiCalls = [
+    {prompt:`Today is ${today}. Give me 4 bullet points on the biggest AI model/product news this week — new releases, announcements, or updates from OpenAI, Anthropic, Google, Meta, Mistral, xAI, or other labs. Be specific with model names, capabilities, and what it means.`, sys:'AI industry journalist. Return exactly 4 bullet points starting with -. Be specific with product names and company names. No markdown headers.'},
+    {prompt:`Today is ${today}. Give me 3 bullet points on AI in enterprise and industry — notable deployments, partnerships, or enterprise AI deals this week. Include company names and sectors.`, sys:'AI industry analyst. Return exactly 3 bullet points starting with -. Specific with names. No markdown headers.'},
+    {prompt:`Today is ${today}. Give me 3 bullet points on AI policy, regulation, and the broader strategic landscape — government actions, EU AI Act, chip controls, safety developments, or geopolitical AI competition (US vs China).`, sys:'AI policy analyst. Return exactly 3 bullet points starting with -. Specific and factual. No markdown headers.'}
+  ];
+  const [b1,b2,b3]=await askSeq(aiCalls);
   el.innerHTML=bulletBlock('Model & Product News',b1.text,b1.error,'purple')+bulletBlock('Enterprise & Industry',b2.text,b2.error,'blue')+bulletBlock('Policy & Strategy',b3.text,b3.error,'green');
 }
 
@@ -789,14 +800,12 @@ async function loadPolitics(e) {
   const el=document.getElementById('politics-content');
   el.innerHTML=loadingHTML('Generating brief');
   const today=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
-  const [b1,b2,b3]=await Promise.all([
-    ask(`Today is ${today}. Give me 4 bullet points on the most significant domestic political developments — legislation, executive actions, congressional activity, or major political news. Factual and neutral. Be specific with bill names, people, and outcomes.`,
-      'Nonpartisan political journalist. Return exactly 4 bullet points starting with -. Factual, no opinion or bias. No markdown headers.'),
-    ask(`Today is ${today}. Give me 3 bullet points on the most important geopolitical stories today — active conflicts, diplomatic developments, elections, or major international policy shifts. Be specific with countries and stakes.`,
-      'Foreign policy analyst. Return exactly 3 bullet points starting with -. Factual and specific. No markdown headers.'),
-    ask(`Today is ${today}. Give me 3 bullet points on economic policy developments — fiscal policy, trade, tariffs, sanctions, or Treasury/Fed actions that have political dimensions this week.`,
-      'Economic policy analyst. Return exactly 3 bullet points starting with -. Factual. Specific. No markdown headers.')
-  ]);
+  const polCalls = [
+    {prompt:`Today is ${today}. Give me 4 bullet points on the most significant domestic political developments — legislation, executive actions, congressional activity, or major political news. Factual and neutral. Be specific with bill names, people, and outcomes.`, sys:'Nonpartisan political journalist. Return exactly 4 bullet points starting with -. Factual, no opinion or bias. No markdown headers.'},
+    {prompt:`Today is ${today}. Give me 3 bullet points on the most important geopolitical stories today — active conflicts, diplomatic developments, elections, or major international policy shifts. Be specific with countries and stakes.`, sys:'Foreign policy analyst. Return exactly 3 bullet points starting with -. Factual and specific. No markdown headers.'},
+    {prompt:`Today is ${today}. Give me 3 bullet points on economic policy developments — fiscal policy, trade, tariffs, sanctions, or Treasury/Fed actions that have political dimensions this week.`, sys:'Economic policy analyst. Return exactly 3 bullet points starting with -. Factual. Specific. No markdown headers.'}
+  ];
+  const [b1,b2,b3]=await askSeq(polCalls);
   el.innerHTML=bulletBlock('Washington',b1.text,b1.error,'red')+bulletBlock('Global Watch',b2.text,b2.error,'blue')+bulletBlock('Economic Policy',b3.text,b3.error);
 }
 
