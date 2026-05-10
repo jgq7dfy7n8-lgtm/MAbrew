@@ -1,20 +1,18 @@
-export const config = { runtime: ‘edge’ };
+// Vercel Serverless Function - default Node runtime
+// Proxies ESPN’s hidden API to bypass browser CORS
 
-export default async function handler(req) {
-const { searchParams } = new URL(req.url);
-const path = searchParams.get(‘path’);
+export default async function handler(req, res) {
+const path = req.query.path;
 
 if (!path) {
-return new Response(JSON.stringify({ error: ‘Missing path param’ }), {
-status: 400,
-headers: { ‘Content-Type’: ‘application/json’ },
-});
+res.status(400).json({ error: ‘Missing path query parameter’ });
+return;
 }
 
 const espnUrl = `https://site.api.espn.com/apis/site/v2/sports/${path}`;
 
 try {
-const res = await fetch(espnUrl, {
+const response = await fetch(espnUrl, {
 headers: {
 ‘User-Agent’: ‘Mozilla/5.0’,
 ‘Accept’: ‘application/json’,
@@ -22,25 +20,15 @@ headers: {
 });
 
 ```
-const data = await res.text();
+const data = await response.text();
 
-return new Response(data, {
-  status: res.status,
-  headers: {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Cache-Control': 's-maxage=60, stale-while-revalidate=30',
-  },
-});
+res.setHeader('Content-Type', 'application/json');
+res.setHeader('Access-Control-Allow-Origin', '*');
+res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=30');
+res.status(response.status).send(data);
 ```
 
 } catch (err) {
-return new Response(JSON.stringify({ error: err.message }), {
-status: 500,
-headers: {
-‘Content-Type’: ‘application/json’,
-‘Access-Control-Allow-Origin’: ‘*’,
-},
-});
+res.status(500).json({ error: err.message });
 }
 }
