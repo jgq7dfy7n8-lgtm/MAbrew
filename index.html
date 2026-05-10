@@ -431,12 +431,12 @@ function htmlStandings(standData, teamId, league) {
   let entries = null;
 
   function walk(node) {
-    if (entries) return;
+    if (!node || entries) return;
     const ents = node.standings?.entries || node.entries || [];
-    if (ents.some(e => e.team?.id === teamId)) { entries = ents; return; }
-    (node.children || []).forEach(walk);
+    if (ents.some(e => e?.team?.id === teamId)) { entries = ents; return; }
+    (node.children || []).filter(Boolean).forEach(walk);
   }
-  (standData.children || [standData]).forEach(walk);
+  (standData.children || [standData]).filter(Boolean).forEach(walk);
   if (!entries?.length) return '';
 
   const showGB = league !== 'nfl';
@@ -490,12 +490,12 @@ function htmlNews(articles) {
 function getRank(standData, teamId) {
   let entries = null;
   function walk(node) {
-    if (entries) return;
+    if (!node || entries) return;
     const ents = node.standings?.entries || node.entries || [];
-    if (ents.some(e => e.team?.id === teamId)) { entries = ents; return; }
-    (node.children || []).forEach(walk);
+    if (ents.some(e => e?.team?.id === teamId)) { entries = ents; return; }
+    (node.children || []).filter(Boolean).forEach(walk);
   }
-  (standData?.children || [standData]).forEach(walk);
+  (standData?.children || [standData]).filter(Boolean).forEach(walk);
   if (!entries) return null;
   const idx = entries.findIndex(e => e.team?.id === teamId);
   if (idx < 0) return null;
@@ -519,7 +519,7 @@ async function loadTeam(cfg) {
       safeEspn(`${base}/teams/${teamId}`),
       safeEspn(`${base}/teams/${teamId}/schedule`),
       safeEspn(`${base}/teams/${teamId}/news`),
-      safeEspn(`${base}/standings`),
+      safeEspn(`${base}/standings`).catch(() => null),
     ]);
 
     // Record
