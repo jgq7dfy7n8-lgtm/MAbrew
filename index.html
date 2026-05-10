@@ -2,622 +2,725 @@
 
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Morning Brief</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<title>MORNING BRIEF</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
-:root{
-  --bg:#05050a;--surface:#0c0c14;--border:#1a1a2e;--border2:#252540;
-  --gold:#e6b84a;--gold2:#ffd166;--gold-dim:rgba(230,184,74,0.1);--gold-border:rgba(230,184,74,0.28);
-  --text:#f2f2f0;--text2:#9090a0;--muted:#505060;
-  --green:#2ecc8a;--green-dim:rgba(46,204,138,0.1);--green-border:rgba(46,204,138,0.25);
-  --red:#ff4d6d;--red-dim:rgba(255,77,109,0.1);--red-border:rgba(255,77,109,0.25);
-  --blue:#4f8ef7;--blue-dim:rgba(79,142,247,0.1);--blue-border:rgba(79,142,247,0.25);
-  --purple:#9b72f0;--purple-dim:rgba(155,114,240,0.1);--purple-border:rgba(155,114,240,0.25);
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #1a1a1a;
+    --green: #00e676;
+    --green-dim: rgba(0,230,118,0.12);
+    --green-glow: rgba(0,230,118,0.25);
+    --text: #f0f0f0;
+    --muted: #666;
+    --border: #222;
+    --red: #ff4444;
+    --yellow: #ffd600;
+  }
+
+- { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+background: var(–bg);
+color: var(–text);
+font-family: ‘DM Sans’, sans-serif;
+min-height: 100vh;
+padding-bottom: env(safe-area-inset-bottom);
 }
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden}
 
-/* ── TICKER ── */
-.ticker-bar{background:#080810;border-bottom:1px solid var(–border);padding:8px 0;overflow:hidden;position:relative}
-.ticker-bar::before,.ticker-bar::after{content:’’;position:absolute;top:0;bottom:0;width:48px;z-index:2}
-.ticker-bar::before{left:0;background:linear-gradient(to right,#080810,transparent)}
-.ticker-bar::after{right:0;background:linear-gradient(to left,#080810,transparent)}
-.ticker-track{display:flex;animation:ticker 32s linear infinite;width:max-content}
-@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.ti{display:flex;align-items:center;gap:8px;padding:0 22px;border-right:1px solid var(–border2);white-space:nowrap}
-.ti-sym{font-family:‘DM Mono’,monospace;font-size:9px;letter-spacing:.16em;color:var(–muted);font-weight:500}
-.ti-price{font-family:‘DM Mono’,monospace;font-size:11px;color:var(–text);font-weight:500}
-.ti-chg{font-family:‘DM Mono’,monospace;font-size:10px;font-weight:600}
-.ti-chg.up{color:var(–green)}.ti-chg.down{color:var(–red)}
+/* HEADER */
+.header {
+padding: 56px 20px 20px;
+padding-top: calc(56px + env(safe-area-inset-top));
+border-bottom: 1px solid var(–border);
+position: relative;
+overflow: hidden;
+}
+.header::before {
+content: ‘’;
+position: absolute;
+top: -60px; left: -40px;
+width: 300px; height: 200px;
+background: radial-gradient(ellipse, rgba(0,230,118,0.07) 0%, transparent 70%);
+pointer-events: none;
+}
+.header-top {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+}
+.header-title {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 42px;
+letter-spacing: 2px;
+line-height: 1;
+color: var(–text);
+}
+.header-title span { color: var(–green); }
+.header-date {
+font-size: 11px;
+color: var(–muted);
+text-transform: uppercase;
+letter-spacing: 1.5px;
+text-align: right;
+margin-top: 4px;
+}
+.refresh-btn {
+background: none;
+border: 1px solid var(–border);
+color: var(–muted);
+padding: 6px 14px;
+border-radius: 20px;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 11px;
+letter-spacing: 1px;
+text-transform: uppercase;
+cursor: pointer;
+transition: all 0.2s;
+margin-top: 4px;
+}
+.refresh-btn:active { border-color: var(–green); color: var(–green); transform: scale(0.96); }
 
-/* ── MASTHEAD ── */
-.masthead{padding:32px 20px 0;position:relative;overflow:hidden}
-.masthead-bg{position:absolute;inset:0;pointer-events:none;
-background:radial-gradient(ellipse at 80% -10%,rgba(230,184,74,.12) 0%,transparent 55%),
-radial-gradient(ellipse at 5% 90%,rgba(79,142,247,.06) 0%,transparent 50%)}
-.mast-rule{height:2px;background:linear-gradient(to right,var(–gold),var(–gold2) 30%,transparent);margin-bottom:14px;border-radius:1px}
-.mast-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.mast-date{font-family:‘DM Mono’,monospace;font-size:9px;letter-spacing:.2em;color:var(–gold);text-transform:uppercase}
-.mast-btn{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(–gold);border:1px solid var(–gold-border);padding:5px 12px;border-radius:2px;cursor:pointer;background:transparent}
-.mast-btn:active{opacity:.6}
-.mast-title{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(72px,20vw,112px);line-height:.83;letter-spacing:.04em;color:var(–text)}
-.mast-title-o{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(72px,20vw,112px);line-height:.83;letter-spacing:.04em;color:transparent;-webkit-text-stroke:1.5px var(–gold);margin-bottom:16px}
-.mast-foot{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid var(–border);margin-top:6px}
-.mast-tag{font-family:‘DM Mono’,monospace;font-size:9px;color:var(–muted);letter-spacing:.12em;text-transform:uppercase}
-.live-dot{display:flex;align-items:center;gap:6px;font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.12em;color:var(–green);text-transform:uppercase}
-.live-dot::before{content:’’;width:6px;height:6px;border-radius:50%;background:var(–green);box-shadow:0 0 8px var(–green);animation:blink 2s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+/* NAV TABS */
+.nav {
+display: flex;
+gap: 0;
+border-bottom: 1px solid var(–border);
+overflow-x: auto;
+scrollbar-width: none;
+-webkit-overflow-scrolling: touch;
+}
+.nav::-webkit-scrollbar { display: none; }
+.nav-tab {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 15px;
+letter-spacing: 1.5px;
+padding: 14px 20px;
+color: var(–muted);
+cursor: pointer;
+white-space: nowrap;
+border-bottom: 2px solid transparent;
+transition: all 0.2s;
+flex-shrink: 0;
+}
+.nav-tab.active { color: var(–green); border-bottom-color: var(–green); }
+.nav-tab:active { opacity: 0.7; }
 
-/* ── NEWSLETTER BODY ── */
-.newsletter{padding:0 20px 100px}
+/* SECTIONS */
+.section { display: none; padding: 20px; animation: fadeIn 0.3s ease; }
+.section.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-/* ── SECTION DIVIDER ── */
-.sec-divider{display:flex;align-items:center;gap:12px;padding:28px 0 20px}
-.sec-divider-label{font-family:‘Bebas Neue’,sans-serif;font-size:32px;letter-spacing:.06em;color:var(–text);line-height:1;white-space:nowrap}
-.sec-divider-color{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.sec-divider-line{flex:1;height:1px;background:linear-gradient(to right,var(–border2),transparent)}
-.sec-divider.sports .sec-divider-color{background:var(–blue);box-shadow:0 0 6px var(–blue)}
-.sec-divider.markets .sec-divider-color{background:var(–green);box-shadow:0 0 6px var(–green)}
-.sec-divider.weather .sec-divider-color{background:#60c0f8;box-shadow:0 0 6px #60c0f8}
-.sec-divider.realestate .sec-divider-color{background:var(–gold);box-shadow:0 0 6px var(–gold)}
-.sec-divider.ainews .sec-divider-color{background:var(–purple);box-shadow:0 0 6px var(–purple)}
-.sec-divider.politics .sec-divider-color{background:var(–red);box-shadow:0 0 6px var(–red)}
+/* SECTION HEADER */
+.section-label {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 11px;
+letter-spacing: 3px;
+color: var(–green);
+margin-bottom: 16px;
+text-transform: uppercase;
+}
 
-/* ── LOADING SKELETON ── */
-.section-loading{background:var(–surface);border:1px solid var(–border);border-radius:12px;padding:32px;display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:12px}
-.ring{width:28px;height:28px;position:relative}
-.ring::before{content:’’;position:absolute;inset:0;border-radius:50%;border:2px solid var(–border)}
-.ring::after{content:’’;position:absolute;inset:0;border-radius:50%;border:2px solid transparent;border-top-color:var(–gold);animation:spin .85s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loading-text{font-family:‘DM Mono’,monospace;font-size:9px;letter-spacing:.18em;color:var(–muted);text-transform:uppercase}
+/* SPORT CARD */
+.sport-card {
+background: var(–bg2);
+border: 1px solid var(–border);
+border-radius: 12px;
+margin-bottom: 14px;
+overflow: hidden;
+transition: border-color 0.2s;
+}
+.sport-card:active { border-color: var(–green); }
+.sport-card-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 14px 16px 10px;
+border-bottom: 1px solid var(–border);
+}
+.team-name {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 22px;
+letter-spacing: 1.5px;
+color: var(–text);
+}
+.team-record {
+font-size: 12px;
+color: var(–muted);
+font-weight: 300;
+margin-top: 1px;
+}
+.team-badge {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 11px;
+letter-spacing: 2px;
+padding: 3px 10px;
+border-radius: 20px;
+border: 1px solid var(–border);
+color: var(–muted);
+}
+.team-badge.mlb { border-color: #003087; color: #6fa8ff; }
+.team-badge.nba { border-color: #f58426; color: #f58426; }
+.team-badge.nhl { border-color: #0038a8; color: #6fa8ff; }
+.team-badge.nfl { border-color: #444; color: #aaa; }
 
-/* ── TEAM GRID ── */
-.team-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-.team-card{background:var(–surface);border:1px solid var(–border);border-radius:14px;padding:16px;position:relative;overflow:hidden}
-.team-card::before{content:’’;position:absolute;top:0;left:0;right:0;height:3px;z-index:1}
-.team-card::after{content:’’;position:absolute;bottom:-30px;right:-30px;width:100px;height:100px;border-radius:50%;opacity:.06;pointer-events:none}
-.team-card.rangers::before{background:linear-gradient(to right,#1a4fc4,#e8202a)}.team-card.rangers::after{background:#1a4fc4}
-.team-card.knicks::before{background:linear-gradient(to right,#0a72c7,#f58426)}.team-card.knicks::after{background:#f58426}
-.team-card.yankees::before{background:linear-gradient(to right,#1a3d9e,#e4002c)}.team-card.yankees::after{background:#1a3d9e}
-.team-card.giants::before{background:linear-gradient(to right,#1a2e8c,#c42030)}.team-card.giants::after{background:#c42030}
-.team-logo{font-size:26px;margin-bottom:7px;line-height:1}
-.team-name{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(–muted);margin-bottom:8px}
+.sport-card-body { padding: 14px 16px; }
 
-/* ── BULLET BLOCK ── */
-.bullet-block{background:var(–surface);border:1px solid var(–border);border-radius:12px;padding:18px 20px;margin-bottom:10px;position:relative;overflow:hidden}
-.bullet-block::before{content:’’;position:absolute;top:0;left:0;right:0;height:1px}
-.bullet-block.gold{border-left:3px solid var(–gold)}.bullet-block.gold::before{background:linear-gradient(to right,var(–gold),transparent)}
-.bullet-block.blue{border-left:3px solid var(–blue)}.bullet-block.blue::before{background:linear-gradient(to right,var(–blue),transparent)}
-.bullet-block.green{border-left:3px solid var(–green)}.bullet-block.green::before{background:linear-gradient(to right,var(–green),transparent)}
-.bullet-block.red{border-left:3px solid var(–red)}.bullet-block.red::before{background:linear-gradient(to right,var(–red),transparent)}
-.bullet-block.purple{border-left:3px solid var(–purple)}.bullet-block.purple::before{background:linear-gradient(to right,var(–purple),transparent)}
-.bullet-block.sky{border-left:3px solid #60c0f8}.bullet-block.sky::before{background:linear-gradient(to right,#60c0f8,transparent)}
-.bl-label{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.bullet-block.gold .bl-label{color:var(–gold)}.bullet-block.blue .bl-label{color:var(–blue)}
-.bullet-block.green .bl-label{color:var(–green)}.bullet-block.red .bl-label{color:var(–red)}
-.bullet-block.purple .bl-label{color:var(–purple)}.bullet-block.sky .bl-label{color:#60c0f8}
-.ai-badge{border-radius:3px;padding:2px 7px;font-size:7px;letter-spacing:.1em;border:1px solid}
-.bullet-block.gold .ai-badge{background:var(–gold-dim);border-color:var(–gold-border);color:var(–gold)}
-.bullet-block.blue .ai-badge{background:var(–blue-dim);border-color:var(–blue-border);color:var(–blue)}
-.bullet-block.green .ai-badge{background:var(–green-dim);border-color:var(–green-border);color:var(–green)}
-.bullet-block.red .ai-badge{background:var(–red-dim);border-color:var(–red-border);color:var(–red)}
-.bullet-block.purple .ai-badge{background:var(–purple-dim);border-color:var(–purple-border);color:var(–purple)}
-.bullet-block.sky .ai-badge{background:rgba(96,192,248,0.1);border-color:rgba(96,192,248,0.3);color:#60c0f8}
-.bullets{list-style:none;display:flex;flex-direction:column;gap:11px}
-.bullet{display:flex;gap:10px;font-size:13.5px;line-height:1.72;color:var(–text2);font-weight:300}
-.bullet::before{content:‘▸’;font-size:10px;flex-shrink:0;margin-top:3px}
-.bullet-block.gold .bullet::before{color:var(–gold)}.bullet-block.blue .bullet::before{color:var(–blue)}
-.bullet-block.green .bullet::before{color:var(–green)}.bullet-block.red .bullet::before{color:var(–red)}
-.bullet-block.purple .bullet::before{color:var(–purple)}.bullet-block.sky .bullet::before{color:#60c0f8}
+/* GAME ROW */
+.game-row {
+margin-bottom: 12px;
+}
+.game-row:last-child { margin-bottom: 0; }
+.game-label {
+font-size: 10px;
+text-transform: uppercase;
+letter-spacing: 2px;
+color: var(–muted);
+margin-bottom: 6px;
+}
+.game-matchup {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 8px;
+}
+.game-team {
+font-size: 14px;
+font-weight: 500;
+flex: 1;
+}
+.game-team.home { text-align: right; }
+.game-score-block {
+display: flex;
+align-items: center;
+gap: 10px;
+flex-shrink: 0;
+}
+.game-score {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 26px;
+letter-spacing: 1px;
+min-width: 28px;
+text-align: center;
+}
+.game-score.winner { color: var(–green); }
+.game-score.loser { color: var(–muted); }
+.game-vs {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 13px;
+color: var(–muted);
+letter-spacing: 1px;
+}
+.game-status {
+font-size: 11px;
+color: var(–muted);
+margin-top: 5px;
+text-align: center;
+}
+.game-status.live {
+color: var(–red);
+font-weight: 600;
+}
+.game-status.win { color: var(–green); }
+.game-status.loss { color: var(–red); }
 
-/* ── MARKET GRID ── */
-.mkt-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
-.mkt-card{background:var(–surface);border:1px solid var(–border);border-radius:12px;padding:14px;position:relative;overflow:hidden}
-.mkt-card.up{border-top:2px solid var(–green)}.mkt-card.down{border-top:2px solid var(–red)}.mkt-card.neutral{border-top:2px solid var(–border2)}
-.mkt-label{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.14em;color:var(–muted);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:5px}
-.mkt-arrow.up{color:var(–green)}.mkt-arrow.down{color:var(–red)}
-.mkt-price{font-family:‘DM Mono’,monospace;font-size:20px;font-weight:600;color:var(–text);line-height:1;margin-bottom:7px}
-.mkt-badge{display:inline-block;padding:3px 9px;border-radius:20px;font-family:‘DM Mono’,monospace;font-size:11px;font-weight:600}
-.mkt-badge.up{background:var(–green-dim);color:var(–green);border:1px solid var(–green-border)}
-.mkt-badge.down{background:var(–red-dim);color:var(–red);border:1px solid var(–red-border)}
-.mkt-badge.neutral{background:var(–border);color:var(–muted)}
-.mkt-glow{position:absolute;bottom:-15px;right:-15px;width:80px;height:80px;border-radius:50%;opacity:.07;pointer-events:none}
-.mkt-card.up .mkt-glow{background:radial-gradient(circle,var(–green),transparent)}
-.mkt-card.down .mkt-glow{background:radial-gradient(circle,var(–red),transparent)}
+/* NEXT GAME */
+.next-game {
+display: flex;
+justify-content: space-between;
+align-items: center;
+background: var(–bg3);
+border-radius: 8px;
+padding: 10px 12px;
+}
+.next-game-vs { font-size: 13px; font-weight: 500; }
+.next-game-time { font-size: 12px; color: var(–muted); }
+.next-game-where { font-size: 11px; color: var(–muted); margin-top: 2px; }
 
-/* ── STOCK ROWS ── */
-.stock-row{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(–surface);border:1px solid var(–border);border-radius:10px;margin-bottom:7px}
-.stock-row.up{border-left:2px solid var(–green)}.stock-row.down{border-left:2px solid var(–red)}
-.stock-left{display:flex;align-items:center;gap:10px}
-.stock-arrow{font-size:12px;flex-shrink:0}
-.stock-arrow.up{color:var(–green)}.stock-arrow.down{color:var(–red)}.stock-arrow.neutral{color:var(–muted)}
-.stock-info{display:flex;flex-direction:column;gap:2px}
-.stock-sym{font-size:14px;font-weight:600;color:var(–text)}
-.stock-name{font-size:10px;color:var(–muted)}
-.stock-right{display:flex;align-items:center;gap:10px}
-.stock-price{font-family:‘DM Mono’,monospace;font-size:15px;font-weight:500;color:var(–text)}
-.stock-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-family:‘DM Mono’,monospace;font-size:11px;font-weight:600}
-.stock-badge.up{background:var(–green-dim);color:var(–green);border:1px solid var(–green-border)}
-.stock-badge.down{background:var(–red-dim);color:var(–red);border:1px solid var(–red-border)}
-.stock-badge.neutral{background:var(–border);color:var(–muted)}
+/* LOADING / ERROR */
+.loading-row {
+display: flex;
+align-items: center;
+gap: 10px;
+padding: 20px 0;
+color: var(–muted);
+font-size: 13px;
+}
+.spinner {
+width: 16px; height: 16px;
+border: 2px solid var(–border);
+border-top-color: var(–green);
+border-radius: 50%;
+animation: spin 0.8s linear infinite;
+flex-shrink: 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
 
-/* ── WEATHER ── */
-.wx-hero{background:linear-gradient(135deg,#080d1a 0%,#0b1428 50%,#0d1632 100%);border:1px solid rgba(79,142,247,.2);border-radius:14px;padding:22px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;position:relative;overflow:hidden;box-shadow:0 0 40px rgba(79,142,247,.05)}
-.wx-hero::after{content:’’;position:absolute;top:-50px;right:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(79,142,247,.08) 0%,transparent 70%)}
-.wx-temp{font-family:‘Bebas Neue’,sans-serif;font-size:82px;color:var(–text);line-height:1}
-.wx-deg{font-size:34px;color:var(–text2)}
-.wx-desc{font-size:13px;color:var(–text2);margin-top:3px}
-.wx-feels{font-size:11px;color:var(–muted);margin-top:2px}
-.wx-icon{font-size:66px;line-height:1;filter:drop-shadow(0 0 16px rgba(79,142,247,.2));position:relative;z-index:1}
-.wx-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
-.wx-stat{background:var(–surface);border:1px solid var(–border);border-radius:8px;padding:12px;text-align:center}
-.wx-sl{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.14em;color:var(–muted);text-transform:uppercase;margin-bottom:5px}
-.wx-sv{font-family:‘DM Mono’,monospace;font-size:15px;color:var(–text);font-weight:500}
-.fc-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
-.fc-card{background:var(–surface);border:1px solid var(–border);border-radius:10px;padding:12px 8px;text-align:center}
-.fc-day{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.12em;color:var(–muted);text-transform:uppercase;margin-bottom:7px}
-.fc-icon{font-size:26px;margin-bottom:5px}
-.fc-hi{font-family:‘DM Mono’,monospace;font-size:15px;color:var(–text);font-weight:500}
-.fc-lo{font-family:‘DM Mono’,monospace;font-size:11px;color:var(–muted)}
+.error-msg {
+font-size: 12px;
+color: var(–red);
+padding: 8px 0;
+opacity: 0.8;
+}
 
-/* ── CRE SECTIONS ── */
-.cre-section{background:var(–surface);border:1px solid var(–border);border-radius:10px;margin-bottom:10px;overflow:hidden}
-.cre-section.deal-s{border-left:2px solid var(–gold)}.cre-section.cap-s{border-left:2px solid var(–blue)}
-.cre-section.trend-s{border-left:2px solid var(–green)}.cre-section.reit-s{border-left:2px solid var(–purple)}.cre-section.macro-s{border-left:2px solid var(–red)}
-.cre-header{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(–border)}
-.cre-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.cre-icon.deal{background:var(–gold-dim);border:1px solid var(–gold-border)}
-.cre-icon.cap{background:var(–blue-dim);border:1px solid var(–blue-border)}
-.cre-icon.trend{background:var(–green-dim);border:1px solid var(–green-border)}
-.cre-icon.reit{background:var(–purple-dim);border:1px solid var(–purple-border)}
-.cre-icon.macro{background:var(–red-dim);border:1px solid var(–red-border)}
-.cre-label{font-family:‘DM Mono’,monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase}
-.cre-section.deal-s .cre-label{color:var(–gold)}.cre-section.cap-s .cre-label{color:var(–blue)}
-.cre-section.trend-s .cre-label{color:var(–green)}.cre-section.reit-s .cre-label{color:var(–purple)}.cre-section.macro-s .cre-label{color:var(–red)}
-.cre-body{padding:14px 16px}
+/* COMING SOON (placeholder) */
+.coming-soon {
+text-align: center;
+padding: 60px 20px;
+color: var(–muted);
+}
+.coming-soon-icon {
+font-size: 36px;
+margin-bottom: 16px;
+}
+.coming-soon-title {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 24px;
+letter-spacing: 2px;
+color: var(–text);
+margin-bottom: 8px;
+}
+.coming-soon-sub {
+font-size: 13px;
+color: var(–muted);
+line-height: 1.6;
+}
+.coming-soon-tag {
+display: inline-block;
+margin-top: 16px;
+background: var(–green-dim);
+color: var(–green);
+font-size: 11px;
+letter-spacing: 2px;
+text-transform: uppercase;
+padding: 5px 14px;
+border-radius: 20px;
+border: 1px solid var(–green-glow);
+}
 
-/* ── SUBHEAD ── */
-.subhead{font-family:‘DM Mono’,monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(–text2);margin:18px 0 10px;display:flex;align-items:center;gap:10px}
-.subhead::after{content:’’;flex:1;height:1px;background:var(–border)}
+/* DIVIDER */
+.divider {
+height: 1px;
+background: var(–border);
+margin: 14px 0;
+}
 
-/* ── ERROR ── */
-.err{background:var(–red-dim);border:1px solid var(–red-border);border-radius:8px;padding:12px 16px;font-family:‘DM Mono’,monospace;font-size:10px;color:var(–red);line-height:1.7;margin-bottom:10px}
+/* LAST UPDATED */
+.last-updated {
+font-size: 10px;
+color: var(–muted);
+text-align: center;
+padding: 20px 0 8px;
+letter-spacing: 1px;
+text-transform: uppercase;
+}
 
-/* ── API SETUP ── */
-.api-setup{background:var(–surface);border:1px solid var(–border);border-radius:12px;padding:24px;margin-bottom:24px;position:relative;overflow:hidden}
-.api-setup::before{content:’’;position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(–gold),transparent)}
-.api-title{font-family:‘Bebas Neue’,sans-serif;font-size:26px;letter-spacing:.05em;color:var(–text);margin-bottom:6px}
-.api-desc{font-size:12px;color:var(–text2);margin-bottom:18px;line-height:1.65;font-weight:300}
-.api-row{display:flex;gap:8px}
-.api-input{flex:1;background:var(–bg);border:1px solid var(–border2);border-radius:4px;padding:11px 14px;font-family:‘DM Mono’,monospace;font-size:12px;color:var(–text);outline:none;transition:border-color .15s}
-.api-input:focus{border-color:var(–gold)}
-.api-btn{background:var(–gold);color:#05050a;border:none;border-radius:4px;padding:11px 20px;font-family:‘DM Mono’,monospace;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;white-space:nowrap}
-.api-btn:active{opacity:.75}
-
-/* ── RULE ── */
-.nl-rule{border:none;border-top:1px solid var(–border);margin:8px 0}
+/* STATUS DOT */
+.dot-live {
+display: inline-block;
+width: 6px; height: 6px;
+background: var(–red);
+border-radius: 50%;
+margin-right: 5px;
+animation: pulse 1s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 </style>
 
 </head>
 <body>
 
-<!-- TICKER -->
-
-<div class="ticker-bar">
-  <div class="ticker-track">
-    <div class="ti"><span class="ti-sym">SPY</span><span class="ti-price" id="t-SPY">—</span><span class="ti-chg" id="tc-SPY"></span></div>
-    <div class="ti"><span class="ti-sym">QQQ</span><span class="ti-price" id="t-QQQ">—</span><span class="ti-chg" id="tc-QQQ"></span></div>
-    <div class="ti"><span class="ti-sym">BTC</span><span class="ti-price" id="t-BTC">—</span><span class="ti-chg" id="tc-BTC"></span></div>
-    <div class="ti"><span class="ti-sym">NVDA</span><span class="ti-price" id="t-NVDA">—</span><span class="ti-chg" id="tc-NVDA"></span></div>
-    <div class="ti"><span class="ti-sym">AAPL</span><span class="ti-price" id="t-AAPL">—</span><span class="ti-chg" id="tc-AAPL"></span></div>
-    <div class="ti"><span class="ti-sym">10Y</span><span class="ti-price" id="t-TNX">—</span><span class="ti-chg" id="tc-TNX"></span></div>
-    <div class="ti"><span class="ti-sym">GOLD</span><span class="ti-price" id="t-GLD">—</span><span class="ti-chg" id="tc-GLD"></span></div>
-    <!-- duplicate for seamless loop -->
-    <div class="ti"><span class="ti-sym">SPY</span><span class="ti-price" id="t-SPY2">—</span><span class="ti-chg" id="tc-SPY2"></span></div>
-    <div class="ti"><span class="ti-sym">QQQ</span><span class="ti-price" id="t-QQQ2">—</span><span class="ti-chg" id="tc-QQQ2"></span></div>
-    <div class="ti"><span class="ti-sym">BTC</span><span class="ti-price" id="t-BTC2">—</span><span class="ti-chg" id="tc-BTC2"></span></div>
-    <div class="ti"><span class="ti-sym">NVDA</span><span class="ti-price" id="t-NVDA2">—</span><span class="ti-chg" id="tc-NVDA2"></span></div>
-    <div class="ti"><span class="ti-sym">AAPL</span><span class="ti-price" id="t-AAPL2">—</span><span class="ti-chg" id="tc-AAPL2"></span></div>
-    <div class="ti"><span class="ti-sym">10Y</span><span class="ti-price" id="t-TNX2">—</span><span class="ti-chg" id="tc-TNX2"></span></div>
-    <div class="ti"><span class="ti-sym">GOLD</span><span class="ti-price" id="t-GLD2">—</span><span class="ti-chg" id="tc-GLD2"></span></div>
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="header-title">MORNING<br/><span>BRIEF.</span></div>
+      <div class="header-date" id="headerDate">Loading...</div>
+    </div>
+    <button class="refresh-btn" ontouchend="refreshAll()" onclick="refreshAll()">↻ REFRESH</button>
   </div>
 </div>
 
-<!-- MASTHEAD -->
-
-<div class="masthead">
-  <div class="masthead-bg"></div>
-  <div class="mast-rule"></div>
-  <div class="mast-meta">
-    <div class="mast-date" id="dateLine">—</div>
-    <div class="mast-btn" ontouchend="resetKey(event)" onclick="resetKey(event)">⚙ API Key</div>
-  </div>
-  <div class="mast-title">Morning</div>
-  <div class="mast-title-o">Brief</div>
-  <div class="mast-foot">
-    <div class="mast-tag">NYC · Markets · Weather · World</div>
-    <div class="live-dot">Live</div>
-  </div>
+<div class="nav">
+  <div class="nav-tab active" ontouchend="switchTab('sports')" onclick="switchTab('sports')">SPORTS</div>
+  <div class="nav-tab" ontouchend="switchTab('weather')" onclick="switchTab('weather')">WEATHER</div>
+  <div class="nav-tab" ontouchend="switchTab('markets')" onclick="switchTab('markets')">MARKETS</div>
+  <div class="nav-tab" ontouchend="switchTab('news')" onclick="switchTab('news')">NEWS</div>
 </div>
 
-<!-- NEWSLETTER -->
+<!-- SPORTS TAB -->
 
-<div class="newsletter">
+<div class="section active" id="tab-sports">
+  <div class="section-label">New York Sports</div>
 
-  <!-- API SETUP -->
+  <!-- YANKEES -->
 
-  <div id="apiSetup" class="api-setup" style="display:none">
-    <div class="api-title">Connect API Key</div>
-    <div class="api-desc">Enter your Gemini API key to power AI briefs. Free at aistudio.google.com — stored only on this device.</div>
-    <div class="api-row">
-      <input class="api-input" id="apiKeyInput" type="password" placeholder="AIza..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-      <button class="api-btn" ontouchend="saveKey(event)" onclick="saveKey(event)">Save</button>
+  <div class="sport-card" id="card-yankees">
+    <div class="sport-card-header">
+      <div>
+        <div class="team-name">NEW YORK YANKEES</div>
+        <div class="team-record" id="yankees-record">Loading...</div>
+      </div>
+      <div class="team-badge mlb">MLB</div>
+    </div>
+    <div class="sport-card-body" id="yankees-body">
+      <div class="loading-row"><div class="spinner"></div> Fetching live data...</div>
     </div>
   </div>
 
-  <!-- SPORTS -->
+  <!-- KNICKS -->
 
-  <div class="sec-divider sports">
-    <div class="sec-divider-color"></div>
-    <div class="sec-divider-label">Sports</div>
-    <div class="sec-divider-line"></div>
-  </div>
-  <div id="sports-content">
-    <div class="section-loading"><div class="ring"></div><div class="loading-text">Loading scores</div></div>
-  </div>
-
-  <!-- MARKETS -->
-
-  <div class="sec-divider markets">
-    <div class="sec-divider-color"></div>
-    <div class="sec-divider-label">Markets</div>
-    <div class="sec-divider-line"></div>
-  </div>
-  <div id="markets-content">
-    <div class="section-loading"><div class="ring"></div><div class="loading-text">Fetching data</div></div>
+  <div class="sport-card" id="card-knicks">
+    <div class="sport-card-header">
+      <div>
+        <div class="team-name">NEW YORK KNICKS</div>
+        <div class="team-record" id="knicks-record">Loading...</div>
+      </div>
+      <div class="team-badge nba">NBA</div>
+    </div>
+    <div class="sport-card-body" id="knicks-body">
+      <div class="loading-row"><div class="spinner"></div> Fetching live data...</div>
+    </div>
   </div>
 
-  <!-- WEATHER -->
+  <!-- RANGERS -->
 
-  <div class="sec-divider weather">
-    <div class="sec-divider-color"></div>
-    <div class="sec-divider-label">Weather</div>
-    <div class="sec-divider-line"></div>
-  </div>
-  <div id="weather-content">
-    <div class="section-loading"><div class="ring"></div><div class="loading-text">Getting conditions</div></div>
-  </div>
-
-  <!-- REAL ESTATE -->
-
-  <div class="sec-divider realestate">
-    <div class="sec-divider-color"></div>
-    <div class="sec-divider-label">Real Estate</div>
-    <div class="sec-divider-line"></div>
-  </div>
-  <div id="realestate-content">
-    <div class="section-loading"><div class="ring"></div><div class="loading-text">Generating brief</div></div>
+  <div class="sport-card" id="card-rangers">
+    <div class="sport-card-header">
+      <div>
+        <div class="team-name">NEW YORK RANGERS</div>
+        <div class="team-record" id="rangers-record">Loading...</div>
+      </div>
+      <div class="team-badge nhl">NHL</div>
+    </div>
+    <div class="sport-card-body" id="rangers-body">
+      <div class="loading-row"><div class="spinner"></div> Fetching live data...</div>
+    </div>
   </div>
 
-  <!-- AI NEWS -->
+  <!-- GIANTS -->
 
-  <div class="sec-divider ainews">
-    <div class="sec-divider-color"></div>
-    <div class="sec-divider-label">AI News</div>
-    <div class="sec-divider-line"></div>
-  </div>
-  <div id="ainews-content">
-    <div class="section-loading"><div class="ring"></div><div class="loading-text">Generating brief</div></div>
-  </div>
-
-  <!-- POLITICS -->
-
-  <div class="sec-divider politics">
-    <div class="sec-divider-color"></div>
-    <div class="sec-divider-label">Politics</div>
-    <div class="sec-divider-line"></div>
-  </div>
-  <div id="politics-content">
-    <div class="section-loading"><div class="ring"></div><div class="loading-text">Generating brief</div></div>
+  <div class="sport-card" id="card-giants">
+    <div class="sport-card-header">
+      <div>
+        <div class="team-name">NEW YORK GIANTS</div>
+        <div class="team-record" id="giants-record">Loading...</div>
+      </div>
+      <div class="team-badge nfl">NFL</div>
+    </div>
+    <div class="sport-card-body" id="giants-body">
+      <div class="loading-row"><div class="spinner"></div> Fetching live data...</div>
+    </div>
   </div>
 
+  <div class="last-updated" id="sports-updated"></div>
+</div>
+
+<!-- WEATHER TAB -->
+
+<div class="section" id="tab-weather">
+  <div class="coming-soon">
+    <div class="coming-soon-icon">🌤</div>
+    <div class="coming-soon-title">WEATHER</div>
+    <div class="coming-soon-sub">NYC live forecast via Open-Meteo.<br/>Coming in the next update.</div>
+    <div class="coming-soon-tag">Up Next</div>
+  </div>
+</div>
+
+<!-- MARKETS TAB -->
+
+<div class="section" id="tab-markets">
+  <div class="coming-soon">
+    <div class="coming-soon-icon">📈</div>
+    <div class="coming-soon-title">MARKETS / CRE</div>
+    <div class="coming-soon-sub">10Y Treasury, SOFR, VNQ, S&P 500.<br/>Coming in the next update.</div>
+    <div class="coming-soon-tag">Up Next</div>
+  </div>
+</div>
+
+<!-- NEWS TAB -->
+
+<div class="section" id="tab-news">
+  <div class="coming-soon">
+    <div class="coming-soon-icon">📰</div>
+    <div class="coming-soon-title">NEWS</div>
+    <div class="coming-soon-sub">CRE, finance, and AI headlines.<br/>Coming in the next update.</div>
+    <div class="coming-soon-tag">Up Next</div>
+  </div>
 </div>
 
 <script>
-let apiKey = localStorage.getItem('mb_gemini_key') || '';
-const today = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
-
-// ── INIT ────────────────────────────────────────────────
-function init() {
-  document.getElementById('dateLine').textContent = today.toUpperCase();
-  if (!apiKey) document.getElementById('apiSetup').style.display = 'block';
-  // Load all sections in parallel — each makes 1 Gemini call
-  loadTickerData();
-  loadSports();
-  loadMarkets();
-  loadWeather();
-  loadRealEstate();
-  loadAINews();
-  loadPolitics();
-}
-
-// ── API KEY ──────────────────────────────────────────────
-function resetKey(e) {
-  if(e&&e.type==='touchend') e.preventDefault();
-  apiKey=''; localStorage.removeItem('mb_gemini_key');
-  document.getElementById('apiKeyInput').value='';
-  document.getElementById('apiSetup').style.display='block';
-  window.scrollTo(0,0);
-}
-function saveKey(e) {
-  if(e&&e.type==='touchend') e.preventDefault();
-  const val=document.getElementById('apiKeyInput').value.trim();
-  if(!val||val.length<20){alert("Doesn't look valid. Get a free key at aistudio.google.com.");return;}
-  apiKey=val; localStorage.setItem('mb_gemini_key',apiKey);
-  document.getElementById('apiSetup').style.display='none';
-  location.reload();
-}
-
-// ── GEMINI — 1 call per section ──────────────────────────
-async function askMulti(sections) {
-  if(!apiKey) return sections.map(()=>({text:null,error:'No API key.'}));
-  const combined = sections.map((s,i)=>`SECTION_${i+1} [${s.label}]:\n${s.prompt}`).join('\n\n---\n\n');
-  const sys = `You are a sharp morning briefing assistant. Return ONLY a valid JSON array with ${sections.length} objects. Each object must have a "bullets" key containing an array of plain text strings. No markdown, no asterisks, no bold, no headers. Example: [{"bullets":["First point here.","Second point here."]},{"bullets":["Another point."]}]`;
-  try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,{
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({contents:[{parts:[{text:sys+'\n\n'+combined}]}],generationConfig:{maxOutputTokens:2000,temperature:0.6,responseMimeType:'application/json'}})
-    });
-    const d = await res.json();
-    if(d.error) return sections.map(()=>({text:null,error:d.error.message}));
-    const raw = d.candidates?.[0]?.content?.parts?.[0]?.text||'[]';
-    const clean = raw.replace(/```json|```/g,'').trim();
-    const parsed = JSON.parse(clean);
-    return parsed.map(p=>({text:(p.bullets||[]).join('\n'),error:null}));
-  } catch(err) {
-    return sections.map(()=>({text:null,error:err.message}));
+// ─── ESPN API CONFIG ──────────────────────────────────────────────────────────
+// ESPN unofficial API — no key required
+const ESPN = {
+  yankees: {
+    sport: 'baseball', league: 'mlb', teamId: '10', // NYY
+    scheduleUrl: () => `https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/teams/10/schedule`,
+    scoreboardUrl: () => `https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard`,
+    teamUrl: () => `https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/teams/10`,
+  },
+  knicks: {
+    sport: 'basketball', league: 'nba', teamId: '18', // NYK
+    scoreboardUrl: () => `https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard`,
+    teamUrl: () => `https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/18`,
+  },
+  rangers: {
+    sport: 'hockey', league: 'nhl', teamId: '19', // NYR
+    scoreboardUrl: () => `https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard`,
+    teamUrl: () => `https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/teams/19`,
+  },
+  giants: {
+    sport: 'football', league: 'nfl', teamId: '19', // NYG
+    scoreboardUrl: () => `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard`,
+    teamUrl: () => `https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/19`,
   }
+};
+
+// ESPN team IDs for matching in scoreboard results
+const TEAM_IDS = { yankees: '10', knicks: '18', rangers: '19', giants: '19' };
+// NFL Giants ID is also 19 — differentiated by sport endpoint
+
+// ─── DATE HEADER ─────────────────────────────────────────────────────────────
+function setDateHeader() {
+  const now = new Date();
+  const opts = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
+  document.getElementById('headerDate').textContent = now.toLocaleDateString('en-US', opts).toUpperCase();
 }
 
-// ── HELPERS ──────────────────────────────────────────────
-function stripMd(t){return(t||'').replace(/\*\*(.+?)\*\*/g,'$1').replace(/\*(.+?)\*/g,'$1').replace(/`(.+?)`/g,'$1').replace(/#{1,6}\s/g,'').trim();}
-
-function parseBullets(text) {
-  if(!text) return [];
-  const lines = stripMd(text).split('\n').map(l=>l.trim()).filter(l=>l.length>5);
-  const marked = lines.filter(l=>/^[-•*▸]|\d+[.)]\s/.test(l));
-  if(marked.length>=2) return marked.map(l=>l.replace(/^[-•*▸]\s*|\d+[.)]\s*/,'').trim()).filter(l=>l.length>5);
-  return lines;
+// ─── TAB SWITCHING ───────────────────────────────────────────────────────────
+function switchTab(name) {
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
 }
 
-function bulletBlock(label, text, err, color='gold') {
-  if(!text) return `<div class="err">${err||'Brief unavailable — check API key and try refreshing.'}</div>`;
-  const bullets = parseBullets(text);
-  if(!bullets.length) return `<div class="err">No content returned — try refreshing.</div>`;
-  const items = bullets.map(b=>`<li class="bullet">${stripMd(b)}</li>`).join('');
-  return `<div class="bullet-block ${color}"><div class="bl-label"><span class="ai-badge">AI</span>${label}</div><ul class="bullets">${items}</ul></div>`;
+// ─── FETCH HELPER ────────────────────────────────────────────────────────────
+async function fetchJSON(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
 }
 
-function skel(msg){return `<div class="section-loading"><div class="ring"></div><div class="loading-text">${msg}</div></div>`;}
-
-// ── TICKER ───────────────────────────────────────────────
-async function loadTickerData() {
-  const tickers=['SPY','QQQ','BTC-USD','^TNX','GLD','NVDA','AAPL'];
-  const ids=['SPY','QQQ','BTC','TNX','GLD','NVDA','AAPL'];
-  for(let i=0;i<tickers.length;i++){
-    try{
-      const url=`https://query1.finance.yahoo.com/v8/finance/chart/${tickers[i]}?interval=1d&range=2d`;
-      const w=await(await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)).json();
-      const meta=JSON.parse(w.contents).chart?.result?.[0]?.meta;
-      if(!meta) continue;
-      const p=meta.regularMarketPrice,prev=meta.previousClose||meta.chartPreviousClose;
-      const chg=p-prev,pct=((chg/prev)*100).toFixed(2);
-      const fmt=tickers[i]==='BTC-USD'?'$'+p.toLocaleString('en-US',{maximumFractionDigits:0}):tickers[i]==='^TNX'?p.toFixed(2)+'%':p.toFixed(2);
-      const dir=chg>=0?'up':'down',ps=(chg>=0?'+':'')+pct+'%';
-      const id=ids[i];
-      ['','2'].forEach(s=>{
-        const ep=document.getElementById('t-'+id+s),ec=document.getElementById('tc-'+id+s);
-        if(ep) ep.textContent=fmt;
-        if(ec){ec.textContent=' '+ps;ec.className='ti-chg '+dir;}
-      });
-    }catch(e){}
-  }
+// ─── FORMAT HELPERS ──────────────────────────────────────────────────────────
+function formatGameTime(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  return d.toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
 }
 
-// ── FETCH PRICE ──────────────────────────────────────────
-async function fetchPrice(ticker) {
-  try{
-    const url=`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=2d`;
-    const w=await(await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)).json();
-    const meta=JSON.parse(w.contents).chart?.result?.[0]?.meta;
-    if(!meta) return null;
-    const p=meta.regularMarketPrice,prev=meta.previousClose||meta.chartPreviousClose;
-    const chg=p-prev,pct=((chg/prev)*100).toFixed(2);
-    const fmt=ticker==='BTC-USD'?'$'+p.toLocaleString('en-US',{maximumFractionDigits:0}):ticker==='^TNX'?p.toFixed(2)+'%':p.toFixed(2);
-    return{price:fmt,pct:(chg>=0?'+':'')+pct+'%',dir:chg>=0?'up':'down'};
-  }catch(e){return null;}
+function shortDate(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  const today = new Date();
+  const tomorrow = new Date(); tomorrow.setDate(today.getDate() + 1);
+  if (d.toDateString() === today.toDateString()) return 'Today';
+  if (d.toDateString() === tomorrow.toDateString()) return 'Tomorrow';
+  return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
 }
 
-// ── SPORTS ───────────────────────────────────────────────
-async function loadSports() {
-  const el=document.getElementById('sports-content');
-  const leagues=[{espn:'basketball/nba',label:'NBA'},{espn:'hockey/nhl',label:'NHL'},{espn:'baseball/mlb',label:'MLB'},{espn:'football/nfl',label:'NFL'}];
-  const nyKeys={knicks:1,rangers:1,yankees:1,mets:1,giants:1,jets:1,nets:1,islanders:1};
-  const myTeams=['rangers','knicks','yankees','giants'];
-  let allGames=[];
-  for(const lg of leagues){
-    try{
-      const d=await(await fetch(`https://site.api.espn.com/apis/site/v2/sports/${lg.espn}/scoreboard`)).json();
-      for(const ev of(d.events||[])){
-        const c=ev.competitions?.[0];if(!c)continue;
-        const teams=c.competitors||[];
-        const home=teams.find(t=>t.homeAway==='home'),away=teams.find(t=>t.homeAway==='away');
-        if(!home||!away)continue;
-        const matchKey=Object.keys(nyKeys).find(k=>(home.team?.displayName||'').toLowerCase().includes(k)||(away.team?.displayName||'').toLowerCase().includes(k));
-        allGames.push({league:lg.label,home,away,status:c.status?.type?.shortDetail||'',done:c.status?.type?.completed,nyKey:matchKey||null});
-      }
-    }catch(err){}
+function shortTime(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  return d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+}
+
+// ─── RENDER GAME CARD ─────────────────────────────────────────────────────────
+function renderGame(game, teamId, isLast) {
+  if (!game) return null;
+
+  const comps = game.competitions?.[0];
+  if (!comps) return null;
+
+  const status = game.status?.type;
+  const isLive = status?.state === 'in';
+  const isFinal = status?.state === 'post';
+  const isPre = status?.state === 'pre';
+
+  const homeComp = comps.competitors?.find(c => c.homeAway === 'home');
+  const awayComp = comps.competitors?.find(c => c.homeAway === 'away');
+
+  if (!homeComp || !awayComp) return null;
+
+  // Determine which side is "our" team
+  const ourComp = comps.competitors?.find(c => c.team?.id === teamId);
+  const oppComp = comps.competitors?.find(c => c.team?.id !== teamId);
+
+  const homeScore = parseInt(homeComp.score || '0');
+  const awayScore = parseInt(awayComp.score || '0');
+
+  let ourWin = false;
+  if (isFinal && ourComp) {
+    ourWin = ourComp.winner === true;
   }
 
-  const teamData={};
-  for(const key of myTeams){
-    const g=allGames.find(g=>g.nyKey===key);
-    teamData[key]=g?`${g.away.team.displayName} ${g.away.score||'—'} @ ${g.home.team.displayName} ${g.home.score||'—'} (${g.done?'Final':g.status}, ${g.league})`:'No game scheduled';
+  const homeWinner = isFinal && homeScore > awayScore;
+  const awayWinner = isFinal && awayScore > homeScore;
+
+  let statusText = '';
+  let statusClass = '';
+  if (isLive) {
+    const period = status?.detail || status?.shortDetail || 'LIVE';
+    statusText = period;
+    statusClass = 'live';
+  } else if (isFinal) {
+    statusText = ourWin ? 'WIN' : 'LOSS';
+    statusClass = ourWin ? 'win' : 'loss';
+  } else if (isPre) {
+    statusText = `${shortDate(game.date)} · ${shortTime(game.date)}`;
+    statusClass = '';
   }
 
-  const [r1,r2,r3,r4,r5,r6]=await askMulti([
-    {label:'Rangers',    prompt:`Rangers game data: ${teamData.rangers}. 2 bullets: last result with brief context, current record + one key note.`},
-    {label:'Knicks',     prompt:`Knicks game data: ${teamData.knicks}. 2 bullets: last result with brief context, current record + one key note.`},
-    {label:'Yankees',    prompt:`Yankees game data: ${teamData.yankees}. 2 bullets: last result with brief context, current standing + one key note.`},
-    {label:'Giants',     prompt:`Giants: ${teamData.giants}. 2 bullets: recent result/offseason news, current record + one roster note.`},
-    {label:'Highlights', prompt:`4 bullets on last night's most interesting NBA/NHL/MLB results (not Knicks/Rangers/Yankees). Teams, scores, standout performers.`},
-    {label:'LeagueNews', prompt:`3 bullets on biggest league news today across NBA/NHL/MLB/NFL — trades, injuries, signings, anything major. Specific and punchy.`}
-  ]);
+  // Pre-game: show as upcoming
+  if (isPre) {
+    const venue = comps.venue?.fullName || '';
+    const location = comps.venue?.address?.city || '';
+    const isHome = homeComp.team?.id === teamId;
+    const oppName = isHome ? awayComp.team?.displayName : homeComp.team?.displayName;
+    const homeAway = isHome ? 'vs' : '@';
+    return `
+      <div class="game-row">
+        <div class="game-label">${isLast ? 'LAST GAME' : 'NEXT GAME'}</div>
+        <div class="next-game">
+          <div>
+            <div class="next-game-vs">${homeAway} ${oppName || 'TBD'}</div>
+            <div class="next-game-where">${venue ? venue + (location ? ', ' + location : '') : location}</div>
+          </div>
+          <div style="text-align:right">
+            <div class="next-game-time">${shortDate(game.date)}</div>
+            <div class="next-game-time">${shortTime(game.date)}</div>
+          </div>
+        </div>
+      </div>`;
+  }
 
-  const teamLogos={rangers:'🏒',knicks:'🏀',yankees:'⚾',giants:'🏈'};
-  const teamData2=[
-    {key:'rangers',cls:'rangers',label:'NY Rangers',  brief:r1},
-    {key:'knicks', cls:'knicks', label:'NY Knicks',   brief:r2},
-    {key:'yankees',cls:'yankees',label:'NY Yankees',  brief:r3},
-    {key:'giants', cls:'giants', label:'NY Giants',   brief:r4},
-  ];
-
-  let html='<div class="team-grid">';
-  for(const t of teamData2){
-    const bullets=parseBullets(t.brief.text).map(b=>stripMd(b));
-    html+=`<div class="team-card ${t.cls}">
-      <div class="team-logo">${teamLogos[t.key]}</div>
-      <div class="team-name">${t.label}</div>
-      <ul class="bullets" style="gap:7px">
-        ${bullets.slice(0,2).map(b=>`<li class="bullet" style="font-size:11.5px">${b}</li>`).join('')}
-      </ul>
+  return `
+    <div class="game-row">
+      <div class="game-label">${isLive ? '<span class="dot-live"></span>LIVE NOW' : isLast ? 'LAST GAME' : 'RECENT'}</div>
+      <div class="game-matchup">
+        <div class="game-team">${awayComp.team?.abbreviation || 'AWY'}</div>
+        <div class="game-score-block">
+          <div class="game-score ${awayWinner ? 'winner' : isFinal ? 'loser' : ''}">${isPre ? '-' : awayComp.score || '0'}</div>
+          <div class="game-vs">${isFinal ? 'F' : isLive ? 'vs' : 'vs'}</div>
+          <div class="game-score ${homeWinner ? 'winner' : isFinal ? 'loser' : ''}">${isPre ? '-' : homeComp.score || '0'}</div>
+        </div>
+        <div class="game-team home">${homeComp.team?.abbreviation || 'HME'}</div>
+      </div>
+      <div class="game-status ${statusClass}">${statusText}</div>
     </div>`;
-  }
-  html+='</div>';
-  html+=bulletBlock("Last Night's Highlights",r5.text,r5.error,'blue');
-  html+=bulletBlock('League News',r6.text,r6.error,'green');
-  el.innerHTML=html;
 }
 
-// ── MARKETS ──────────────────────────────────────────────
-async function loadMarkets() {
-  const el=document.getElementById('markets-content');
-  const macroTickers=[{t:'SPY',l:'S&P 500'},{t:'QQQ',l:'Nasdaq 100'},{t:'BTC-USD',l:'Bitcoin'},{t:'^TNX',l:'10Y Yield'},{t:'GLD',l:'Gold'},{t:'DXY',l:'DXY'}];
-  const stockTickers=[{t:'AAPL',s:'AAPL',l:'Apple'},{t:'NVDA',s:'NVDA',l:'Nvidia'},{t:'MSFT',s:'MSFT',l:'Microsoft'},{t:'AMZN',s:'AMZN',l:'Amazon'},{t:'META',s:'META',l:'Meta'},{t:'GOOGL',s:'GOOGL',l:'Google'}];
-  const [macroData,stockData]=await Promise.all([
-    Promise.all(macroTickers.map(async t=>({...t,...(await fetchPrice(t.t)||{price:'—',pct:'—',dir:'neutral'})}))),
-    Promise.all(stockTickers.map(async t=>({...t,...(await fetchPrice(t.t)||{price:'—',pct:'—',dir:'neutral'})})))
-  ]);
-  const macroSummary=macroData.map(m=>`${m.l}: ${m.price} (${m.pct})`).join(', ');
-  const stockSummary=stockData.map(s=>`${s.s}: ${s.price} (${s.pct})`).join(', ');
+// ─── LOAD TEAM DATA ───────────────────────────────────────────────────────────
+async function loadTeam(key, sport, league, teamId, bodyId, recordId) {
+  const bodyEl = document.getElementById(bodyId);
+  const recordEl = document.getElementById(recordId);
 
-  let html='<div class="mkt-grid">';
-  macroData.forEach(m=>{
-    const dir=m.dir||'neutral',arrow=dir==='up'?'▲':dir==='down'?'▼':'';
-    html+=`<div class="mkt-card ${dir}"><div class="mkt-label"><span class="mkt-arrow ${dir}">${arrow}</span>${m.l}</div><div class="mkt-price">${m.price}</div><span class="mkt-badge ${dir}">${m.pct}</span><div class="mkt-glow"></div></div>`;
+  try {
+    // Fetch scoreboard + team info in parallel
+    const scoreboardUrl = `https://site.api.espn.com/apis/site/v2/sports/${sport}/${league}/scoreboard`;
+    const teamUrl = `https://site.api.espn.com/apis/site/v2/sports/${sport}/${league}/teams/${teamId}`;
+
+    const [scoreData, teamData] = await Promise.all([
+      fetchJSON(scoreboardUrl),
+      fetchJSON(teamUrl)
+    ]);
+
+    // Record
+    const record = teamData?.team?.record?.items?.[0]?.summary || '';
+    recordEl.textContent = record ? `${record}` : '';
+
+    // Find our team's game in today's scoreboard
+    const events = scoreData?.events || [];
+    let todayGame = null;
+    for (const ev of events) {
+      const comps = ev.competitions?.[0]?.competitors || [];
+      if (comps.some(c => c.team?.id === teamId)) {
+        todayGame = ev;
+        break;
+      }
+    }
+
+    // Also fetch schedule for next/last game
+    const schedUrl = `https://site.api.espn.com/apis/site/v2/sports/${sport}/${league}/teams/${teamId}/schedule`;
+    let schedData = null;
+    try { schedData = await fetchJSON(schedUrl); } catch(e) {}
+
+    const events2 = schedData?.events || [];
+    const now = new Date();
+
+    // Find last completed game
+    const pastGames = events2.filter(e => e.status?.type?.state === 'post').reverse();
+    const lastGame = pastGames[0] || null;
+
+    // Find next upcoming game
+    const futureGames = events2.filter(e => e.status?.type?.state === 'pre');
+    const nextGame = futureGames[0] || null;
+
+    // Build HTML
+    let html = '';
+
+    if (todayGame) {
+      const g = renderGame(todayGame, teamId, false);
+      if (g) html += g;
+    } else {
+      if (lastGame) {
+        const g = renderGame(lastGame, teamId, true);
+        if (g) html += g;
+      }
+      if (nextGame) {
+        if (lastGame) html += '<div class="divider"></div>';
+        const g = renderGame(nextGame, teamId, false);
+        if (g) html += g;
+      }
+    }
+
+    if (!html) {
+      // Offseason / no data
+      html = `<div style="color:var(--muted);font-size:13px;padding:8px 0">No games scheduled right now.</div>`;
+      if (league === 'nfl') html = `<div style="color:var(--muted);font-size:13px;padding:8px 0">NFL offseason. Next season starts September 2025.</div>`;
+    }
+
+    bodyEl.innerHTML = html;
+
+  } catch (err) {
+    console.error(key, err);
+    bodyEl.innerHTML = `<div class="error-msg">Could not load data — ${err.message}</div>`;
+    recordEl.textContent = '';
+  }
+}
+
+// ─── LOAD ALL SPORTS ─────────────────────────────────────────────────────────
+async function loadSports() {
+  // Reset spinners
+  ['yankees','knicks','rangers','giants'].forEach(k => {
+    document.getElementById(`${k}-body`).innerHTML = '<div class="loading-row"><div class="spinner"></div> Fetching live data...</div>';
+    document.getElementById(`${k}-record`).textContent = 'Loading...';
   });
-  html+='</div>';
-  html+=`<div class="subhead">Mag 6</div>`;
-  stockData.forEach(s=>{
-    const dir=s.dir||'neutral',arrow=dir==='up'?'▲':dir==='down'?'▼':'–';
-    html+=`<div class="stock-row ${dir}"><div class="stock-left"><span class="stock-arrow ${dir}">${arrow}</span><div class="stock-info"><div class="stock-sym">${s.s}</div><div class="stock-name">${s.l}</div></div></div><div class="stock-right"><div class="stock-price">${s.price}</div><span class="stock-badge ${dir}">${s.pct}</span></div></div>`;
-  });
 
-  const [mb,sb,wb]=await askMulti([
-    {label:'Macro',    prompt:`Macro: ${macroSummary}. 3 bullets on what's driving today's moves — Fed, rates, geopolitics, or economic data.`},
-    {label:'Equities', prompt:`Mag 6: ${stockSummary}. 3 bullets on most notable moves — outperformers/underperformers and why. Include earnings or news context.`},
-    {label:'Watch',    prompt:`Markets: ${macroSummary}. 3 bullets on what to watch today — data releases, Fed speakers, earnings reports, geopolitical events.`}
+  await Promise.all([
+    loadTeam('yankees', 'baseball', 'mlb', '10', 'yankees-body', 'yankees-record'),
+    loadTeam('knicks', 'basketball', 'nba', '18', 'knicks-body', 'knicks-record'),
+    loadTeam('rangers', 'hockey', 'nhl', '19', 'rangers-body', 'rangers-record'),
+    loadTeam('giants', 'football', 'nfl', '19', 'giants-body', 'giants-record'),
   ]);
 
-  html+=`<hr class="nl-rule">`;
-  html+=bulletBlock('Macro Brief',mb.text,mb.error,'blue');
-  html+=bulletBlock('Equities',sb.text,sb.error,'green');
-  html+=bulletBlock('What To Watch',wb.text,wb.error,'gold');
-  el.innerHTML=html;
+  const now = new Date();
+  document.getElementById('sports-updated').textContent =
+    `Updated ${now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}`;
 }
 
-// ── WEATHER ──────────────────────────────────────────────
-async function loadWeather() {
-  const el=document.getElementById('weather-content');
-  let wd=null;
-  try{wd=await(await fetch(`https://api.open-meteo.com/v1/forecast?latitude=40.7128&longitude=-74.0060&current=temperature_2m,apparent_temperature,weathercode,windspeed_10m,relative_humidity_2m,precipitation&daily=temperature_2m_max,temperature_2m_min,weathercode,precipitation_sum&timezone=America%2FNew_York&temperature_unit=fahrenheit&windspeed_unit=mph&forecast_days=4`)).json();}catch(e){}
-  if(!wd){el.innerHTML=`<div class="err">Weather unavailable.</div>`;return;}
-  const cur=wd.current,daily=wd.daily;
-  const temp=Math.round(cur.temperature_2m),feels=Math.round(cur.apparent_temperature);
-  const wind=Math.round(cur.windspeed_10m),hum=cur.relative_humidity_2m;
-  const icon=wIcon(cur.weathercode),desc=wDesc(cur.weathercode);
-  const dnames=['Today','Tomorrow','Day 3'];
-  let fc=`<div class="fc-row">`;
-  for(let i=0;i<4&&i<daily.time.length;i++){
-    const dn=i<3?dnames[i]:new Date(daily.time[i]+'T12:00:00').toLocaleDateString('en-US',{weekday:'short'});
-    fc+=`<div class="fc-card"><div class="fc-day">${dn}</div><div class="fc-icon">${wIcon(daily.weathercode[i])}</div><div class="fc-hi">${Math.round(daily.temperature_2m_max[i])}°</div><div class="fc-lo">${Math.round(daily.temperature_2m_min[i])}°</div></div>`;
-  }
-  fc+='</div>';
-  const [wb]=await askMulti([
-    {label:'Weather',prompt:`NYC: ${temp}F feels ${feels}F, ${desc}, wind ${wind}mph, humidity ${hum}%. High ${Math.round(daily.temperature_2m_max[0])}, low ${Math.round(daily.temperature_2m_min[0])}. 3 bullets: (1) what to expect today, (2) what to wear/bring, (3) notable outlook this week.`}
-  ]);
-  el.innerHTML=`<div class="wx-hero"><div><div class="wx-temp">${temp}<span class="wx-deg">°F</span></div><div class="wx-desc">${desc}</div><div class="wx-feels">Feels like ${feels}° · New York City</div></div><div class="wx-icon">${icon}</div></div>
-  <div class="wx-stats"><div class="wx-stat"><div class="wx-sl">Wind</div><div class="wx-sv">${wind} mph</div></div><div class="wx-stat"><div class="wx-sl">Humidity</div><div class="wx-sv">${hum}%</div></div><div class="wx-stat"><div class="wx-sl">Precip</div><div class="wx-sv">${cur.precipitation}"</div></div></div>`
-  +fc+bulletBlock('Weather Brief',wb.text,wb.error,'sky');
-}
-function wIcon(c){if(c===0)return'☀️';if([1,2].includes(c))return'🌤';if(c===3)return'☁️';if([45,48].includes(c))return'🌫';if([51,53,55,61,63,65,80,81,82].includes(c))return'🌧';if([71,73,75,77,85,86].includes(c))return'❄️';if([95,96,99].includes(c))return'⛈';return'🌡';}
-function wDesc(c){return({0:'Clear',1:'Mostly Clear',2:'Partly Cloudy',3:'Overcast',45:'Foggy',48:'Foggy',51:'Light Drizzle',53:'Drizzle',55:'Heavy Drizzle',61:'Light Rain',63:'Rain',65:'Heavy Rain',71:'Light Snow',73:'Snow',75:'Heavy Snow',80:'Showers',81:'Showers',82:'Heavy Showers',95:'Thunderstorm',96:'Thunderstorm',99:'Thunderstorm'})[c]||'Variable';}
-
-// ── REAL ESTATE ──────────────────────────────────────────
-async function loadRealEstate() {
-  const el=document.getElementById('realestate-content');
-  const [d1,d2,d3,d4,d5]=await askMulti([
-    {label:'Deals',    prompt:`CRE deal flow for a portfolio manager: 3 bullets on notable transactions, distressed assets, defaults this week — office/multifamily/retail/industrial. Specific with dollar amounts and markets.`},
-    {label:'CapRates', prompt:`3 bullets: cap rate environment across office/multifamily/industrial/retail, current SOFR rate and direction, CRE financing conditions and lender appetite. Include actual numbers.`},
-    {label:'Trends',   prompt:`3 bullets: (1) NYC office vacancy/sublease/notable leases, (2) multifamily rent trends/supply pipeline, (3) notable retail or industrial trends. NYC-focused.`},
-    {label:'REITs',    prompt:`3 bullets: notable REIT performance this week, REIT earnings/guidance news, sector rotation or flows into/out of real estate. Specific REIT names and % moves.`},
-    {label:'Macro',    prompt:`3 bullets: (1) Fed commentary and real estate implications, (2) 10Y treasury direction and CRE spread implications, (3) macro risks or tailwinds for CRE next 30-60 days.`}
-  ]);
-  const sections=[
-    {icon:'🏢',cls:'deal', scls:'deal-s', label:'CRE Deal Flow & Distress',brief:d1},
-    {icon:'📊',cls:'cap',  scls:'cap-s',  label:'Cap Rates & Financing',   brief:d2},
-    {icon:'🏙',cls:'trend',scls:'trend-s',label:'Multifamily & Office',    brief:d3},
-    {icon:'📈',cls:'reit', scls:'reit-s', label:'REIT Watch',              brief:d4},
-    {icon:'🏦',cls:'macro',scls:'macro-s',label:'Macro: Fed & Rates',      brief:d5},
-  ];
-  let html='';
-  for(const s of sections){
-    const bullets=parseBullets(s.brief.text).map(b=>stripMd(b));
-    const fallback=['Data unavailable — try refreshing.'];
-    const items=(bullets.length?bullets:fallback).map(b=>`<li class="bullet">${b}</li>`).join('');
-    html+=`<div class="cre-section ${s.scls}"><div class="cre-header"><div class="cre-icon ${s.cls}">${s.icon}</div><div class="cre-label">${s.label}</div></div><div class="cre-body"><ul class="bullets">${items}</ul></div></div>`;
-  }
-  el.innerHTML=html;
+// ─── REFRESH ALL ─────────────────────────────────────────────────────────────
+function refreshAll() {
+  loadSports();
 }
 
-// ── AI NEWS ──────────────────────────────────────────────
-async function loadAINews() {
-  const el=document.getElementById('ainews-content');
-  const [b1,b2,b3]=await askMulti([
-    {label:'Models',     prompt:`4 bullets on biggest AI model/product news this week from OpenAI, Anthropic, Google, Meta, Mistral, xAI. Specific model names, capabilities, significance.`},
-    {label:'Enterprise', prompt:`3 bullets on AI in enterprise — notable deployments, partnerships, deals this week. Specific companies and sectors.`},
-    {label:'Policy',     prompt:`3 bullets on AI policy and strategy — government actions, EU AI Act, chip controls, safety, US vs China AI competition. Factual and specific.`}
-  ]);
-  el.innerHTML=bulletBlock('Model & Product News',b1.text,b1.error,'purple')+bulletBlock('Enterprise & Industry',b2.text,b2.error,'blue')+bulletBlock('Policy & Strategy',b3.text,b3.error,'green');
-}
-
-// ── POLITICS ─────────────────────────────────────────────
-async function loadPolitics() {
-  const el=document.getElementById('politics-content');
-  const [b1,b2,b3]=await askMulti([
-    {label:'Washington',  prompt:`4 bullets on biggest domestic political developments — legislation, executive actions, congressional news. Factual, neutral, specific with names and bills.`},
-    {label:'Global',      prompt:`3 bullets on top geopolitical stories — conflicts, diplomatic developments, elections, policy shifts. Specific countries and stakes.`},
-    {label:'EconPolicy',  prompt:`3 bullets on economic policy — trade, tariffs, sanctions, Treasury/Fed actions with political dimensions this week. Factual.`}
-  ]);
-  el.innerHTML=bulletBlock('Washington',b1.text,b1.error,'red')+bulletBlock('Global Watch',b2.text,b2.error,'blue')+bulletBlock('Economic Policy',b3.text,b3.error,'gold');
-}
-
-init();
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+setDateHeader();
+loadSports();
 </script>
 
 </body>
