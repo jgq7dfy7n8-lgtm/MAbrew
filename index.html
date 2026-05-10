@@ -426,46 +426,66 @@ function htmlPerformers(summary, teamId) {
   </div>`;
 }
 
-function htmlStandings(standData, teamId, league) {
-  if (!standData) return '';
-  let entries = null;
-
-  function walk(node) {
-    if (!node || entries) return;
-    const ents = node.standings?.entries || node.entries || [];
-    if (ents.some(e => e?.team?.id === teamId)) { entries = ents; return; }
-    (node.children || []).filter(Boolean).forEach(walk);
+function findStandingEntries(standData, teamId) {
+  try {
+    if (!standData) return null;
+    let entries = null;
+    function walk(node) {
+      if (!node || entries) return;
+      try {
+        const ents = node.standings?.entries || node.entries || [];
+        if (Array.isArray(ents) && ents.some(e => e?.team?.id === teamId)) {
+          entries = ents; return;
+        }
+        const kids = node.children;
+        if (Array.isArray(kids)) kids.filter(Boolean).forEach(walk);
+      } catch(e) {}
+    }
+    const top = standData.children || [standData];
+    if (Array.isArray(top)) top.filter(Boolean).forEach(walk);
+    return entries;
+  } catch(e) {
+    return null;
   }
-  (standData.children || [standData]).filter(Boolean).forEach(walk);
-  if (!entries?.length) return '';
+}
 
-  const showGB = league !== 'nfl';
-  const hdr = `<div class="s-row hdr">
-    <div class="s-name">TEAM</div>
-    <div class="s-val">W</div>
-    <div class="s-val">L</div>
-    ${showGB ? '<div class="s-gb">GB</div>' : ''}
-  </div>`;
+function htmlStandings(standData, teamId, league) {
+  try {
+    const entries = findStandingEntries(standData, teamId);
+    if (!entries?.length) return '';
 
-  const dataRows = entries.slice(0, 5).map(r => {
-    const isUs = r.team?.id === teamId;
-    const name = r.team?.abbreviation || r.team?.shortDisplayName || '—';
-    const rec  = r.records?.[0];
-    const w    = rec?.wins   ?? r.wins   ?? '—';
-    const l    = rec?.losses ?? r.losses ?? '—';
-    const gb   = rec?.gamesBehind ?? r.gamesBehind ?? '—';
-    return `<div class="s-row ${isUs ? 'us' : ''}">
-      <div class="s-name">${isUs ? '▸ ' : ''}${name}</div>
-      <div class="s-val">${w}</div>
-      <div class="s-val">${l}</div>
-      ${showGB ? `<div class="s-gb">${gb === 0 || gb === '0' ? '—' : gb}</div>` : ''}
+    const showGB = league !== 'nfl';
+    const hdr = `<div class="s-row hdr">
+      <div class="s-name">TEAM</div>
+      <div class="s-val">W</div>
+      <div class="s-val">L</div>
+      ${showGB ? '<div class="s-gb">GB</div>' : ''}
     </div>`;
-  }).join('');
 
-  return `<div class="card-section">
-    <div class="cs-label">DIVISION STANDINGS</div>
-    <div class="s-table">${hdr}${dataRows}</div>
-  </div>`;
+    const dataRows = entries.slice(0, 5).map(r => {
+      if (!r) return '';
+      const isUs = r.team?.id === teamId;
+      const name = r.team?.abbreviation || r.team?.shortDisplayName || '—';
+      const rec  = r.records?.[0];
+      const w    = rec?.wins   ?? r.wins   ?? '—';
+      const l    = rec?.losses ?? r.losses ?? '—';
+      const gb   = rec?.gamesBehind ?? r.gamesBehind ?? '—';
+      return `<div class="s-row ${isUs ? 'us' : ''}">
+        <div class="s-name">${isUs ? '▸ ' : ''}${name}</div>
+        <div class="s-val">${w}</div>
+        <div class="s-val">${l}</div>
+        ${showGB ? `<div class="s-gb">${gb === 0 || gb === '0' ? '—' : gb}</div>` : ''}
+      </div>`;
+    }).join('');
+
+    return `<div class="card-section">
+      <div class="cs-label">DIVISION STANDINGS</div>
+      <div class="s-table">${hdr}${dataRows}</div>
+    </div>`;
+  } catch(e) {
+    console.warn('standings render error:', e);
+    return '';
+  }
 }
 
 function htmlNews(articles) {
@@ -488,21 +508,18 @@ function htmlNews(articles) {
 }
 
 function getRank(standData, teamId) {
-  let entries = null;
-  function walk(node) {
-    if (!node || entries) return;
-    const ents = node.standings?.entries || node.entries || [];
-    if (ents.some(e => e?.team?.id === teamId)) { entries = ents; return; }
-    (node.children || []).filter(Boolean).forEach(walk);
+  try {
+    const entries = findStandingEntries(standData, teamId);
+    if (!entries) return null;
+    const idx = entries.findIndex(e => e?.team?.id === teamId);
+    if (idx < 0) return null;
+    const rank = idx + 1, total = entries.length;
+    const suffix = rank===1?'st':rank===2?'nd':rank===3?'rd':'th';
+    const cls    = rank <= 2 ? 'good' : rank >= total ? 'bad' : 'mid';
+    return { text: `${rank}${suffix} in division`, cls };
+  } catch(e) {
+    return null;
   }
-  (standData?.children || [standData]).filter(Boolean).forEach(walk);
-  if (!entries) return null;
-  const idx = entries.findIndex(e => e.team?.id === teamId);
-  if (idx < 0) return null;
-  const rank = idx + 1, total = entries.length;
-  const suffix = rank===1?'st':rank===2?'nd':rank===3?'rd':'th';
-  const cls    = rank <= 2 ? 'good' : rank >= total ? 'bad' : 'mid';
-  return { text: `${rank}${suffix} in division`, cls };
 }
 
 // ── LOAD SINGLE TEAM ────────────────────────────────────────────────────────
