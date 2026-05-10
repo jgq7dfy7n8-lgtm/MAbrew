@@ -10,16 +10,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-
 html { background:#0a0a0a; }
 body {
-background:#0a0a0a;
-color:#f0f0f0;
-font-family:‘DM Sans’,sans-serif;
-min-height:100vh;
-padding-bottom:env(safe-area-inset-bottom);
+  background:#0a0a0a; color:#f0f0f0;
+  font-family:'DM Sans',sans-serif;
+  min-height:100vh;
+  padding-bottom:env(safe-area-inset-bottom);
 }
 
+/* HEADER */
 .header {
 padding:calc(52px + env(safe-area-inset-top)) 20px 18px;
 border-bottom:1px solid #1e1e1e;
@@ -46,6 +45,7 @@ cursor:pointer; margin-top:4px; transition:all 0.2s;
 }
 .refresh-btn:active { border-color:#00e676; color:#00e676; transform:scale(0.96); }
 
+/* NAV */
 .nav {
 display:flex; border-bottom:1px solid #1e1e1e;
 overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch;
@@ -58,21 +58,22 @@ border-bottom:2px solid transparent; flex-shrink:0; transition:all 0.2s;
 }
 .nav-tab.active { color:#00e676; border-bottom-color:#00e676; }
 
+/* SECTIONS */
 .section { display:none; padding:16px 16px 40px; animation:fadeIn 0.25s ease; }
 .section.active { display:block; }
 @keyframes fadeIn { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
-
 .section-label {
 font-family:‘Bebas Neue’,sans-serif; font-size:10px;
-letter-spacing:3px; color:#00e676; margin-bottom:14px; text-transform:uppercase;
+letter-spacing:3px; color:#00e676; margin-bottom:14px;
 }
 
 /* TEAM CARD */
 .team-card {
-background:#111; border:1px solid #1e1e1e; border-radius:14px;
-margin-bottom:14px; overflow:hidden;
+background:#111; border:1px solid #1e1e1e;
+border-radius:14px; margin-bottom:14px; overflow:hidden;
 }
 
+/* CARD HEADER */
 .card-head {
 display:flex; justify-content:space-between; align-items:flex-start;
 padding:14px 16px 12px; border-bottom:1px solid #1a1a1a;
@@ -98,9 +99,10 @@ padding:3px 10px; border-radius:20px; border:1px solid #222; color:#444; flex-sh
 .league-badge.nhl { border-color:#0038a8; color:#6fa8ff; }
 .league-badge.nfl { border-color:#333; color:#888; }
 
+/* CARD SECTIONS */
 .card-section { padding:12px 16px; border-bottom:1px solid #161616; }
 .card-section:last-child { border-bottom:none; }
-.card-section-label {
+.cs-label {
 font-size:9px; letter-spacing:2.5px; text-transform:uppercase;
 color:#444; margin-bottom:8px; font-weight:600;
 }
@@ -117,7 +119,7 @@ letter-spacing:1px; min-width:26px; text-align:center;
 .score-num.W { color:#00e676; }
 .score-num.L { color:#555; }
 .score-sep { font-family:‘Bebas Neue’,sans-serif; font-size:13px; color:#444; }
-.score-verdict { text-align:center; margin-top:4px; }
+.score-verdict { text-align:center; margin-top:5px; }
 .verdict-pill {
 display:inline-block; font-size:10px; letter-spacing:1.5px; font-weight:600;
 padding:2px 10px; border-radius:10px; text-transform:uppercase;
@@ -125,7 +127,6 @@ padding:2px 10px; border-radius:10px; text-transform:uppercase;
 .verdict-pill.win  { background:rgba(0,230,118,0.12); color:#00e676; }
 .verdict-pill.loss { background:rgba(255,68,68,0.1);  color:#ff4444; }
 .verdict-pill.live { background:rgba(255,68,68,0.15); color:#ff4444; }
-.verdict-pill.pre  { background:rgba(255,255,255,0.05); color:#888; }
 
 /* NEXT GAME */
 .next-row {
@@ -134,16 +135,28 @@ background:#161616; border-radius:8px; padding:10px 12px;
 }
 .next-matchup { font-size:13px; font-weight:500; }
 .next-sub { font-size:11px; color:#555; margin-top:2px; }
-.next-when { text-align:right; }
+.next-when { text-align:right; flex-shrink:0; margin-left:12px; }
 .next-date { font-size:12px; color:#888; }
 .next-time { font-size:11px; color:#555; margin-top:1px; }
 
 /* PERFORMERS */
-.performers-grid { display:flex; flex-direction:column; gap:7px; }
+.performers-grid { display:flex; flex-direction:column; gap:8px; }
 .performer-row { display:flex; justify-content:space-between; align-items:baseline; gap:8px; }
 .performer-name { font-size:13px; font-weight:500; color:#ddd; }
-.performer-line { font-size:12px; color:#888; text-align:right; flex-shrink:0; }
+.performer-line { font-size:12px; color:#666; text-align:right; flex-shrink:0; }
 .performer-line strong { color:#00e676; font-weight:600; }
+
+/* STANDINGS */
+.s-table { width:100%; }
+.s-row { display:flex; align-items:center; padding:4px 0; border-bottom:1px solid #161616; }
+.s-row:last-child { border-bottom:none; }
+.s-row.us .s-name { color:#00e676; font-weight:600; }
+.s-row.hdr .s-name,
+.s-row.hdr .s-val,
+.s-row.hdr .s-gb { color:#333; font-size:10px; letter-spacing:1px; }
+.s-name { font-size:12px; color:#777; flex:1; }
+.s-val  { font-size:11px; color:#555; width:28px; text-align:right; }
+.s-gb   { font-size:11px; color:#444; width:28px; text-align:right; }
 
 /* NEWS */
 .news-list { display:flex; flex-direction:column; }
@@ -152,27 +165,17 @@ background:#161616; border-radius:8px; padding:10px 12px;
 .news-headline { font-size:13px; line-height:1.45; color:#ccc; }
 .news-meta { font-size:10px; color:#444; margin-top:3px; }
 
-/* STANDINGS */
-.standings-table { width:100%; }
-.s-row { display:flex; align-items:center; padding:4px 0; border-bottom:1px solid #161616; }
-.s-row:last-child { border-bottom:none; }
-.s-row.us .s-name { color:#00e676; font-weight:600; }
-.s-row.hdr .s-name { color:#333; font-size:10px; letter-spacing:1px; }
-.s-row.hdr .s-val  { color:#333; font-size:10px; letter-spacing:1px; }
-.s-name { font-size:12px; color:#888; flex:1; }
-.s-val  { font-size:11px; color:#555; width:28px; text-align:right; }
-.s-gb   { font-size:11px; color:#444; width:28px; text-align:right; }
-
 /* MISC */
 .loading-row { display:flex; align-items:center; gap:10px; padding:20px 0; color:#444; font-size:13px; }
 .spinner { width:15px; height:15px; border:2px solid #222; border-top-color:#00e676; border-radius:50%; animation:spin 0.7s linear infinite; flex-shrink:0; }
 @keyframes spin { to{transform:rotate(360deg)} }
-.error-msg { font-size:12px; color:#ff4444; padding:6px 0; }
+.error-msg { font-size:12px; color:#ff4444; padding:6px 0; line-height:1.5; }
 .dot-live { display:inline-block; width:6px; height:6px; background:#ff4444; border-radius:50%; margin-right:5px; animation:blink 1s infinite; vertical-align:middle; }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
 .last-updated { font-size:10px; color:#333; text-align:center; padding:16px 0 4px; letter-spacing:1px; text-transform:uppercase; }
 
-.coming-soon { text-align:center; padding:60px 20px; color:#444; }
+/* COMING SOON */
+.coming-soon { text-align:center; padding:60px 20px; }
 .coming-soon-icon { font-size:32px; margin-bottom:14px; }
 .coming-soon-title { font-family:‘Bebas Neue’,sans-serif; font-size:22px; letter-spacing:2px; color:#f0f0f0; margin-bottom:6px; }
 .coming-soon-sub { font-size:13px; color:#444; line-height:1.6; }
@@ -193,11 +196,13 @@ background:#161616; border-radius:8px; padding:10px 12px;
 </div>
 
 <div class="nav">
-  <div class="nav-tab active" ontouchend="switchTab(event,'sports')" onclick="switchTab(event,'sports')">SPORTS</div>
-  <div class="nav-tab" ontouchend="switchTab(event,'weather')" onclick="switchTab(event,'weather')">WEATHER</div>
-  <div class="nav-tab" ontouchend="switchTab(event,'markets')" onclick="switchTab(event,'markets')">MARKETS</div>
-  <div class="nav-tab" ontouchend="switchTab(event,'news')" onclick="switchTab(event,'news')">NEWS</div>
+  <div class="nav-tab active"  ontouchend="switchTab(event,'sports')"  onclick="switchTab(event,'sports')">SPORTS</div>
+  <div class="nav-tab"         ontouchend="switchTab(event,'weather')" onclick="switchTab(event,'weather')">WEATHER</div>
+  <div class="nav-tab"         ontouchend="switchTab(event,'markets')" onclick="switchTab(event,'markets')">MARKETS</div>
+  <div class="nav-tab"         ontouchend="switchTab(event,'news')"    onclick="switchTab(event,'news')">NEWS</div>
 </div>
+
+<!-- SPORTS -->
 
 <div class="section active" id="tab-sports">
   <div class="section-label">New York Sports</div>
@@ -208,6 +213,8 @@ background:#161616; border-radius:8px; padding:10px 12px;
   <div class="last-updated" id="sports-updated"></div>
 </div>
 
+<!-- WEATHER -->
+
 <div class="section" id="tab-weather">
   <div class="coming-soon">
     <div class="coming-soon-icon">🌤</div>
@@ -217,6 +224,8 @@ background:#161616; border-radius:8px; padding:10px 12px;
   </div>
 </div>
 
+<!-- MARKETS -->
+
 <div class="section" id="tab-markets">
   <div class="coming-soon">
     <div class="coming-soon-icon">📈</div>
@@ -225,6 +234,8 @@ background:#161616; border-radius:8px; padding:10px 12px;
     <div class="coming-soon-tag">Up Next</div>
   </div>
 </div>
+
+<!-- NEWS -->
 
 <div class="section" id="tab-news">
   <div class="coming-soon">
@@ -236,6 +247,7 @@ background:#161616; border-radius:8px; padding:10px 12px;
 </div>
 
 <script>
+// ── CONFIG ──────────────────────────────────────────────────────────────────
 const TEAMS = [
   { key:'yankees', label:'NEW YORK YANKEES', sport:'baseball',   league:'mlb', teamId:'10', badge:'mlb' },
   { key:'knicks',  label:'NEW YORK KNICKS',  sport:'basketball', league:'nba', teamId:'18', badge:'nba' },
@@ -243,69 +255,76 @@ const TEAMS = [
   { key:'giants',  label:'NEW YORK GIANTS',  sport:'football',   league:'nfl', teamId:'19', badge:'nfl' },
 ];
 
-const $ = id => document.getElementById(id);
-
-async function fetchJSON(url) {
+// ── ALL ESPN CALLS GO THROUGH THIS PROXY ────────────────────────────────────
+// In production (Vercel), /api/espn proxies to ESPN server-side (no CORS).
+// In local dev, falls back to direct ESPN (works in Node/curl, not browser).
+async function espn(path) {
+  const url = `/api/espn?path=${encodeURIComponent(path)}`;
   const r = await fetch(url);
-  if (!r.ok) throw new Error(r.status);
+  if (!r.ok) throw new Error(`ESPN ${r.status}: ${path}`);
   return r.json();
 }
-const safe = url => fetchJSON(url).catch(() => null);
+const safeEspn = path => espn(path).catch(e => { console.warn('ESPN fail:', path, e.message); return null; });
+
+// ── UTILS ───────────────────────────────────────────────────────────────────
+const $  = id => document.getElementById(id);
 
 function shortDate(ds) {
   if (!ds) return '';
   const d = new Date(ds), n = new Date(), t = new Date();
-  t.setDate(n.getDate()+1);
-  if (d.toDateString()===n.toDateString()) return 'Today';
-  if (d.toDateString()===t.toDateString()) return 'Tomorrow';
-  return d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+  t.setDate(n.getDate() + 1);
+  if (d.toDateString() === n.toDateString()) return 'Today';
+  if (d.toDateString() === t.toDateString()) return 'Tomorrow';
+  return d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' });
 }
 function shortTime(ds) {
-  return ds ? new Date(ds).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}) : '';
+  return ds ? new Date(ds).toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit' }) : '';
 }
 function ago(ds) {
   if (!ds) return '';
-  const h = Math.floor((Date.now()-new Date(ds))/3600000);
-  return h<1 ? 'just now' : h<24 ? h+'h ago' : Math.floor(h/24)+'d ago';
+  const h = Math.floor((Date.now() - new Date(ds)) / 3600000);
+  return h < 1 ? 'just now' : h < 24 ? `${h}h ago` : `${Math.floor(h/24)}d ago`;
 }
 
+// ── TAB SWITCHING ───────────────────────────────────────────────────────────
 function switchTab(e, name) {
-  if(e) e.preventDefault();
-  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  if(e&&e.currentTarget) e.currentTarget.classList.add('active');
-  else document.querySelectorAll('.nav-tab')[['sports','weather','markets','news'].indexOf(name)].classList.add('active');
-  $('tab-'+name).classList.add('active');
+  if (e) e.preventDefault();
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  if (e && e.currentTarget) e.currentTarget.classList.add('active');
+  $('tab-' + name).classList.add('active');
 }
 
 function setDate() {
-  $('headerDate').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'}).toUpperCase();
+  $('headerDate').textContent = new Date().toLocaleDateString('en-US',
+    { weekday:'long', month:'long', day:'numeric', year:'numeric' }).toUpperCase();
 }
 
-// ── SCORE SECTION ──
+// ── HTML BUILDERS ───────────────────────────────────────────────────────────
+
 function htmlScore(game, teamId) {
   if (!game) return '';
-  const comp = game.competitions?.[0]; if (!comp) return '';
+  const comp  = game.competitions?.[0]; if (!comp) return '';
   const state = game.status?.type?.state;
-  const isLive=state==='in', isFinal=state==='post', isPre=state==='pre';
-  const home = comp.competitors?.find(c=>c.homeAway==='home');
-  const away = comp.competitors?.find(c=>c.homeAway==='away');
-  if (!home||!away) return '';
-  const ours = comp.competitors?.find(c=>c.team?.id===teamId);
-  const hs=parseInt(home.score||0), as2=parseInt(away.score||0);
-  const hW=isFinal&&hs>as2, aW=isFinal&&as2>hs;
-  const ourWin=isFinal&&ours?.winner===true;
-  const detail=game.status?.type?.detail||game.status?.type?.shortDetail||'';
+  const isLive = state==='in', isFinal = state==='post', isPre = state==='pre';
+  const home  = comp.competitors?.find(c => c.homeAway==='home');
+  const away  = comp.competitors?.find(c => c.homeAway==='away');
+  if (!home || !away) return '';
+  const ours  = comp.competitors?.find(c => c.team?.id === teamId);
+  const hs = parseInt(home.score||0), as2 = parseInt(away.score||0);
+  const hW = isFinal && hs > as2, aW = isFinal && as2 > hs;
+  const ourWin = isFinal && ours?.winner === true;
+  const detail = game.status?.type?.detail || '';
 
   if (isPre) {
-    const isHome=home.team?.id===teamId;
-    const opp=(isHome?away:home).team?.displayName||'TBD';
-    const venue=[comp.venue?.fullName,comp.venue?.address?.city].filter(Boolean).join(', ');
+    const isHome = home.team?.id === teamId;
+    const opp    = (isHome ? away : home).team?.displayName || 'TBD';
+    const venue  = [comp.venue?.fullName, comp.venue?.address?.city].filter(Boolean).join(', ');
     return `<div class="card-section">
-      <div class="card-section-label">NEXT GAME</div>
+      <div class="cs-label">NEXT GAME</div>
       <div class="next-row">
         <div>
-          <div class="next-matchup">${isHome?'vs':'@'} ${opp}</div>
+          <div class="next-matchup">${isHome ? 'vs' : '@'} ${opp}</div>
           <div class="next-sub">${venue}</div>
         </div>
         <div class="next-when">
@@ -316,41 +335,40 @@ function htmlScore(game, teamId) {
     </div>`;
   }
 
-  const lbl = isLive ? `<span class="dot-live"></span>LIVE NOW` : 'LAST GAME';
+  const lbl  = isLive ? `<span class="dot-live"></span>LIVE NOW` : 'LAST GAME';
   const pill = isLive
-    ? `<span class="verdict-pill live">${detail||'LIVE'}</span>`
-    : `<span class="verdict-pill ${ourWin?'win':'loss'}">${ourWin?'WIN':'LOSS'}</span>`;
+    ? `<span class="verdict-pill live">${detail || 'LIVE'}</span>`
+    : `<span class="verdict-pill ${ourWin ? 'win' : 'loss'}">${ourWin ? 'WIN' : 'LOSS'}</span>`;
 
   return `<div class="card-section">
-    <div class="card-section-label">${lbl}</div>
+    <div class="cs-label">${lbl}</div>
     <div class="score-row">
-      <div class="score-team">${away.team?.abbreviation||'AWY'}</div>
+      <div class="score-team">${away.team?.abbreviation || 'AWY'}</div>
       <div class="score-center">
-        <div class="score-num ${aW?'W':isFinal?'L':''}">${isFinal||isLive?away.score||0:'-'}</div>
-        <div class="score-sep">${isFinal?'F':isLive?'·':'vs'}</div>
-        <div class="score-num ${hW?'W':isFinal?'L':''}">${isFinal||isLive?home.score||0:'-'}</div>
+        <div class="score-num ${aW ? 'W' : isFinal ? 'L' : ''}">${isFinal||isLive ? away.score||0 : '-'}</div>
+        <div class="score-sep">${isFinal ? 'F' : isLive ? '·' : 'vs'}</div>
+        <div class="score-num ${hW ? 'W' : isFinal ? 'L' : ''}">${isFinal||isLive ? home.score||0 : '-'}</div>
       </div>
-      <div class="score-team right">${home.team?.abbreviation||'HME'}</div>
+      <div class="score-team right">${home.team?.abbreviation || 'HME'}</div>
     </div>
     <div class="score-verdict">${pill}</div>
   </div>`;
 }
 
-// ── NEXT GAME SECTION ──
 function htmlNext(game, teamId) {
   if (!game) return '';
   const comp = game.competitions?.[0];
-  const home = comp?.competitors?.find(c=>c.homeAway==='home');
-  const away = comp?.competitors?.find(c=>c.homeAway==='away');
-  if (!home||!away) return '';
-  const isHome=home.team?.id===teamId;
-  const opp=(isHome?away:home).team?.displayName||'TBD';
-  const venue=[comp.venue?.fullName,comp.venue?.address?.city].filter(Boolean).join(', ');
+  const home = comp?.competitors?.find(c => c.homeAway==='home');
+  const away = comp?.competitors?.find(c => c.homeAway==='away');
+  if (!home || !away) return '';
+  const isHome = home.team?.id === teamId;
+  const opp    = (isHome ? away : home).team?.displayName || 'TBD';
+  const venue  = [comp.venue?.fullName, comp.venue?.address?.city].filter(Boolean).join(', ');
   return `<div class="card-section">
-    <div class="card-section-label">NEXT GAME</div>
+    <div class="cs-label">NEXT GAME</div>
     <div class="next-row">
       <div>
-        <div class="next-matchup">${isHome?'vs':'@'} ${opp}</div>
+        <div class="next-matchup">${isHome ? 'vs' : '@'} ${opp}</div>
         <div class="next-sub">${venue}</div>
       </div>
       <div class="next-when">
@@ -361,180 +379,180 @@ function htmlNext(game, teamId) {
   </div>`;
 }
 
-// ── PERFORMERS SECTION ──
 function htmlPerformers(summary, teamId) {
   if (!summary) return '';
-
-  // Try summary.leaders (top-level — most reliable)
   let rows = [];
+
+  // Primary: summary.leaders (most reliable across sports)
   const leaders = summary.leaders || [];
-  if (leaders.length) {
-    leaders.forEach(cat => {
-      const top = cat.leaders?.[0];
-      if (!top) return;
-      const name = top.athlete?.shortName || top.athlete?.displayName || '';
-      const val  = top.displayValue || top.value || '';
-      const stat = cat.displayName || cat.name || '';
-      rows.push({ name, line: `${val} ${stat}` });
-    });
-  }
+  leaders.forEach(cat => {
+    const top = cat.leaders?.[0];
+    if (!top || !top.athlete) return;
+    const name = top.athlete.shortName || top.athlete.displayName || '';
+    const val  = top.displayValue || String(top.value || '');
+    const stat = cat.shortDisplayName || cat.displayName || '';
+    if (name && val) rows.push({ name, line: `<strong>${val}</strong> ${stat}` });
+  });
 
   // Fallback: boxscore player stats
-  if (!rows.length && summary.boxscore) {
-    const ourBox = summary.boxscore.teams?.find(t=>t.team?.id===teamId);
-    if (ourBox) {
-      const cats = ourBox.statistics || [];
-      cats.slice(0,2).forEach(cat => {
-        const top = cat.athletes?.[0];
-        if (!top) return;
-        const name = top.athlete?.shortName || top.athlete?.displayName || '';
-        const labels = cat.labels || cat.keys || [];
-        const vals = top.stats || [];
-        const parts = labels.slice(0,3).map((l,i)=>`${vals[i]||''} ${l}`).filter(x=>x.trim()!==l);
-        rows.push({ name, line: parts.join(' · ') });
-      });
+  if (!rows.length && summary.boxscore?.players) {
+    const ourPlayers = summary.boxscore.players?.find(p => p.team?.id === teamId);
+    if (ourPlayers) {
+      const stats = ourPlayers.statistics?.[0];
+      if (stats) {
+        const labels = stats.labels || stats.keys || [];
+        stats.athletes?.slice(0, 3).forEach(a => {
+          const name = a.athlete?.shortName || a.athlete?.displayName || '';
+          const vals = a.stats || [];
+          const parts = labels.slice(0, 4)
+            .map((l, i) => vals[i] && vals[i] !== '0' && vals[i] !== '--' ? `<strong>${vals[i]}</strong> ${l}` : null)
+            .filter(Boolean);
+          if (name && parts.length) rows.push({ name, line: parts.slice(0,3).join(' · ') });
+        });
+      }
     }
   }
 
   if (!rows.length) return '';
-
-  const inner = rows.slice(0,4).map(r=>`
-    <div class="performer-row">
+  const inner = rows.slice(0, 4).map(r =>
+    `<div class="performer-row">
       <div class="performer-name">${r.name}</div>
       <div class="performer-line">${r.line}</div>
     </div>`).join('');
 
   return `<div class="card-section">
-    <div class="card-section-label">TOP PERFORMERS</div>
+    <div class="cs-label">TOP PERFORMERS</div>
     <div class="performers-grid">${inner}</div>
   </div>`;
 }
 
-// ── STANDINGS SECTION ──
 function htmlStandings(standData, teamId, league) {
   if (!standData) return '';
-
-  // Walk the tree to find our division
   let entries = null;
+
   function walk(node) {
     if (entries) return;
     const ents = node.standings?.entries || node.entries || [];
-    if (ents.some(e=>e.team?.id===teamId)) { entries=ents; return; }
-    (node.children||[]).forEach(walk);
+    if (ents.some(e => e.team?.id === teamId)) { entries = ents; return; }
+    (node.children || []).forEach(walk);
   }
-  (standData.children||[standData]).forEach(walk);
-  if (!entries||!entries.length) return '';
+  (standData.children || [standData]).forEach(walk);
+  if (!entries?.length) return '';
 
-  const showGB = league!=='nfl';
-
+  const showGB = league !== 'nfl';
   const hdr = `<div class="s-row hdr">
     <div class="s-name">TEAM</div>
-    <div class="s-val">W</div><div class="s-val">L</div>
-    ${showGB?'<div class="s-gb">GB</div>':''}
+    <div class="s-val">W</div>
+    <div class="s-val">L</div>
+    ${showGB ? '<div class="s-gb">GB</div>' : ''}
   </div>`;
 
-  const dataRows = entries.slice(0,5).map(r=>{
-    const isUs = r.team?.id===teamId;
-    const name = r.team?.abbreviation||r.team?.shortDisplayName||'—';
+  const dataRows = entries.slice(0, 5).map(r => {
+    const isUs = r.team?.id === teamId;
+    const name = r.team?.abbreviation || r.team?.shortDisplayName || '—';
     const rec  = r.records?.[0];
     const w    = rec?.wins   ?? r.wins   ?? '—';
     const l    = rec?.losses ?? r.losses ?? '—';
     const gb   = rec?.gamesBehind ?? r.gamesBehind ?? '—';
-    return `<div class="s-row ${isUs?'us':''}">
-      <div class="s-name">${isUs?'▸ ':''}${name}</div>
+    return `<div class="s-row ${isUs ? 'us' : ''}">
+      <div class="s-name">${isUs ? '▸ ' : ''}${name}</div>
       <div class="s-val">${w}</div>
       <div class="s-val">${l}</div>
-      ${showGB?`<div class="s-gb">${gb===0||gb==='0'?'—':gb}</div>`:''}
+      ${showGB ? `<div class="s-gb">${gb === 0 || gb === '0' ? '—' : gb}</div>` : ''}
     </div>`;
   }).join('');
 
   return `<div class="card-section">
-    <div class="card-section-label">DIVISION STANDINGS</div>
-    <div class="standings-table">${hdr}${dataRows}</div>
+    <div class="cs-label">DIVISION STANDINGS</div>
+    <div class="s-table">${hdr}${dataRows}</div>
   </div>`;
 }
 
-// ── NEWS SECTION ──
 function htmlNews(articles) {
-  if (!articles||!articles.length) return '';
-  const items = articles.slice(0,3).map(a=>{
-    const url = a.links?.web?.href||'#';
-    return `<div class="news-item" ontouchend="open('${url}')" onclick="open('${url}')">
-      <div class="news-headline">${a.headline||a.title||''}</div>
-      <div class="news-meta">${[a.source, a.published?ago(a.published):''].filter(Boolean).join(' · ')}</div>
+  if (!articles?.length) return '';
+  const items = articles.slice(0, 3).map(a => {
+    const url = a.links?.web?.href || '#';
+    const src = a.source ? `${a.source} · ` : '';
+    const ts  = a.published ? ago(a.published) : '';
+    return `<div class="news-item"
+      ontouchend="window.open('${url}','_blank')"
+      onclick="window.open('${url}','_blank')">
+      <div class="news-headline">${a.headline || a.title || ''}</div>
+      <div class="news-meta">${src}${ts}</div>
     </div>`;
   }).join('');
   return `<div class="card-section">
-    <div class="card-section-label">LATEST NEWS</div>
+    <div class="cs-label">LATEST NEWS</div>
     <div class="news-list">${items}</div>
   </div>`;
 }
 
-// ── RANK INFO ──
 function getRank(standData, teamId) {
-  let entries=null;
+  let entries = null;
   function walk(node) {
-    if(entries) return;
-    const ents=node.standings?.entries||node.entries||[];
-    if(ents.some(e=>e.team?.id===teamId)){entries=ents;return;}
-    (node.children||[]).forEach(walk);
+    if (entries) return;
+    const ents = node.standings?.entries || node.entries || [];
+    if (ents.some(e => e.team?.id === teamId)) { entries = ents; return; }
+    (node.children || []).forEach(walk);
   }
-  (standData?.children||[standData]).forEach(walk);
-  if(!entries) return null;
-  const idx=entries.findIndex(e=>e.team?.id===teamId);
-  if(idx<0) return null;
-  const rank=idx+1, total=entries.length;
-  const suffix=rank===1?'st':rank===2?'nd':rank===3?'rd':'th';
-  const cls=rank<=2?'good':rank>=total?'bad':'mid';
-  return {text:`${rank}${suffix} in division`,cls};
+  (standData?.children || [standData]).forEach(walk);
+  if (!entries) return null;
+  const idx = entries.findIndex(e => e.team?.id === teamId);
+  if (idx < 0) return null;
+  const rank = idx + 1, total = entries.length;
+  const suffix = rank===1?'st':rank===2?'nd':rank===3?'rd':'th';
+  const cls    = rank <= 2 ? 'good' : rank >= total ? 'bad' : 'mid';
+  return { text: `${rank}${suffix} in division`, cls };
 }
 
-// ── LOAD TEAM ──
+// ── LOAD SINGLE TEAM ────────────────────────────────────────────────────────
 async function loadTeam(cfg) {
-  const {key,label,sport,league,teamId,badge}=cfg;
-  const el=$('card-'+key);
+  const { key, label, sport, league, teamId, badge } = cfg;
+  const el = $('card-' + key);
 
   try {
-    const base=`https://site.api.espn.com/apis/site/v2/sports/${sport}/${league}`;
+    const base = `${sport}/${league}`;
 
-    const [scoreData,teamData,schedData,newsData,standData] = await Promise.all([
-      safe(`${base}/scoreboard`),
-      safe(`${base}/teams/${teamId}`),
-      safe(`${base}/teams/${teamId}/schedule`),
-      safe(`${base}/teams/${teamId}/news`),
-      safe(`${base}/standings`),
+    // Fire all requests in parallel through proxy
+    const [scoreData, teamData, schedData, newsData, standData] = await Promise.all([
+      safeEspn(`${base}/scoreboard`),
+      safeEspn(`${base}/teams/${teamId}`),
+      safeEspn(`${base}/teams/${teamId}/schedule`),
+      safeEspn(`${base}/teams/${teamId}/news`),
+      safeEspn(`${base}/standings`),
     ]);
 
     // Record
-    const record = teamData?.team?.record?.items?.[0]?.summary||'';
+    const record = teamData?.team?.record?.items?.[0]?.summary || '';
 
     // Rank
     const rankInfo = getRank(standData, teamId);
-    const rankHtml = rankInfo ? `<span class="team-rank ${rankInfo.cls}">${rankInfo.text}</span>` : '';
+    const rankHtml = rankInfo
+      ? `<span class="team-rank ${rankInfo.cls}">${rankInfo.text}</span>` : '';
 
     // Today's game from scoreboard
-    const sbEvts = scoreData?.events||[];
-    const todayGame = sbEvts.find(ev=>ev.competitions?.[0]?.competitors?.some(c=>c.team?.id===teamId))||null;
+    const todayGame = (scoreData?.events || [])
+      .find(ev => ev.competitions?.[0]?.competitors?.some(c => c.team?.id === teamId)) || null;
 
-    // Schedule
-    const allSched = (schedData?.events||[]).sort((a,b)=>new Date(a.date)-new Date(b.date));
-    const pastGames   = allSched.filter(e=>e.status?.type?.state==='post');
-    const lastGame    = pastGames[pastGames.length-1]||null;
-    const futureGames = allSched.filter(e=>e.status?.type?.state==='pre');
-    const nextGame    = futureGames[0]||null;
+    // Schedule: last finished + next upcoming
+    const allSched   = (schedData?.events || []).sort((a,b) => new Date(a.date)-new Date(b.date));
+    const pastGames  = allSched.filter(e => e.status?.type?.state === 'post');
+    const lastGame   = pastGames[pastGames.length - 1] || null;
+    const futureGames = allSched.filter(e => e.status?.type?.state === 'pre');
+    const nextGame   = futureGames[0] || null;
 
-    // Primary display game
-    const gameDisplay = todayGame||lastGame||nextGame||null;
-    const showNext = gameDisplay && gameDisplay.status?.type?.state!=='pre' ? nextGame : null;
+    // Primary display game: live today > last completed > next upcoming
+    const gameDisplay = todayGame || lastGame || nextGame || null;
+    const showNext    = gameDisplay?.status?.type?.state !== 'pre' ? nextGame : null;
 
     // Box score for performers (last finished game)
-    const targetGame = (todayGame?.status?.type?.state==='post' ? todayGame : lastGame);
+    const targetGame = todayGame?.status?.type?.state === 'post' ? todayGame : lastGame;
     let summary = null;
     if (targetGame?.id) {
-      summary = await safe(`${base}/summary?event=${targetGame.id}`);
+      summary = await safeEspn(`${base}/summary?event=${targetGame.id}`);
     }
 
-    // Build card
+    // Assemble card
     const head = `<div class="card-head">
       <div>
         <div class="team-name">${label}</div>
@@ -551,30 +569,34 @@ async function loadTeam(cfg) {
       showNext ? htmlNext(showNext, teamId) : '',
       htmlPerformers(summary, teamId),
       htmlStandings(standData, teamId, league),
-      htmlNews(newsData?.articles||[]),
+      htmlNews(newsData?.articles || []),
     ].join('');
 
-    el.innerHTML = head + (body || `<div class="card-section"><div style="color:#444;font-size:13px">No data available.</div></div>`);
+    el.innerHTML = head + (body ||
+      `<div class="card-section"><div style="color:#444;font-size:13px">No data available right now.</div></div>`);
 
-  } catch(err) {
+  } catch (err) {
     console.error(key, err);
     el.innerHTML = `<div class="card-head">
       <div><div class="team-name">${label}</div></div>
-      <div class="league-badge ${cfg.badge}">${cfg.badge.toUpperCase()}</div>
+      <div class="league-badge ${badge}">${badge.toUpperCase()}</div>
     </div>
-    <div class="card-section"><div class="error-msg">Failed to load (${err.message})</div></div>`;
+    <div class="card-section"><div class="error-msg">Failed to load — ${err.message}</div></div>`;
   }
 }
 
+// ── LOAD ALL ────────────────────────────────────────────────────────────────
 async function loadSports() {
-  TEAMS.forEach(t=>{
-    $('card-'+t.key).innerHTML=`<div class="card-section"><div class="loading-row"><div class="spinner"></div>Loading ${t.label.split(' ').pop()}...</div></div>`;
+  TEAMS.forEach(t => {
+    $('card-' + t.key).innerHTML =
+      `<div class="card-section"><div class="loading-row"><div class="spinner"></div>Loading ${t.label.split(' ').pop()}...</div></div>`;
   });
   await Promise.all(TEAMS.map(loadTeam));
-  $('sports-updated').textContent=`Updated ${new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})}`;
+  $('sports-updated').textContent =
+    `Updated ${new Date().toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit' })}`;
 }
 
-function refreshAll(e) { if(e)e.preventDefault(); loadSports(); }
+function refreshAll(e) { if (e) e.preventDefault(); loadSports(); }
 
 setDate();
 loadSports();
