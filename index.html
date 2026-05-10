@@ -9,327 +9,174 @@
 <title>MORNING BRIEF</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
-  :root {
-    --bg: #0a0a0a;
-    --bg2: #111111;
-    --bg3: #1a1a1a;
-    --green: #00e676;
-    --green-dim: rgba(0,230,118,0.12);
-    --green-glow: rgba(0,230,118,0.25);
-    --text: #f0f0f0;
-    --muted: #666;
-    --border: #222;
-    --red: #ff4444;
-    --yellow: #ffd600;
-  }
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 
-- { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-html, body {
-background: var(–bg);
-color: var(–text);
-font-family: ‘DM Sans’, sans-serif;
-min-height: 100vh;
-padding-bottom: env(safe-area-inset-bottom);
+html { background:#0a0a0a; }
+body {
+background:#0a0a0a;
+color:#f0f0f0;
+font-family:‘DM Sans’,sans-serif;
+min-height:100vh;
+padding-bottom:env(safe-area-inset-bottom);
 }
 
-/* HEADER */
 .header {
-padding: 56px 20px 20px;
-padding-top: calc(56px + env(safe-area-inset-top));
-border-bottom: 1px solid var(–border);
-position: relative;
-overflow: hidden;
+padding:calc(52px + env(safe-area-inset-top)) 20px 18px;
+border-bottom:1px solid #1e1e1e;
+position:relative; overflow:hidden;
 }
 .header::before {
-content: ‘’;
-position: absolute;
-top: -60px; left: -40px;
-width: 300px; height: 200px;
-background: radial-gradient(ellipse, rgba(0,230,118,0.07) 0%, transparent 70%);
-pointer-events: none;
+content:’’; position:absolute; top:-60px; left:-40px;
+width:320px; height:220px;
+background:radial-gradient(ellipse,rgba(0,230,118,0.06) 0%,transparent 70%);
+pointer-events:none;
 }
-.header-top {
-display: flex;
-justify-content: space-between;
-align-items: flex-start;
-}
+.header-top { display:flex; justify-content:space-between; align-items:flex-start; }
 .header-title {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 42px;
-letter-spacing: 2px;
-line-height: 1;
-color: var(–text);
+font-family:‘Bebas Neue’,sans-serif;
+font-size:40px; letter-spacing:2px; line-height:1; color:#f0f0f0;
 }
-.header-title span { color: var(–green); }
-.header-date {
-font-size: 11px;
-color: var(–muted);
-text-transform: uppercase;
-letter-spacing: 1.5px;
-text-align: right;
-margin-top: 4px;
-}
+.header-title span { color:#00e676; }
+.header-date { font-size:10px; color:#555; text-transform:uppercase; letter-spacing:1.5px; margin-top:5px; }
 .refresh-btn {
-background: none;
-border: 1px solid var(–border);
-color: var(–muted);
-padding: 6px 14px;
-border-radius: 20px;
-font-family: ‘DM Sans’, sans-serif;
-font-size: 11px;
-letter-spacing: 1px;
-text-transform: uppercase;
-cursor: pointer;
-transition: all 0.2s;
-margin-top: 4px;
+background:none; border:1px solid #222; color:#555;
+padding:6px 14px; border-radius:20px;
+font-family:‘DM Sans’,sans-serif; font-size:11px; letter-spacing:1px; text-transform:uppercase;
+cursor:pointer; margin-top:4px; transition:all 0.2s;
 }
-.refresh-btn:active { border-color: var(–green); color: var(–green); transform: scale(0.96); }
+.refresh-btn:active { border-color:#00e676; color:#00e676; transform:scale(0.96); }
 
-/* NAV TABS */
 .nav {
-display: flex;
-gap: 0;
-border-bottom: 1px solid var(–border);
-overflow-x: auto;
-scrollbar-width: none;
--webkit-overflow-scrolling: touch;
+display:flex; border-bottom:1px solid #1e1e1e;
+overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch;
 }
-.nav::-webkit-scrollbar { display: none; }
+.nav::-webkit-scrollbar { display:none; }
 .nav-tab {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 15px;
-letter-spacing: 1.5px;
-padding: 14px 20px;
-color: var(–muted);
-cursor: pointer;
-white-space: nowrap;
-border-bottom: 2px solid transparent;
-transition: all 0.2s;
-flex-shrink: 0;
+font-family:‘Bebas Neue’,sans-serif; font-size:14px; letter-spacing:1.5px;
+padding:13px 20px; color:#444; cursor:pointer; white-space:nowrap;
+border-bottom:2px solid transparent; flex-shrink:0; transition:all 0.2s;
 }
-.nav-tab.active { color: var(–green); border-bottom-color: var(–green); }
-.nav-tab:active { opacity: 0.7; }
+.nav-tab.active { color:#00e676; border-bottom-color:#00e676; }
 
-/* SECTIONS */
-.section { display: none; padding: 20px; animation: fadeIn 0.3s ease; }
-.section.active { display: block; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.section { display:none; padding:16px 16px 40px; animation:fadeIn 0.25s ease; }
+.section.active { display:block; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
 
-/* SECTION HEADER */
 .section-label {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 11px;
-letter-spacing: 3px;
-color: var(–green);
-margin-bottom: 16px;
-text-transform: uppercase;
+font-family:‘Bebas Neue’,sans-serif; font-size:10px;
+letter-spacing:3px; color:#00e676; margin-bottom:14px; text-transform:uppercase;
 }
 
-/* SPORT CARD */
-.sport-card {
-background: var(–bg2);
-border: 1px solid var(–border);
-border-radius: 12px;
-margin-bottom: 14px;
-overflow: hidden;
-transition: border-color 0.2s;
+/* TEAM CARD */
+.team-card {
+background:#111; border:1px solid #1e1e1e; border-radius:14px;
+margin-bottom:14px; overflow:hidden;
 }
-.sport-card:active { border-color: var(–green); }
-.sport-card-header {
-display: flex;
-align-items: center;
-justify-content: space-between;
-padding: 14px 16px 10px;
-border-bottom: 1px solid var(–border);
+
+.card-head {
+display:flex; justify-content:space-between; align-items:flex-start;
+padding:14px 16px 12px; border-bottom:1px solid #1a1a1a;
 }
 .team-name {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 22px;
-letter-spacing: 1.5px;
-color: var(–text);
+font-family:‘Bebas Neue’,sans-serif; font-size:20px; letter-spacing:1.5px; color:#f0f0f0;
 }
-.team-record {
-font-size: 12px;
-color: var(–muted);
-font-weight: 300;
-margin-top: 1px;
+.team-meta { display:flex; align-items:center; gap:8px; margin-top:3px; flex-wrap:wrap; }
+.team-record { font-size:12px; color:#555; }
+.team-rank {
+font-size:10px; letter-spacing:1px; text-transform:uppercase;
+padding:2px 7px; border-radius:10px; font-weight:600;
 }
-.team-badge {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 11px;
-letter-spacing: 2px;
-padding: 3px 10px;
-border-radius: 20px;
-border: 1px solid var(–border);
-color: var(–muted);
+.team-rank.good { background:rgba(0,230,118,0.12); color:#00e676; }
+.team-rank.mid  { background:rgba(255,214,0,0.1);  color:#ffd600; }
+.team-rank.bad  { background:rgba(255,68,68,0.1);  color:#ff4444; }
+.league-badge {
+font-family:‘Bebas Neue’,sans-serif; font-size:11px; letter-spacing:2px;
+padding:3px 10px; border-radius:20px; border:1px solid #222; color:#444; flex-shrink:0;
 }
-.team-badge.mlb { border-color: #003087; color: #6fa8ff; }
-.team-badge.nba { border-color: #f58426; color: #f58426; }
-.team-badge.nhl { border-color: #0038a8; color: #6fa8ff; }
-.team-badge.nfl { border-color: #444; color: #aaa; }
+.league-badge.mlb { border-color:#003087; color:#6fa8ff; }
+.league-badge.nba { border-color:#c1440e; color:#f58426; }
+.league-badge.nhl { border-color:#0038a8; color:#6fa8ff; }
+.league-badge.nfl { border-color:#333; color:#888; }
 
-.sport-card-body { padding: 14px 16px; }
+.card-section { padding:12px 16px; border-bottom:1px solid #161616; }
+.card-section:last-child { border-bottom:none; }
+.card-section-label {
+font-size:9px; letter-spacing:2.5px; text-transform:uppercase;
+color:#444; margin-bottom:8px; font-weight:600;
+}
 
-/* GAME ROW */
-.game-row {
-margin-bottom: 12px;
+/* SCORE */
+.score-row { display:flex; align-items:center; justify-content:space-between; gap:6px; }
+.score-team { font-size:13px; font-weight:500; flex:1; }
+.score-team.right { text-align:right; }
+.score-center { display:flex; align-items:center; gap:8px; flex-shrink:0; }
+.score-num {
+font-family:‘Bebas Neue’,sans-serif; font-size:28px;
+letter-spacing:1px; min-width:26px; text-align:center;
 }
-.game-row:last-child { margin-bottom: 0; }
-.game-label {
-font-size: 10px;
-text-transform: uppercase;
-letter-spacing: 2px;
-color: var(–muted);
-margin-bottom: 6px;
+.score-num.W { color:#00e676; }
+.score-num.L { color:#555; }
+.score-sep { font-family:‘Bebas Neue’,sans-serif; font-size:13px; color:#444; }
+.score-verdict { text-align:center; margin-top:4px; }
+.verdict-pill {
+display:inline-block; font-size:10px; letter-spacing:1.5px; font-weight:600;
+padding:2px 10px; border-radius:10px; text-transform:uppercase;
 }
-.game-matchup {
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 8px;
-}
-.game-team {
-font-size: 14px;
-font-weight: 500;
-flex: 1;
-}
-.game-team.home { text-align: right; }
-.game-score-block {
-display: flex;
-align-items: center;
-gap: 10px;
-flex-shrink: 0;
-}
-.game-score {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 26px;
-letter-spacing: 1px;
-min-width: 28px;
-text-align: center;
-}
-.game-score.winner { color: var(–green); }
-.game-score.loser { color: var(–muted); }
-.game-vs {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 13px;
-color: var(–muted);
-letter-spacing: 1px;
-}
-.game-status {
-font-size: 11px;
-color: var(–muted);
-margin-top: 5px;
-text-align: center;
-}
-.game-status.live {
-color: var(–red);
-font-weight: 600;
-}
-.game-status.win { color: var(–green); }
-.game-status.loss { color: var(–red); }
+.verdict-pill.win  { background:rgba(0,230,118,0.12); color:#00e676; }
+.verdict-pill.loss { background:rgba(255,68,68,0.1);  color:#ff4444; }
+.verdict-pill.live { background:rgba(255,68,68,0.15); color:#ff4444; }
+.verdict-pill.pre  { background:rgba(255,255,255,0.05); color:#888; }
 
 /* NEXT GAME */
-.next-game {
-display: flex;
-justify-content: space-between;
-align-items: center;
-background: var(–bg3);
-border-radius: 8px;
-padding: 10px 12px;
+.next-row {
+display:flex; justify-content:space-between; align-items:center;
+background:#161616; border-radius:8px; padding:10px 12px;
 }
-.next-game-vs { font-size: 13px; font-weight: 500; }
-.next-game-time { font-size: 12px; color: var(–muted); }
-.next-game-where { font-size: 11px; color: var(–muted); margin-top: 2px; }
+.next-matchup { font-size:13px; font-weight:500; }
+.next-sub { font-size:11px; color:#555; margin-top:2px; }
+.next-when { text-align:right; }
+.next-date { font-size:12px; color:#888; }
+.next-time { font-size:11px; color:#555; margin-top:1px; }
 
-/* LOADING / ERROR */
-.loading-row {
-display: flex;
-align-items: center;
-gap: 10px;
-padding: 20px 0;
-color: var(–muted);
-font-size: 13px;
-}
-.spinner {
-width: 16px; height: 16px;
-border: 2px solid var(–border);
-border-top-color: var(–green);
-border-radius: 50%;
-animation: spin 0.8s linear infinite;
-flex-shrink: 0;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
+/* PERFORMERS */
+.performers-grid { display:flex; flex-direction:column; gap:7px; }
+.performer-row { display:flex; justify-content:space-between; align-items:baseline; gap:8px; }
+.performer-name { font-size:13px; font-weight:500; color:#ddd; }
+.performer-line { font-size:12px; color:#888; text-align:right; flex-shrink:0; }
+.performer-line strong { color:#00e676; font-weight:600; }
 
-.error-msg {
-font-size: 12px;
-color: var(–red);
-padding: 8px 0;
-opacity: 0.8;
-}
+/* NEWS */
+.news-list { display:flex; flex-direction:column; }
+.news-item { padding:9px 0; border-bottom:1px solid #161616; cursor:pointer; }
+.news-item:last-child { border-bottom:none; padding-bottom:0; }
+.news-headline { font-size:13px; line-height:1.45; color:#ccc; }
+.news-meta { font-size:10px; color:#444; margin-top:3px; }
 
-/* COMING SOON (placeholder) */
-.coming-soon {
-text-align: center;
-padding: 60px 20px;
-color: var(–muted);
-}
-.coming-soon-icon {
-font-size: 36px;
-margin-bottom: 16px;
-}
-.coming-soon-title {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 24px;
-letter-spacing: 2px;
-color: var(–text);
-margin-bottom: 8px;
-}
-.coming-soon-sub {
-font-size: 13px;
-color: var(–muted);
-line-height: 1.6;
-}
-.coming-soon-tag {
-display: inline-block;
-margin-top: 16px;
-background: var(–green-dim);
-color: var(–green);
-font-size: 11px;
-letter-spacing: 2px;
-text-transform: uppercase;
-padding: 5px 14px;
-border-radius: 20px;
-border: 1px solid var(–green-glow);
-}
+/* STANDINGS */
+.standings-table { width:100%; }
+.s-row { display:flex; align-items:center; padding:4px 0; border-bottom:1px solid #161616; }
+.s-row:last-child { border-bottom:none; }
+.s-row.us .s-name { color:#00e676; font-weight:600; }
+.s-row.hdr .s-name { color:#333; font-size:10px; letter-spacing:1px; }
+.s-row.hdr .s-val  { color:#333; font-size:10px; letter-spacing:1px; }
+.s-name { font-size:12px; color:#888; flex:1; }
+.s-val  { font-size:11px; color:#555; width:28px; text-align:right; }
+.s-gb   { font-size:11px; color:#444; width:28px; text-align:right; }
 
-/* DIVIDER */
-.divider {
-height: 1px;
-background: var(–border);
-margin: 14px 0;
-}
+/* MISC */
+.loading-row { display:flex; align-items:center; gap:10px; padding:20px 0; color:#444; font-size:13px; }
+.spinner { width:15px; height:15px; border:2px solid #222; border-top-color:#00e676; border-radius:50%; animation:spin 0.7s linear infinite; flex-shrink:0; }
+@keyframes spin { to{transform:rotate(360deg)} }
+.error-msg { font-size:12px; color:#ff4444; padding:6px 0; }
+.dot-live { display:inline-block; width:6px; height:6px; background:#ff4444; border-radius:50%; margin-right:5px; animation:blink 1s infinite; vertical-align:middle; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+.last-updated { font-size:10px; color:#333; text-align:center; padding:16px 0 4px; letter-spacing:1px; text-transform:uppercase; }
 
-/* LAST UPDATED */
-.last-updated {
-font-size: 10px;
-color: var(–muted);
-text-align: center;
-padding: 20px 0 8px;
-letter-spacing: 1px;
-text-transform: uppercase;
-}
-
-/* STATUS DOT */
-.dot-live {
-display: inline-block;
-width: 6px; height: 6px;
-background: var(–red);
-border-radius: 50%;
-margin-right: 5px;
-animation: pulse 1s infinite;
-}
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.coming-soon { text-align:center; padding:60px 20px; color:#444; }
+.coming-soon-icon { font-size:32px; margin-bottom:14px; }
+.coming-soon-title { font-family:‘Bebas Neue’,sans-serif; font-size:22px; letter-spacing:2px; color:#f0f0f0; margin-bottom:6px; }
+.coming-soon-sub { font-size:13px; color:#444; line-height:1.6; }
+.coming-soon-tag { display:inline-block; margin-top:14px; background:rgba(0,230,118,0.08); color:#00e676; font-size:10px; letter-spacing:2px; text-transform:uppercase; padding:4px 14px; border-radius:20px; border:1px solid rgba(0,230,118,0.2); }
 </style>
 
 </head>
@@ -339,88 +186,27 @@ animation: pulse 1s infinite;
   <div class="header-top">
     <div>
       <div class="header-title">MORNING<br/><span>BRIEF.</span></div>
-      <div class="header-date" id="headerDate">Loading...</div>
+      <div class="header-date" id="headerDate"></div>
     </div>
-    <button class="refresh-btn" ontouchend="refreshAll()" onclick="refreshAll()">↻ REFRESH</button>
+    <button class="refresh-btn" ontouchend="refreshAll(event)" onclick="refreshAll(event)">↻ REFRESH</button>
   </div>
 </div>
 
 <div class="nav">
-  <div class="nav-tab active" ontouchend="switchTab('sports')" onclick="switchTab('sports')">SPORTS</div>
-  <div class="nav-tab" ontouchend="switchTab('weather')" onclick="switchTab('weather')">WEATHER</div>
-  <div class="nav-tab" ontouchend="switchTab('markets')" onclick="switchTab('markets')">MARKETS</div>
-  <div class="nav-tab" ontouchend="switchTab('news')" onclick="switchTab('news')">NEWS</div>
+  <div class="nav-tab active" ontouchend="switchTab(event,'sports')" onclick="switchTab(event,'sports')">SPORTS</div>
+  <div class="nav-tab" ontouchend="switchTab(event,'weather')" onclick="switchTab(event,'weather')">WEATHER</div>
+  <div class="nav-tab" ontouchend="switchTab(event,'markets')" onclick="switchTab(event,'markets')">MARKETS</div>
+  <div class="nav-tab" ontouchend="switchTab(event,'news')" onclick="switchTab(event,'news')">NEWS</div>
 </div>
-
-<!-- SPORTS TAB -->
 
 <div class="section active" id="tab-sports">
   <div class="section-label">New York Sports</div>
-
-  <!-- YANKEES -->
-
-  <div class="sport-card" id="card-yankees">
-    <div class="sport-card-header">
-      <div>
-        <div class="team-name">NEW YORK YANKEES</div>
-        <div class="team-record" id="yankees-record">Loading...</div>
-      </div>
-      <div class="team-badge mlb">MLB</div>
-    </div>
-    <div class="sport-card-body" id="yankees-body">
-      <div class="loading-row"><div class="spinner"></div> Fetching live data...</div>
-    </div>
-  </div>
-
-  <!-- KNICKS -->
-
-  <div class="sport-card" id="card-knicks">
-    <div class="sport-card-header">
-      <div>
-        <div class="team-name">NEW YORK KNICKS</div>
-        <div class="team-record" id="knicks-record">Loading...</div>
-      </div>
-      <div class="team-badge nba">NBA</div>
-    </div>
-    <div class="sport-card-body" id="knicks-body">
-      <div class="loading-row"><div class="spinner"></div> Fetching live data...</div>
-    </div>
-  </div>
-
-  <!-- RANGERS -->
-
-  <div class="sport-card" id="card-rangers">
-    <div class="sport-card-header">
-      <div>
-        <div class="team-name">NEW YORK RANGERS</div>
-        <div class="team-record" id="rangers-record">Loading...</div>
-      </div>
-      <div class="team-badge nhl">NHL</div>
-    </div>
-    <div class="sport-card-body" id="rangers-body">
-      <div class="loading-row"><div class="spinner"></div> Fetching live data...</div>
-    </div>
-  </div>
-
-  <!-- GIANTS -->
-
-  <div class="sport-card" id="card-giants">
-    <div class="sport-card-header">
-      <div>
-        <div class="team-name">NEW YORK GIANTS</div>
-        <div class="team-record" id="giants-record">Loading...</div>
-      </div>
-      <div class="team-badge nfl">NFL</div>
-    </div>
-    <div class="sport-card-body" id="giants-body">
-      <div class="loading-row"><div class="spinner"></div> Fetching live data...</div>
-    </div>
-  </div>
-
+  <div id="card-yankees" class="team-card"><div class="card-section"><div class="loading-row"><div class="spinner"></div>Loading Yankees...</div></div></div>
+  <div id="card-knicks"  class="team-card"><div class="card-section"><div class="loading-row"><div class="spinner"></div>Loading Knicks...</div></div></div>
+  <div id="card-rangers" class="team-card"><div class="card-section"><div class="loading-row"><div class="spinner"></div>Loading Rangers...</div></div></div>
+  <div id="card-giants"  class="team-card"><div class="card-section"><div class="loading-row"><div class="spinner"></div>Loading Giants...</div></div></div>
   <div class="last-updated" id="sports-updated"></div>
 </div>
-
-<!-- WEATHER TAB -->
 
 <div class="section" id="tab-weather">
   <div class="coming-soon">
@@ -431,295 +217,366 @@ animation: pulse 1s infinite;
   </div>
 </div>
 
-<!-- MARKETS TAB -->
-
 <div class="section" id="tab-markets">
   <div class="coming-soon">
     <div class="coming-soon-icon">📈</div>
     <div class="coming-soon-title">MARKETS / CRE</div>
-    <div class="coming-soon-sub">10Y Treasury, SOFR, VNQ, S&P 500.<br/>Coming in the next update.</div>
+    <div class="coming-soon-sub">10Y Treasury, SOFR, VNQ, S&amp;P 500.<br/>Coming in the next update.</div>
     <div class="coming-soon-tag">Up Next</div>
   </div>
 </div>
-
-<!-- NEWS TAB -->
 
 <div class="section" id="tab-news">
   <div class="coming-soon">
     <div class="coming-soon-icon">📰</div>
     <div class="coming-soon-title">NEWS</div>
-    <div class="coming-soon-sub">CRE, finance, and AI headlines.<br/>Coming in the next update.</div>
+    <div class="coming-soon-sub">CRE, finance &amp; AI headlines.<br/>Coming in the next update.</div>
     <div class="coming-soon-tag">Up Next</div>
   </div>
 </div>
 
 <script>
-// ─── ESPN API CONFIG ──────────────────────────────────────────────────────────
-// ESPN unofficial API — no key required
-const ESPN = {
-  yankees: {
-    sport: 'baseball', league: 'mlb', teamId: '10', // NYY
-    scheduleUrl: () => `https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/teams/10/schedule`,
-    scoreboardUrl: () => `https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard`,
-    teamUrl: () => `https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/teams/10`,
-  },
-  knicks: {
-    sport: 'basketball', league: 'nba', teamId: '18', // NYK
-    scoreboardUrl: () => `https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard`,
-    teamUrl: () => `https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/18`,
-  },
-  rangers: {
-    sport: 'hockey', league: 'nhl', teamId: '19', // NYR
-    scoreboardUrl: () => `https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard`,
-    teamUrl: () => `https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/teams/19`,
-  },
-  giants: {
-    sport: 'football', league: 'nfl', teamId: '19', // NYG
-    scoreboardUrl: () => `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard`,
-    teamUrl: () => `https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/19`,
-  }
-};
+const TEAMS = [
+  { key:'yankees', label:'NEW YORK YANKEES', sport:'baseball',   league:'mlb', teamId:'10', badge:'mlb' },
+  { key:'knicks',  label:'NEW YORK KNICKS',  sport:'basketball', league:'nba', teamId:'18', badge:'nba' },
+  { key:'rangers', label:'NEW YORK RANGERS', sport:'hockey',     league:'nhl', teamId:'19', badge:'nhl' },
+  { key:'giants',  label:'NEW YORK GIANTS',  sport:'football',   league:'nfl', teamId:'19', badge:'nfl' },
+];
 
-// ESPN team IDs for matching in scoreboard results
-const TEAM_IDS = { yankees: '10', knicks: '18', rangers: '19', giants: '19' };
-// NFL Giants ID is also 19 — differentiated by sport endpoint
+const $ = id => document.getElementById(id);
 
-// ─── DATE HEADER ─────────────────────────────────────────────────────────────
-function setDateHeader() {
-  const now = new Date();
-  const opts = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
-  document.getElementById('headerDate').textContent = now.toLocaleDateString('en-US', opts).toUpperCase();
-}
-
-// ─── TAB SWITCHING ───────────────────────────────────────────────────────────
-function switchTab(name) {
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-  document.getElementById('tab-' + name).classList.add('active');
-}
-
-// ─── FETCH HELPER ────────────────────────────────────────────────────────────
 async function fetchJSON(url) {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res.json();
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(r.status);
+  return r.json();
+}
+const safe = url => fetchJSON(url).catch(() => null);
+
+function shortDate(ds) {
+  if (!ds) return '';
+  const d = new Date(ds), n = new Date(), t = new Date();
+  t.setDate(n.getDate()+1);
+  if (d.toDateString()===n.toDateString()) return 'Today';
+  if (d.toDateString()===t.toDateString()) return 'Tomorrow';
+  return d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+}
+function shortTime(ds) {
+  return ds ? new Date(ds).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}) : '';
+}
+function ago(ds) {
+  if (!ds) return '';
+  const h = Math.floor((Date.now()-new Date(ds))/3600000);
+  return h<1 ? 'just now' : h<24 ? h+'h ago' : Math.floor(h/24)+'d ago';
 }
 
-// ─── FORMAT HELPERS ──────────────────────────────────────────────────────────
-function formatGameTime(dateStr) {
-  if (!dateStr) return '';
-  const d = new Date(dateStr);
-  return d.toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
+function switchTab(e, name) {
+  if(e) e.preventDefault();
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  if(e&&e.currentTarget) e.currentTarget.classList.add('active');
+  else document.querySelectorAll('.nav-tab')[['sports','weather','markets','news'].indexOf(name)].classList.add('active');
+  $('tab-'+name).classList.add('active');
 }
 
-function shortDate(dateStr) {
-  if (!dateStr) return '';
-  const d = new Date(dateStr);
-  const today = new Date();
-  const tomorrow = new Date(); tomorrow.setDate(today.getDate() + 1);
-  if (d.toDateString() === today.toDateString()) return 'Today';
-  if (d.toDateString() === tomorrow.toDateString()) return 'Tomorrow';
-  return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+function setDate() {
+  $('headerDate').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'}).toUpperCase();
 }
 
-function shortTime(dateStr) {
-  if (!dateStr) return '';
-  const d = new Date(dateStr);
-  return d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-}
+// ── SCORE SECTION ──
+function htmlScore(game, teamId) {
+  if (!game) return '';
+  const comp = game.competitions?.[0]; if (!comp) return '';
+  const state = game.status?.type?.state;
+  const isLive=state==='in', isFinal=state==='post', isPre=state==='pre';
+  const home = comp.competitors?.find(c=>c.homeAway==='home');
+  const away = comp.competitors?.find(c=>c.homeAway==='away');
+  if (!home||!away) return '';
+  const ours = comp.competitors?.find(c=>c.team?.id===teamId);
+  const hs=parseInt(home.score||0), as2=parseInt(away.score||0);
+  const hW=isFinal&&hs>as2, aW=isFinal&&as2>hs;
+  const ourWin=isFinal&&ours?.winner===true;
+  const detail=game.status?.type?.detail||game.status?.type?.shortDetail||'';
 
-// ─── RENDER GAME CARD ─────────────────────────────────────────────────────────
-function renderGame(game, teamId, isLast) {
-  if (!game) return null;
-
-  const comps = game.competitions?.[0];
-  if (!comps) return null;
-
-  const status = game.status?.type;
-  const isLive = status?.state === 'in';
-  const isFinal = status?.state === 'post';
-  const isPre = status?.state === 'pre';
-
-  const homeComp = comps.competitors?.find(c => c.homeAway === 'home');
-  const awayComp = comps.competitors?.find(c => c.homeAway === 'away');
-
-  if (!homeComp || !awayComp) return null;
-
-  // Determine which side is "our" team
-  const ourComp = comps.competitors?.find(c => c.team?.id === teamId);
-  const oppComp = comps.competitors?.find(c => c.team?.id !== teamId);
-
-  const homeScore = parseInt(homeComp.score || '0');
-  const awayScore = parseInt(awayComp.score || '0');
-
-  let ourWin = false;
-  if (isFinal && ourComp) {
-    ourWin = ourComp.winner === true;
-  }
-
-  const homeWinner = isFinal && homeScore > awayScore;
-  const awayWinner = isFinal && awayScore > homeScore;
-
-  let statusText = '';
-  let statusClass = '';
-  if (isLive) {
-    const period = status?.detail || status?.shortDetail || 'LIVE';
-    statusText = period;
-    statusClass = 'live';
-  } else if (isFinal) {
-    statusText = ourWin ? 'WIN' : 'LOSS';
-    statusClass = ourWin ? 'win' : 'loss';
-  } else if (isPre) {
-    statusText = `${shortDate(game.date)} · ${shortTime(game.date)}`;
-    statusClass = '';
-  }
-
-  // Pre-game: show as upcoming
   if (isPre) {
-    const venue = comps.venue?.fullName || '';
-    const location = comps.venue?.address?.city || '';
-    const isHome = homeComp.team?.id === teamId;
-    const oppName = isHome ? awayComp.team?.displayName : homeComp.team?.displayName;
-    const homeAway = isHome ? 'vs' : '@';
-    return `
-      <div class="game-row">
-        <div class="game-label">${isLast ? 'LAST GAME' : 'NEXT GAME'}</div>
-        <div class="next-game">
-          <div>
-            <div class="next-game-vs">${homeAway} ${oppName || 'TBD'}</div>
-            <div class="next-game-where">${venue ? venue + (location ? ', ' + location : '') : location}</div>
-          </div>
-          <div style="text-align:right">
-            <div class="next-game-time">${shortDate(game.date)}</div>
-            <div class="next-game-time">${shortTime(game.date)}</div>
-          </div>
+    const isHome=home.team?.id===teamId;
+    const opp=(isHome?away:home).team?.displayName||'TBD';
+    const venue=[comp.venue?.fullName,comp.venue?.address?.city].filter(Boolean).join(', ');
+    return `<div class="card-section">
+      <div class="card-section-label">NEXT GAME</div>
+      <div class="next-row">
+        <div>
+          <div class="next-matchup">${isHome?'vs':'@'} ${opp}</div>
+          <div class="next-sub">${venue}</div>
         </div>
-      </div>`;
+        <div class="next-when">
+          <div class="next-date">${shortDate(game.date)}</div>
+          <div class="next-time">${shortTime(game.date)}</div>
+        </div>
+      </div>
+    </div>`;
   }
 
-  return `
-    <div class="game-row">
-      <div class="game-label">${isLive ? '<span class="dot-live"></span>LIVE NOW' : isLast ? 'LAST GAME' : 'RECENT'}</div>
-      <div class="game-matchup">
-        <div class="game-team">${awayComp.team?.abbreviation || 'AWY'}</div>
-        <div class="game-score-block">
-          <div class="game-score ${awayWinner ? 'winner' : isFinal ? 'loser' : ''}">${isPre ? '-' : awayComp.score || '0'}</div>
-          <div class="game-vs">${isFinal ? 'F' : isLive ? 'vs' : 'vs'}</div>
-          <div class="game-score ${homeWinner ? 'winner' : isFinal ? 'loser' : ''}">${isPre ? '-' : homeComp.score || '0'}</div>
-        </div>
-        <div class="game-team home">${homeComp.team?.abbreviation || 'HME'}</div>
+  const lbl = isLive ? `<span class="dot-live"></span>LIVE NOW` : 'LAST GAME';
+  const pill = isLive
+    ? `<span class="verdict-pill live">${detail||'LIVE'}</span>`
+    : `<span class="verdict-pill ${ourWin?'win':'loss'}">${ourWin?'WIN':'LOSS'}</span>`;
+
+  return `<div class="card-section">
+    <div class="card-section-label">${lbl}</div>
+    <div class="score-row">
+      <div class="score-team">${away.team?.abbreviation||'AWY'}</div>
+      <div class="score-center">
+        <div class="score-num ${aW?'W':isFinal?'L':''}">${isFinal||isLive?away.score||0:'-'}</div>
+        <div class="score-sep">${isFinal?'F':isLive?'·':'vs'}</div>
+        <div class="score-num ${hW?'W':isFinal?'L':''}">${isFinal||isLive?home.score||0:'-'}</div>
       </div>
-      <div class="game-status ${statusClass}">${statusText}</div>
-    </div>`;
+      <div class="score-team right">${home.team?.abbreviation||'HME'}</div>
+    </div>
+    <div class="score-verdict">${pill}</div>
+  </div>`;
 }
 
-// ─── LOAD TEAM DATA ───────────────────────────────────────────────────────────
-async function loadTeam(key, sport, league, teamId, bodyId, recordId) {
-  const bodyEl = document.getElementById(bodyId);
-  const recordEl = document.getElementById(recordId);
+// ── NEXT GAME SECTION ──
+function htmlNext(game, teamId) {
+  if (!game) return '';
+  const comp = game.competitions?.[0];
+  const home = comp?.competitors?.find(c=>c.homeAway==='home');
+  const away = comp?.competitors?.find(c=>c.homeAway==='away');
+  if (!home||!away) return '';
+  const isHome=home.team?.id===teamId;
+  const opp=(isHome?away:home).team?.displayName||'TBD';
+  const venue=[comp.venue?.fullName,comp.venue?.address?.city].filter(Boolean).join(', ');
+  return `<div class="card-section">
+    <div class="card-section-label">NEXT GAME</div>
+    <div class="next-row">
+      <div>
+        <div class="next-matchup">${isHome?'vs':'@'} ${opp}</div>
+        <div class="next-sub">${venue}</div>
+      </div>
+      <div class="next-when">
+        <div class="next-date">${shortDate(game.date)}</div>
+        <div class="next-time">${shortTime(game.date)}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── PERFORMERS SECTION ──
+function htmlPerformers(summary, teamId) {
+  if (!summary) return '';
+
+  // Try summary.leaders (top-level — most reliable)
+  let rows = [];
+  const leaders = summary.leaders || [];
+  if (leaders.length) {
+    leaders.forEach(cat => {
+      const top = cat.leaders?.[0];
+      if (!top) return;
+      const name = top.athlete?.shortName || top.athlete?.displayName || '';
+      const val  = top.displayValue || top.value || '';
+      const stat = cat.displayName || cat.name || '';
+      rows.push({ name, line: `${val} ${stat}` });
+    });
+  }
+
+  // Fallback: boxscore player stats
+  if (!rows.length && summary.boxscore) {
+    const ourBox = summary.boxscore.teams?.find(t=>t.team?.id===teamId);
+    if (ourBox) {
+      const cats = ourBox.statistics || [];
+      cats.slice(0,2).forEach(cat => {
+        const top = cat.athletes?.[0];
+        if (!top) return;
+        const name = top.athlete?.shortName || top.athlete?.displayName || '';
+        const labels = cat.labels || cat.keys || [];
+        const vals = top.stats || [];
+        const parts = labels.slice(0,3).map((l,i)=>`${vals[i]||''} ${l}`).filter(x=>x.trim()!==l);
+        rows.push({ name, line: parts.join(' · ') });
+      });
+    }
+  }
+
+  if (!rows.length) return '';
+
+  const inner = rows.slice(0,4).map(r=>`
+    <div class="performer-row">
+      <div class="performer-name">${r.name}</div>
+      <div class="performer-line">${r.line}</div>
+    </div>`).join('');
+
+  return `<div class="card-section">
+    <div class="card-section-label">TOP PERFORMERS</div>
+    <div class="performers-grid">${inner}</div>
+  </div>`;
+}
+
+// ── STANDINGS SECTION ──
+function htmlStandings(standData, teamId, league) {
+  if (!standData) return '';
+
+  // Walk the tree to find our division
+  let entries = null;
+  function walk(node) {
+    if (entries) return;
+    const ents = node.standings?.entries || node.entries || [];
+    if (ents.some(e=>e.team?.id===teamId)) { entries=ents; return; }
+    (node.children||[]).forEach(walk);
+  }
+  (standData.children||[standData]).forEach(walk);
+  if (!entries||!entries.length) return '';
+
+  const showGB = league!=='nfl';
+
+  const hdr = `<div class="s-row hdr">
+    <div class="s-name">TEAM</div>
+    <div class="s-val">W</div><div class="s-val">L</div>
+    ${showGB?'<div class="s-gb">GB</div>':''}
+  </div>`;
+
+  const dataRows = entries.slice(0,5).map(r=>{
+    const isUs = r.team?.id===teamId;
+    const name = r.team?.abbreviation||r.team?.shortDisplayName||'—';
+    const rec  = r.records?.[0];
+    const w    = rec?.wins   ?? r.wins   ?? '—';
+    const l    = rec?.losses ?? r.losses ?? '—';
+    const gb   = rec?.gamesBehind ?? r.gamesBehind ?? '—';
+    return `<div class="s-row ${isUs?'us':''}">
+      <div class="s-name">${isUs?'▸ ':''}${name}</div>
+      <div class="s-val">${w}</div>
+      <div class="s-val">${l}</div>
+      ${showGB?`<div class="s-gb">${gb===0||gb==='0'?'—':gb}</div>`:''}
+    </div>`;
+  }).join('');
+
+  return `<div class="card-section">
+    <div class="card-section-label">DIVISION STANDINGS</div>
+    <div class="standings-table">${hdr}${dataRows}</div>
+  </div>`;
+}
+
+// ── NEWS SECTION ──
+function htmlNews(articles) {
+  if (!articles||!articles.length) return '';
+  const items = articles.slice(0,3).map(a=>{
+    const url = a.links?.web?.href||'#';
+    return `<div class="news-item" ontouchend="open('${url}')" onclick="open('${url}')">
+      <div class="news-headline">${a.headline||a.title||''}</div>
+      <div class="news-meta">${[a.source, a.published?ago(a.published):''].filter(Boolean).join(' · ')}</div>
+    </div>`;
+  }).join('');
+  return `<div class="card-section">
+    <div class="card-section-label">LATEST NEWS</div>
+    <div class="news-list">${items}</div>
+  </div>`;
+}
+
+// ── RANK INFO ──
+function getRank(standData, teamId) {
+  let entries=null;
+  function walk(node) {
+    if(entries) return;
+    const ents=node.standings?.entries||node.entries||[];
+    if(ents.some(e=>e.team?.id===teamId)){entries=ents;return;}
+    (node.children||[]).forEach(walk);
+  }
+  (standData?.children||[standData]).forEach(walk);
+  if(!entries) return null;
+  const idx=entries.findIndex(e=>e.team?.id===teamId);
+  if(idx<0) return null;
+  const rank=idx+1, total=entries.length;
+  const suffix=rank===1?'st':rank===2?'nd':rank===3?'rd':'th';
+  const cls=rank<=2?'good':rank>=total?'bad':'mid';
+  return {text:`${rank}${suffix} in division`,cls};
+}
+
+// ── LOAD TEAM ──
+async function loadTeam(cfg) {
+  const {key,label,sport,league,teamId,badge}=cfg;
+  const el=$('card-'+key);
 
   try {
-    // Fetch scoreboard + team info in parallel
-    const scoreboardUrl = `https://site.api.espn.com/apis/site/v2/sports/${sport}/${league}/scoreboard`;
-    const teamUrl = `https://site.api.espn.com/apis/site/v2/sports/${sport}/${league}/teams/${teamId}`;
+    const base=`https://site.api.espn.com/apis/site/v2/sports/${sport}/${league}`;
 
-    const [scoreData, teamData] = await Promise.all([
-      fetchJSON(scoreboardUrl),
-      fetchJSON(teamUrl)
+    const [scoreData,teamData,schedData,newsData,standData] = await Promise.all([
+      safe(`${base}/scoreboard`),
+      safe(`${base}/teams/${teamId}`),
+      safe(`${base}/teams/${teamId}/schedule`),
+      safe(`${base}/teams/${teamId}/news`),
+      safe(`${base}/standings`),
     ]);
 
     // Record
-    const record = teamData?.team?.record?.items?.[0]?.summary || '';
-    recordEl.textContent = record ? `${record}` : '';
+    const record = teamData?.team?.record?.items?.[0]?.summary||'';
 
-    // Find our team's game in today's scoreboard
-    const events = scoreData?.events || [];
-    let todayGame = null;
-    for (const ev of events) {
-      const comps = ev.competitions?.[0]?.competitors || [];
-      if (comps.some(c => c.team?.id === teamId)) {
-        todayGame = ev;
-        break;
-      }
+    // Rank
+    const rankInfo = getRank(standData, teamId);
+    const rankHtml = rankInfo ? `<span class="team-rank ${rankInfo.cls}">${rankInfo.text}</span>` : '';
+
+    // Today's game from scoreboard
+    const sbEvts = scoreData?.events||[];
+    const todayGame = sbEvts.find(ev=>ev.competitions?.[0]?.competitors?.some(c=>c.team?.id===teamId))||null;
+
+    // Schedule
+    const allSched = (schedData?.events||[]).sort((a,b)=>new Date(a.date)-new Date(b.date));
+    const pastGames   = allSched.filter(e=>e.status?.type?.state==='post');
+    const lastGame    = pastGames[pastGames.length-1]||null;
+    const futureGames = allSched.filter(e=>e.status?.type?.state==='pre');
+    const nextGame    = futureGames[0]||null;
+
+    // Primary display game
+    const gameDisplay = todayGame||lastGame||nextGame||null;
+    const showNext = gameDisplay && gameDisplay.status?.type?.state!=='pre' ? nextGame : null;
+
+    // Box score for performers (last finished game)
+    const targetGame = (todayGame?.status?.type?.state==='post' ? todayGame : lastGame);
+    let summary = null;
+    if (targetGame?.id) {
+      summary = await safe(`${base}/summary?event=${targetGame.id}`);
     }
 
-    // Also fetch schedule for next/last game
-    const schedUrl = `https://site.api.espn.com/apis/site/v2/sports/${sport}/${league}/teams/${teamId}/schedule`;
-    let schedData = null;
-    try { schedData = await fetchJSON(schedUrl); } catch(e) {}
+    // Build card
+    const head = `<div class="card-head">
+      <div>
+        <div class="team-name">${label}</div>
+        <div class="team-meta">
+          <span class="team-record">${record}</span>
+          ${rankHtml}
+        </div>
+      </div>
+      <div class="league-badge ${badge}">${badge.toUpperCase()}</div>
+    </div>`;
 
-    const events2 = schedData?.events || [];
-    const now = new Date();
+    const body = [
+      htmlScore(gameDisplay, teamId),
+      showNext ? htmlNext(showNext, teamId) : '',
+      htmlPerformers(summary, teamId),
+      htmlStandings(standData, teamId, league),
+      htmlNews(newsData?.articles||[]),
+    ].join('');
 
-    // Find last completed game
-    const pastGames = events2.filter(e => e.status?.type?.state === 'post').reverse();
-    const lastGame = pastGames[0] || null;
+    el.innerHTML = head + (body || `<div class="card-section"><div style="color:#444;font-size:13px">No data available.</div></div>`);
 
-    // Find next upcoming game
-    const futureGames = events2.filter(e => e.status?.type?.state === 'pre');
-    const nextGame = futureGames[0] || null;
-
-    // Build HTML
-    let html = '';
-
-    if (todayGame) {
-      const g = renderGame(todayGame, teamId, false);
-      if (g) html += g;
-    } else {
-      if (lastGame) {
-        const g = renderGame(lastGame, teamId, true);
-        if (g) html += g;
-      }
-      if (nextGame) {
-        if (lastGame) html += '<div class="divider"></div>';
-        const g = renderGame(nextGame, teamId, false);
-        if (g) html += g;
-      }
-    }
-
-    if (!html) {
-      // Offseason / no data
-      html = `<div style="color:var(--muted);font-size:13px;padding:8px 0">No games scheduled right now.</div>`;
-      if (league === 'nfl') html = `<div style="color:var(--muted);font-size:13px;padding:8px 0">NFL offseason. Next season starts September 2025.</div>`;
-    }
-
-    bodyEl.innerHTML = html;
-
-  } catch (err) {
+  } catch(err) {
     console.error(key, err);
-    bodyEl.innerHTML = `<div class="error-msg">Could not load data — ${err.message}</div>`;
-    recordEl.textContent = '';
+    el.innerHTML = `<div class="card-head">
+      <div><div class="team-name">${label}</div></div>
+      <div class="league-badge ${cfg.badge}">${cfg.badge.toUpperCase()}</div>
+    </div>
+    <div class="card-section"><div class="error-msg">Failed to load (${err.message})</div></div>`;
   }
 }
 
-// ─── LOAD ALL SPORTS ─────────────────────────────────────────────────────────
 async function loadSports() {
-  // Reset spinners
-  ['yankees','knicks','rangers','giants'].forEach(k => {
-    document.getElementById(`${k}-body`).innerHTML = '<div class="loading-row"><div class="spinner"></div> Fetching live data...</div>';
-    document.getElementById(`${k}-record`).textContent = 'Loading...';
+  TEAMS.forEach(t=>{
+    $('card-'+t.key).innerHTML=`<div class="card-section"><div class="loading-row"><div class="spinner"></div>Loading ${t.label.split(' ').pop()}...</div></div>`;
   });
-
-  await Promise.all([
-    loadTeam('yankees', 'baseball', 'mlb', '10', 'yankees-body', 'yankees-record'),
-    loadTeam('knicks', 'basketball', 'nba', '18', 'knicks-body', 'knicks-record'),
-    loadTeam('rangers', 'hockey', 'nhl', '19', 'rangers-body', 'rangers-record'),
-    loadTeam('giants', 'football', 'nfl', '19', 'giants-body', 'giants-record'),
-  ]);
-
-  const now = new Date();
-  document.getElementById('sports-updated').textContent =
-    `Updated ${now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}`;
+  await Promise.all(TEAMS.map(loadTeam));
+  $('sports-updated').textContent=`Updated ${new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})}`;
 }
 
-// ─── REFRESH ALL ─────────────────────────────────────────────────────────────
-function refreshAll() {
-  loadSports();
-}
+function refreshAll(e) { if(e)e.preventDefault(); loadSports(); }
 
-// ─── INIT ─────────────────────────────────────────────────────────────────────
-setDateHeader();
+setDate();
 loadSports();
 </script>
 
